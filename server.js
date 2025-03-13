@@ -1,15 +1,15 @@
 const express = require('express')
 const app = express()
 
-app
-    .set('view engine', 'ejs') // stelt EJS in als template engine
-    .set('views', 'view') //configureer EJS
+app.set('view engine', 'ejs')
+app.set('views', 'view') 
 
-app
-    .get('/', onhome)
-    .listen(8000)
+app.get('/', onhome)
 
-function onhome(req, res){
-    res.send('<h1></h1>')
+app.listen(8000, () => {
+    console.log('Server is running on http://localhost:8000');
+})
+
+function onhome(req, res) {
+    res.render('index');  
 }
-
