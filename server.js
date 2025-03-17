@@ -1,4 +1,4 @@
-const express = require('./node_modules/express');
+const express = require('express');
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -11,12 +11,4 @@ app.get('/', onhome)
 
 function onhome(req, res) {
     res.render('index');  
-}
-
-function onhome(req, res) {
-    res.render('footer');  
-}
-
-function onhome(req, res) {
-    res.render('header');  
 }
