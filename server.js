@@ -1,20 +1,27 @@
 const express = require('express');
+
 const app = express();
 
-app
-    .set('view engine', 'ejs') // stelt EJS in als template engine
-    .set('views', 'view') //configureer EJS
 
-app
-    .get('/', onhome)
+app.set('view engine', 'ejs')
+app.set('views', 'view') 
+
+
+
+
+
+
+app.get('/', onhome)
+    .listen(9000, () => {
+    console.log('Server is running on http://localhost:9000');
+  
     .get('/quiz', onquiz)
     .get('/favorieten', onfavorieten)
     .get('/resultaten', onresultaten)
     .get('/detail', ondetail)
+})
 
-    .listen(9000)
-
-function onhome(req, res){
-    res.render('index')
-
+function onhome(req, res) {
+    res.render('index');  
 }
+
