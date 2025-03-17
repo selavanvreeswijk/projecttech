@@ -11,26 +11,10 @@ app
     .get('/favorieten', onfavorieten)
     .get('/resultaten', onresultaten)
     .get('/detail', ondetail)
-    .listen(8000)
+
+    .listen(9000)
 
 function onhome(req, res){
-    res.send('<h1>Welkom bij de plantenmatch</h1>')
+    res.render('index')
 
 }
-function onquiz(req, res){
-    res.send('<h1>Welkom bij de quiz</h1>')
-    
-}
-function onfavorieten(req, res){
-    res.send('<h1>Welkom bij jouw favorieten</h1>')
-    
-}
-function onresultaten(req, res){
-    res.send('<h1>Welkom bij jouw resultaten</h1>')
-    
-}
-function onhome(req, res){
-    res.send('<h1>Welkom bij de detailpagina</h1>')
-    
-}
-
