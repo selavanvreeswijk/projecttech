@@ -1,13 +1,12 @@
-
-// const express = require('express');
 import express from 'express'
 
 const app = express();
 
+const app = express();
 
 app.set('view engine', 'ejs')
-app.set('views', 'view') 
-
+app.set('views', 'views') 
+app.use(express.static('static')); // voor afbeeldingen
 
 app.get('/', onhome)
 
@@ -16,11 +15,8 @@ app.get('/', onhome)
     .get('/resultaten', onresultaten)
     .get('/detail', ondetail)
 
-
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
-      
-
 })
 
 function onhome(req, res) {
