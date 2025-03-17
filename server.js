@@ -2,6 +2,8 @@ import express from 'express'
 
 const app = express();
 
+const app = express();
+
 app.set('view engine', 'ejs')
 app.set('views', 'views') 
 app.use(express.static('static')); // voor afbeeldingen
@@ -19,22 +21,27 @@ app.get('/', onhome)
 
 function onhome(req, res) {
     res.render('index');  
+    console.log('Server is running on http://localhost:9000');
 }
 
 function onquiz(req, res) {
     res.render('quiz');  
+    console.log('Server is running on http://localhost:9000/quiz');
 }
 
 function onresultaten(req, res) {
-    res.render('resultaten');  
+    res.render('resultaten'); 
+    console.log('Server is running on http://localhost:9000/resultaten'); 
 }
 
 function onfavorieten(req, res) {
     res.render('favorieten');  
+    console.log('Server is running on http://localhost:9000/favorieten');
 }
 
 function ondetail(req, res) {
     res.render('detail');  
+    console.log('Server is running on http://localhost:9000/detail');
 }
 
 
