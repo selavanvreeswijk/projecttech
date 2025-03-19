@@ -1,6 +1,9 @@
-const express = require('express');
+// const express = require('express'); --werkt niet omdat we een ES module hebben?
+import express from 'express';
 const app = express();
 
+//require('dotenv').config(); --werkt niet omdat we een ES module hebben?
+import 'dotenv/config';
 
 app.set('view engine', 'ejs')
 app.set('views', 'view') 
@@ -45,4 +48,22 @@ function ondetail(req, res) {
     console.log('Server is running on http://localhost:9000/detail');
 }
 
+//API variabelen die te gebruiken zijn:
+const apiKey = process.env.API_KEY
+const url = 'https://house-plants2.p.rapidapi.com/all-lite';
+const options = {
+    method: 'GET',
+    headers: {
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
+    }
+};
 
+// checken of API werkt:
+try {
+    const response = await fetch(url, options);
+    const result = await response.json();
+    console.log(result);
+} catch (error) {
+    console.error(error);
+}
