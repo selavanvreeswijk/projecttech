@@ -1,6 +1,3 @@
-
-
-
 const express = require('express')
 const app = express();
 
@@ -23,12 +20,12 @@ app.set('view engine', 'ejs')
 app.set('views', 'views') 
 app.use(express.static('static')); // voor afbeeldingen
 
-app.get('/', onHome)
-
+app
+    .get('/', onHome)
     .get('/quiz', onQuiz)
     .get('/favorieten', onFavorieten)
     .get('/resultaten', onResultaten)
-    .get('/detail', onDetail)
+    .get('/plant/:id', onDetail)
 
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
@@ -90,11 +87,13 @@ async function onFavorieten(req, res) {
 }
 
 async function onDetail(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
+    const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
 
-        res.render('detail', { plants: plants }); //stuur de data van de api naar ejs bestand
+    try {
+        const response = await fetch(detailUrl, options);
+        const plant = await response.json();
+
+        res.render('detail', { plant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
