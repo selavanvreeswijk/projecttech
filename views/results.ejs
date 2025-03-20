@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlantMatch</title>
     <link rel="stylesheet" href="/style.css">
 
+    <%- include('partials/header') %>    
+
     <style>
         body{
             background: var(--color-background);
             height: 100vh;
         }
+
+    
         main section{
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -23,11 +27,6 @@
 
 <body>
 
-    
-
-    <header>
-        <%- include('partials/header') %>    
-    </header>
     <main>
         <section>
             <%- include('partials/cards-klein') %>
