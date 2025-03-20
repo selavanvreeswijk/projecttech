@@ -6,7 +6,19 @@ const app = express();
 
 require('dotenv/config');
 
+//API variabelen die te gebruiken zijn:
+const apiKey = process.env.API_KEY
+const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+const options = {
+    method: 'GET',
+    headers: {
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
+    }
+};
 
+
+//EJS
 app.set('view engine', 'ejs')
 app.set('views', 'views') 
 app.use(express.static('static')); // voor afbeeldingen
@@ -24,7 +36,7 @@ app.get('/', onHome)
 
 async function onHome(req, res) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(allUrl, options);
         const plants = await response.json();
 
         res.render('index', { plants: plants }); //stuur de data van de api naar ejs bestand
@@ -39,7 +51,7 @@ async function onHome(req, res) {
 
 async function onQuiz(req, res) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(allUrl, options);
         const plants = await response.json();
 
         res.render('quiz', { plants: plants }); //stuur de data van de api naar ejs bestand
@@ -53,7 +65,7 @@ async function onQuiz(req, res) {
 
 async function onResultaten(req, res) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(allUrl, options);
         const plants = await response.json();
 
         res.render('resultaten', { plants: plants }); //stuur de data van de api naar ejs bestand
@@ -66,7 +78,7 @@ async function onResultaten(req, res) {
 
 async function onFavorieten(req, res) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(allUrl, options);
         const plants = await response.json();
 
         res.render('favorieten', { plants: plants }); //stuur de data van de api naar ejs bestand
@@ -79,7 +91,7 @@ async function onFavorieten(req, res) {
 
 async function onDetail(req, res) {
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(allUrl, options);
         const plants = await response.json();
 
         res.render('detail', { plants: plants }); //stuur de data van de api naar ejs bestand
@@ -91,28 +103,20 @@ async function onDetail(req, res) {
 }
 
 
-//API variabelen die te gebruiken zijn:
-const apiKey = process.env.API_KEY
-const url = 'https://house-plants2.p.rapidapi.com/all-lite';
-const options = {
-    method: 'GET',
-    headers: {
-        'x-rapidapi-key': apiKey,
-        'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
-    }
-};
+
+
 
 // checken of API werkt, hij laat ALLE planten zien:
 async function checkAPI(url, options){
     try {
-        const response = await fetch(url, options);
+        const response = await fetch(allUrl, options);
         const result = await response.json();
     
     // haal de '//' weg als je alle planten wilt zien   
-        // console.log(result);
+        console.log(result);
     } catch (error) {
         console.error(error);
     }
 }
 
-// checkAPI(url, options)
+checkAPI(allUrl, options)
