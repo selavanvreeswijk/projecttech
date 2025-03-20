@@ -11,38 +11,48 @@ app.set('view engine', 'ejs')
 app.set('views', 'views') 
 app.use(express.static('static')); // voor afbeeldingen
 
-app.get('/', onhome)
+app.get('/', onHome)
 
-    .get('/quiz', onquiz)
-    .get('/favorieten', onfavorieten)
-    .get('/resultaten', onresultaten)
-    .get('/detail', ondetail)
+    .get('/quiz', onQuiz)
+    .get('/favorieten', onFavorieten)
+    .get('/resultaten', onResultaten)
+    .get('/detail', onDetail)
 
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
 })
 
-function onhome(req, res) {
-    res.render('index');  
+async function onHome(req, res) {
+    try {
+        const response = await fetch(url, options);
+        const plants = await response.json();
+
+        res.render('index', { plants: plants }); //stuur de data van de api naar ejs bestand
+    
+    } catch (error) {
+        console.error(error);
+    }
+    
+     
     console.log('Server is running on http://localhost:9000');
 }
 
-function onquiz(req, res) {
+function onQuiz(req, res) {
     res.render('quiz');  
     console.log('Server is running on http://localhost:9000/quiz');
 }
 
-function onresultaten(req, res) {
+function onResultaten(req, res) {
     res.render('resultaten'); 
     console.log('Server is running on http://localhost:9000/resultaten'); 
 }
 
-function onfavorieten(req, res) {
+function onFavorieten(req, res) {
     res.render('favorieten');  
     console.log('Server is running on http://localhost:9000/favorieten');
 }
 
-function ondetail(req, res) {
+function onDetail(req, res) {
     res.render('detail');  
     console.log('Server is running on http://localhost:9000/detail');
 }
