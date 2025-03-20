@@ -14,8 +14,8 @@ app.use(express.static('static')); // voor afbeeldingen
 app.get('/', onHome)
 
     .get('/quiz', onQuiz)
-    .get('/favorieten', onFavorieten)
-    .get('/resultaten', onResultaten)
+    .get('/favorites', onFavorieten)
+    .get('/results', onResultaten)
     .get('/detail', onDetail)
 
     .listen(9000, () => {
@@ -57,7 +57,7 @@ async function onResultaten(req, res) {
         const response = await fetch(url, options);
         const plants = await response.json();
 
-        res.render('resultaten', { plants: plants }); //stuur de data van de api naar ejs bestand
+        res.render('results', { plants: plants }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
@@ -70,7 +70,7 @@ async function onFavorieten(req, res) {
         const response = await fetch(url, options);
         const plants = await response.json();
 
-        res.render('favorieten', { plants: plants }); //stuur de data van de api naar ejs bestand
+        res.render('favorites', { plants: plants }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
