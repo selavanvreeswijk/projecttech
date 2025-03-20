@@ -11,6 +11,12 @@
             background: var(--color-background);
             height: 100vh;
         }
+        main section{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .7em;
+            margin: 0 1em;
+        }
         
     </style>
 </head>
@@ -23,8 +29,16 @@
         <%- include('partials/header') %>    
     </header>
     <main>
-        <%- include('partials/cards-klein') %>
-        
+        <section>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+            <%- include('partials/cards-klein') %>
+        </section>
     </main>
 
     <footer>
