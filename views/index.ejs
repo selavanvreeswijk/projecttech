@@ -5,13 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PlantMatch</title>
     <link rel="stylesheet" href="/style.css">
-    
-    <%- include('partials/header') %>
+
+    <!--Bewust geen header want dit is de homepagina-->
 
     <style>
         body{
             background: var(--color-background);
             height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        main img{
+            width: 40vw;
         }
     </style>
 </head>
@@ -22,12 +32,13 @@
     </header>
 
     <main>
+        <img src="/img/logo-groen.png" alt="Logo">
+
         <p>Dit is de homepagina van onze website. Met welke plant match jij?</p>
     </main>
 
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+<!--Bewust geen footer want dit is de homepagina-->
+
 </body>
 </html>
 
