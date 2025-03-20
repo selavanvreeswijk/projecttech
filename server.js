@@ -59,7 +59,7 @@ async function onResults(req, res) {
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     } 
-    console.log('Server is running on http://localhost:9000/resultaten'); 
+    console.log('Server is running on http://localhost:9000/results'); 
 }
 
 async function onFavorites(req, res) {
@@ -72,7 +72,7 @@ async function onFavorites(req, res) {
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     }  
-    console.log('Server is running on http://localhost:9000/favorieten');
+    console.log('Server is running on http://localhost:9000/favorites');
 }
 
 async function onDetail(req, res) {
