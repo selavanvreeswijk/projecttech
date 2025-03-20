@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 :root{
     --color-background: linear-gradient(#fdf9eb, #f4ecde);
     --color-footer-background: linear-gradient(#718d69, #4a5d23);
