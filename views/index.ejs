@@ -6,7 +6,7 @@
     <title>PlantMatch</title>
     <link rel="stylesheet" href="/style.css">
 
-    <!--Bewust geen header want dit is de homepagina-->
+    <!--Bewust geen header partial want dit is de homepagina-->
 
     <style>
         body{
@@ -17,27 +17,43 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
         }
 
 
-        main img{
+        img{
             width: 40vw;
+        }
+
+
+        a{
+            color: black; 
+            text-decoration: none;
+            border-bottom: 0.05em solid black;
+            width: 30em;
+            padding: 0.2em 1.1em;
+        }
+
+
+        h1, img, p{
+            padding-bottom: 1em;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Welcome to the PlantMatch</h1>
-    </header>
 
     <main>
+        <h1>Welcome to the PlantMatch!</h1>
+
         <img src="/img/logo-groen.png" alt="Logo">
 
-        <p>Dit is de homepagina van onze website. Met welke plant match jij?</p>
+        <p>Are you ready to find your perfect match?</p>
+
+        <a href="quiz.ejs">Start</a>
     </main>
 
-<!--Bewust geen footer want dit is de homepagina-->
+<!--Bewust geen footer partial want dit is de homepagina-->
 
 </body>
 </html>
