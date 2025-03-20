@@ -28,16 +28,47 @@
 <body>
 
     <main>
-        <section>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-            <%- include('partials/cards-klein') %>
-        </section>
+
+        <div>
+            <label for="view-list">
+                <input type="radio" name="view" value="list" id="view-list" checked>
+                <div class="custom-radio-list"></div>
+            </label>
+
+            <label for="view-grid">
+                <input type="radio" name="view" value="list" id="view-grid" checked>
+                <div class="custom-radio-grid"></div>
+            </label>
+        </div>
+
+
+        <ul class="list-view">
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+        </ul>
+      
     </main>
 
     <footer>
