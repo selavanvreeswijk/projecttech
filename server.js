@@ -28,32 +28,66 @@ async function onHome(req, res) {
         const plants = await response.json();
 
         res.render('index', { plants: plants }); //stuur de data van de api naar ejs bestand
+
     
     } catch (error) {
-        console.error(error);
+        console.error("Fout bij ophalen API:", error);
     }
     
      
     console.log('Server is running on http://localhost:9000');
 }
 
-function onQuiz(req, res) {
-    res.render('quiz');  
+async function onQuiz(req, res) {
+    try {
+        const response = await fetch(url, options);
+        const plants = await response.json();
+
+        res.render('quiz', { plants: plants }); //stuur de data van de api naar ejs bestand
+    
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }
+    
     console.log('Server is running on http://localhost:9000/quiz');
 }
 
-function onResultaten(req, res) {
-    res.render('resultaten'); 
+async function onResultaten(req, res) {
+    try {
+        const response = await fetch(url, options);
+        const plants = await response.json();
+
+        res.render('resultaten', { plants: plants }); //stuur de data van de api naar ejs bestand
+    
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    } 
     console.log('Server is running on http://localhost:9000/resultaten'); 
 }
 
-function onFavorieten(req, res) {
-    res.render('favorieten');  
+async function onFavorieten(req, res) {
+    try {
+        const response = await fetch(url, options);
+        const plants = await response.json();
+
+        res.render('favorieten', { plants: plants }); //stuur de data van de api naar ejs bestand
+    
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }  
     console.log('Server is running on http://localhost:9000/favorieten');
 }
 
-function onDetail(req, res) {
-    res.render('detail');  
+async function onDetail(req, res) {
+    try {
+        const response = await fetch(url, options);
+        const plants = await response.json();
+
+        res.render('detail', { plants: plants }); //stuur de data van de api naar ejs bestand
+    
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }  
     console.log('Server is running on http://localhost:9000/detail');
 }
 
