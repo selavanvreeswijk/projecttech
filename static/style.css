@@ -10,5 +10,6 @@
 }
 
 body{
-    margin: 0;
+    margin: 0; /*Hij gaf anders een margin aan de body*/
+
 }
