@@ -65,7 +65,7 @@ async function onResultaten(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        res.render('resultaten', { plants: plants }); //stuur de data van de api naar ejs bestand
+        res.render('results', { plants: plants }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
@@ -87,6 +87,7 @@ async function onFavorieten(req, res) {
 }
 
 async function onDetail(req, res) {
+    const plantId = req.params.id; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
     const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
 
     try {
@@ -118,4 +119,4 @@ async function checkAPI(url, options){
     }
 }
 
-checkAPI(allUrl, options)
+// checkAPI(allUrl, options)
