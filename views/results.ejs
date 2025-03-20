@@ -14,13 +14,56 @@
             height: 100vh;
         }
 
+        .radio-container {
+            display: flex;
+            gap: 1em;
+
+            justify-content: flex-end;
+            margin: 0 1em .5em 1em;
+        }
+        
+
+        input[type="radio"] {
+            display: none; /* Verberg de standaard radio button */
+        }
+
     
-        main section{
+        .list-view{
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: .7em;
             margin: 0 1em;
         }
+
+        .custom-radio-list{
+            width: 1em;
+            height: 1.5em;
+            border-radius: .2em;
+
+            background: var(--color-list-icon);
+
+            /* color: var(--color-list-icon); */
+        }
+
+        .custom-radio-grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        
+            width: 1em;
+            height: 1.5em;
+            gap: .2em;
+            
+        }
+
+        .custom-radio-grid span{
+            height: .65em;
+
+            border-radius: .1em;
+            background: var(--color-lines);
+
+        }
+
+
         
     </style>
 </head>
@@ -29,16 +72,24 @@
 
     <main>
 
-        <div>
-            <label for="view-list">
-                <input type="radio" name="view" value="list" id="view-list" checked>
-                <div class="custom-radio-list"></div>
-            </label>
+        <div class="radio-container">
 
-            <label for="view-grid">
-                <input type="radio" name="view" value="list" id="view-grid" checked>
-                <div class="custom-radio-grid"></div>
-            </label>
+            <div class="custom-radio-list">
+                <label for="view-list">
+                    <input type="radio" name="view" value="list" id="view-list" checked>
+                </label>
+            </div>
+
+            <div class="custom-radio-grid">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+
+                <label for="view-grid">
+                    <input type="radio" name="view" value="list" id="view-grid" checked>
+                </label>
+            </div>
         </div>
 
 
