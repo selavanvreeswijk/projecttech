@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cards</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/static/style.css">
 
     <style>
         article{
             display: grid;
 
-            background-color: var(--color-background-inputfield);
-            border-radius: 10em;
+            width: 50%;
+
+            background: var(--color-background-inputfield);
+            border-radius: 5em;
+            border: .08em solid var(--color-lines);
             
         }
         h3{
             color: var(--color-tekst);
-            text-transform: capitalize;
+            text-transform: uppercase;
+            order: -1;
+        }
+        img{
+            width: 50%;
             order: -1;
         }
     </style>
@@ -25,7 +32,7 @@
 <body>
 
     <article>
-        <h3><%= plant naam %> </h3>
+        <h3><%= "Common name" %> </h3>
         <img src="" alt="">
         
     </article>
