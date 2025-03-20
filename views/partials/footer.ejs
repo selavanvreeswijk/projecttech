@@ -6,9 +6,8 @@
     <title>Footer</title>
     <link rel="stylesheet" href="/style.css">
 
-
     <style>
-        .footer footer nav ul{
+        footer{
             background: var(--color-logo);
 
             position: fixed;
@@ -16,33 +15,32 @@
             left: 0;
             width: 100%;
 
-            padding: 1em;
             text-align: center;
         }
 
         ul{
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
+
             list-style: none;
-            gap: 4em;
+            padding: 0;
         }
 
         ul img{
-            width: 2.5em;
-            height: auto;
+            width: 1.8em;
         }
     </style>
 </head>
-<body class="footer">
+<body>
 
     <footer>
         <nav>
-            <ul>
-                <li><img src="/img/gebruiker.svg" alt="Icoon inloggen"></li> <!--Bron https://www.iconfinder.com/search?q=profile-->
-                <li><img src="/img/zoeken.svg" alt="Icoon zoeken"></li> <!--Bron https://www.iconfinder.com/search?q=search-->
-                <li><img src="/img/favorieten.svg" alt="Icoon favorieten"></li> <!--Bron https://www.iconfinder.com/search?q=favorite-->
+            <ul>               
+                <li><img src="/img/zoeken.svg" alt="Icoon zoeken"></li> <!-- Bron https://www.iconfinder.com/search?q=search --> 
+                <li><img src="/img/favorieten.svg" alt="Icoon favorieten"></li> <!-- Bron https://www.iconfinder.com/search?q=favorite -->
+                <li><img src="/img/gebruiker.svg" alt="Icoon inloggen"></li> <!-- Bron https://www.iconfinder.com/search?q=profile -->
             </ul>   
         </nav>     
     </footer>
