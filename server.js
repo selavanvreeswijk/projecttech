@@ -34,7 +34,6 @@ async function onHome(req, res) {
         console.error("Fout bij ophalen API:", error);
     }
     
-     
     console.log('Server is running on http://localhost:9000');
 }
 
