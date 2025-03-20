@@ -116,4 +116,4 @@ async function checkAPI(url, options){
     }
 }
 
-checkAPI(url, options)
+// checkAPI(url, options)
