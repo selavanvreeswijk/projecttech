@@ -1,6 +1,3 @@
-
-
-
 const express = require('express')
 const app = express();
 
@@ -14,8 +11,8 @@ app.use(express.static('static')); // voor afbeeldingen
 app.get('/', onHome)
 
     .get('/quiz', onQuiz)
-    .get('/favorieten', onFavorieten)
-    .get('/resultaten', onResultaten)
+    .get('/favorites', onFavorites)
+    .get('/results', onResults)
     .get('/detail', onDetail)
 
     .listen(9000, () => {
@@ -51,30 +48,30 @@ async function onQuiz(req, res) {
     console.log('Server is running on http://localhost:9000/quiz');
 }
 
-async function onResultaten(req, res) {
+async function onResults(req, res) {
     try {
         const response = await fetch(url, options);
         const plants = await response.json();
 
-        res.render('resultaten', { plants: plants }); //stuur de data van de api naar ejs bestand
+        res.render('results', { plants: plants }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     } 
-    console.log('Server is running on http://localhost:9000/resultaten'); 
+    console.log('Server is running on http://localhost:9000/results'); 
 }
 
-async function onFavorieten(req, res) {
+async function onFavorites(req, res) {
     try {
         const response = await fetch(url, options);
         const plants = await response.json();
 
-        res.render('favorieten', { plants: plants }); //stuur de data van de api naar ejs bestand
+        res.render('favorites', { plants: plants }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     }  
-    console.log('Server is running on http://localhost:9000/favorieten');
+    console.log('Server is running on http://localhost:9000/favorites');
 }
 
 async function onDetail(req, res) {
