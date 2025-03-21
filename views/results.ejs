@@ -62,10 +62,10 @@
 
             background: var(--color-list-icon);
 
-            /* color: var(--color-list-icon); */
         }
 
-        input[type="radio"]:checked + .custom-radio-list{
+    
+        .custom-radio-list:has(input:checked) {
             background: var(--color-lines);
         }
 
@@ -87,7 +87,8 @@
 
         }
 
-        input[type="radio"]:checked + .custom-radio-grid span{
+        
+        .custom-radio-grid:has(input:checked) span {
             background: var(--color-lines);
         }
      
