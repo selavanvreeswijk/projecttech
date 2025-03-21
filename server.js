@@ -66,7 +66,13 @@ async function onResults(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        res.render('results', { plants: plants }); //stuur de data van de api naar ejs bestand
+        const cardPlant = plants.map (plant => ({
+            img: plant.Img,
+            commonName: plant['Common name'],
+            id: plant.id
+        }))
+
+        res.render('results', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
@@ -79,7 +85,13 @@ async function onFavorites(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        res.render('favorites', { plants: plants }); //stuur de data van de api naar ejs bestand
+        const cardPlant = plants.map (plant => ({
+            img: plant.Img,
+            commonName: plant['Common name'],
+            id: plant.id
+        }))
+
+        res.render('favorites', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
@@ -93,9 +105,24 @@ async function onDetail(req, res) {
 
     try {
         const response = await fetch(detailUrl, options);
-        const plant = await response.json();
+        const plants = await response.json();
 
-        res.render('detail', { plant }); //stuur de data van de api naar ejs bestand
+        const detailPlant = plants.map (plant => ({
+            category: plant.Categories,
+            img: plant.Img,
+            commonName: plant['Common name'],
+            heightPurchase: plant['Height at purchase'],
+            idealLight: plant['Light ideal'],
+            id: plant.id,
+            growth: plant.Growth,
+            heightPotential: plant['Height potential'],
+            tempMax: plant['Temperature max'],
+            watering: plant.Watering
+        }))
+
+        console.log(detailPlant)
+
+        res.render('detail', { plants: detailPlant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
