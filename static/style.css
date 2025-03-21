@@ -12,6 +12,8 @@
     --color-background-inputfield: linear-gradient(#fdf9eb, #fefff1);
     --color-logo: linear-gradient(#718d69, #4a5d23);
     --color-list-icon: #dac8ae;
+    --color-icons-not-filled: #fdf9eb;
+    --color-icons-filled:#4a5d23;
 
     --font-Montserrat-light: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
