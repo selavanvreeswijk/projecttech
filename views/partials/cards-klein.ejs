@@ -74,9 +74,11 @@
 </head>
 
 <body>
-
+<% plants.slice(0, 3).forEach(plant => { %> <!-- DIT IS DUS TEST, MOET WORDEN VERANDERD, EERSTE DRIE PLANTEN WORDEN LATEN ZIEN -->
     <article>
+        <a href="/plant/<%=plant.id%>"> <!-- Link naar detailpagina -->
         <div>
+
             <h3><%= "Common name" %> </h3>
 
             <svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
@@ -85,13 +87,15 @@
                 <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
             </svg>
               
-            <!-- <img src="/img/favorieten.svg" alt="Icoon favorieten"> -->
+       
+
         </div>
 
-        <img src="" alt="">
-        
+        <img src="<%= plant.Img %>" alt="">
+
+        </a> 
     </article>
-    
+<% }) %>
 </body>
 </html>
 
