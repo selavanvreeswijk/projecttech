@@ -27,7 +27,7 @@ app
     .get('/results', onResults)
     .get('/detail', onDetail)
     .get('/log-in', onLogIn)
-    .get('/register', onLogIn)
+    .get('/register', onRegister)
 
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
@@ -129,7 +129,7 @@ async function onRegister(req, res) {
         console.error("Fout bij ophalen API:", error);
     }
     
-    console.log('Server is running on http://localhost:9000/log-in');
+    console.log('Server is running on http://localhost:9000/register');
 }
 
 
