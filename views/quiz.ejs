@@ -10,44 +10,12 @@
 </head>
 
 <body>
-    <h1><%= question.text %></h1>
-
-    <div id="answers">
-        <% question.options.forEach(option => { %>
-            <button class="answer-btn" onclick="saveAnswer('<%= option %>')"><%= option %></button>
-        <% }) %>
-    </div>
-
-    <h2>Vraag</h2>
-
     <!--Progressiebar-->
 
-    <div class="navigation">
-        <% if (currentId > 1) { %>
-            <a href="/quiz/<%= currentId - 1 %>">Vorige</a>
-        <% } %>
+    <!--Antwoordveld-->
 
-        <% if (currentId < 3) { %> 
-            <a href="/quiz/<%= currentId + 1 %>" id="next-btn">Volgende</a>
-        <% } else { %>
-            <a href="/quiz/results">Bekijk resultaat</a>
-        <% } %>
-    </div>
+    <!--Buttons-->
 
-    <script>
-        function saveAnswer(answer) {
-            fetch('/quiz/save', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    userId: "12345", // nog een echte user ID van maken
-                    questionId: <%= currentId %>, 
-                    answer: answer 
-                })
-            }).then(response => response.json())
-              .then(data => console.log(data))
-              .catch(error => console.error(error));
-        }
     </script>
 
     <footer>
