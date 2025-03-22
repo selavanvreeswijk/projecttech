@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log-in page</title>
+    <title>Log-in</title>
     <link rel="stylesheet" href="/style.css">
 
     <%- include('partials/header') %>    
@@ -11,73 +11,113 @@
     <style>
         body {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            flex-direction: column;
         }
 
 
-        .login-container {
-            padding: 2em;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+        .container{
+            margin: 0.5em 1.5em;
         }
 
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+        .log-in{
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        h2{
+            border-bottom: 0.05em solid black;
+
+            width: 11.3em;
+            padding-bottom: 0.2em;
+        }
+
+        label{
+            margin-top: 10em;
+            margin-bottom: 0.5em;
+        }
+
+
+        input{
+            background: var(--color-background-inputfield);
+
+            border: 0.09em solid var(--color-lines);
+            border-radius: 0.8em;
+
+            width: 90%;
+            padding: 0.9em;
+            margin-top: 0.3em;
+        }
+
+        form div{
+            margin-top: 1.5em;
         }
 
 
         button {
-            width: 100%;
-            padding: 10px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            background: var(--color-background-inputfield);
+
+            border: 0.09em solid var(--color-lines);
+            border-radius: 0.8em;
+
+            width: 40%;
+            padding: 0.3em 0.9em;
+            display: block;
+            margin: 0 auto;
+            margin-top: 2em;
         }
 
         
     
         .register {
-            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            margin-top: 3em;
         }
 
+        .register a{
+            background: var(--color-background-inputfield);
 
-        .register a {
-            color: #007BFF;
-            text-decoration: none;
-        }
+            border: 0.09em solid var(--color-lines);
+            border-radius: 0.8em;
+            text-align: center;
 
-
-        .register a:hover {
-            text-decoration: underline;
+            width: 30%;
+            padding: 0.3em 0.9em;
+            margin-top: 1em;
         }
     </style>
     </head>
 
     <body>
-        <div class="login-container">
-            <h2>Login</h2>
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit">Log In</button>
-            </form>
+        <div class="container">
+            <div class="log-in">
+                <h2>Login</h2>
+    
+                <form action="/login" method="POST">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+         
+                    <div>
+                        <label for="password"> Password</label>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+     
+                    <button type="submit">Log In</button>
+                </form>
+            </div>
+    
             <div class="register">
                 <p>Don't have an account?</p>
                 <a href="/register">Register</a>
             </div>
         </div>
-
-
+    
     <footer>
         <%- include('partials/footer') %> 
     </footer>

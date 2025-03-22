@@ -27,6 +27,7 @@ app
     .get('/results', onResults)
     .get('/detail', onDetail)
     .get('/log-in', onLogIn)
+    .get('/register', onLogIn)
 
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
@@ -110,6 +111,20 @@ async function onLogIn(req, res) {
         const plants = await response.json();
 
         res.render('log-in', { plants: plants }); //stuur de data van de api naar ejs bestand
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }
+    
+    console.log('Server is running on http://localhost:9000/log-in');
+}
+
+
+async function onRegister(req, res) {
+    try {
+        const response = await fetch(allUrl, options);
+        const plants = await response.json();
+
+        res.render('register', { plants: plants }); //stuur de data van de api naar ejs bestand
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     }
