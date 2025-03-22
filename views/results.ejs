@@ -10,9 +10,11 @@
 
     <style>
         .radio-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1em 1em;
+            grid-template-rows: 1fr;
+
             gap: 1em;
-            justify-content: flex-end;
             margin: 0 1em .5em 1em;
         }
         
@@ -61,7 +63,7 @@
 
     
         .custom-radio-list:has(input:checked) {
-            background: var(--color-lines);
+            background: var(--color-logo);
         }
 
         .custom-radio-grid{
@@ -84,16 +86,18 @@
 
         
         .custom-radio-grid:has(input:checked) span {
-            background: var(--color-lines);
+            background: var(--color-logo);
         }
 
 
         .sort-options {
+            grid-column: 1 / 2;
+            width: 8em;
+
             background: var(--color-background-inputfield);
             border: .1em solid var(--color-lines);
             color: var(--color-tekst);
             border-radius: .3em;
-
         }
      
     </style>
