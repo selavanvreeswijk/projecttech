@@ -86,6 +86,15 @@
         .custom-radio-grid:has(input:checked) span {
             background: var(--color-lines);
         }
+
+
+        .sort-options {
+            background: var(--color-background-inputfield);
+            border: .1em solid var(--color-lines);
+            color: var(--color-tekst);
+            border-radius: .3em;
+
+        }
      
     </style>
 </head>
@@ -94,6 +103,14 @@
     <main>
 
         <div class="radio-container">
+
+            <label for="sort-options"></label>
+                <select class="sort-options">
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name(Z-A)</option>
+                    <option value="date-asc">Date (Old → New)</option>
+                    <option value="date-desc">Date (New → Old)</option>
+                </select>
  
             <label for="view-list" class="custom-radio-list">
                 <input type="radio" name="view" value="list" id="view-list" checked>
