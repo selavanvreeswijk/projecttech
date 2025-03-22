@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantMatch</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <%- include('partials/header') %>    
+
+    <style>
+        body{
+            background: var(--color-background);
+            height: 100vh;
+        }
+
+        .radio-container {
+            display: flex;
+            gap: 1em;
+            justify-content: flex-end;
+            margin: 0 1em .5em 1em;
+        }
+        
+
+        input[type="radio"] {
+            display: none; /* Verberg de standaard radio button */
+        }
+
+    
+        ul.list-view{
+            display: grid;
+            grid-gap: var(--white-space);
+            margin: 0 1em;
+        }
+
+        ul.list-view li{
+            list-style-type: none;
+        }
+
+
+        /* grid-view template */
+        ul.grid-view {
+            display: grid;
+            grid-gap: var(--white-space);
+            margin: 0 1em;
+
+            grid-template-columns:1fr 1fr;
+        }
+
+        ul.grid-view li {
+            grid-template-columns: 1fr;
+            list-style-type: none;
+
+        }
+
+
+        /* styling radio buttons */
+        .custom-radio-list{
+            width: 1em;
+            height: 1.5em;
+            border-radius: .2em;
+
+            background: var(--color-list-icon);
+
+        }
+
+    
+        .custom-radio-list:has(input:checked) {
+            background: var(--color-lines);
+        }
+
+        .custom-radio-grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        
+            width: 1em;
+            height: 1.5em;
+            gap: .2em;
+            
+        }
+
+        .custom-radio-grid span{
+            height: .65em;
+
+            border-radius: .1em;
+            background: var(--color-list-icon);
+
+        }
+
+        
+        .custom-radio-grid:has(input:checked) span {
+            background: var(--color-lines);
+        }
+     
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <div class="radio-container">
+ 
+            <label for="view-list" class="custom-radio-list">
+                <input type="radio" name="view" value="list" id="view-list" checked>
+            </label>
+ 
+            <label for="view-grid" class="custom-radio-grid">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <input type="radio" name="view" value="grid" id="view-grid">
+            </label>
+           
+        </div>
+
+
+        <ul class="list-view">
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+            <li>
+                <%- include('partials/cards-klein') %>
+            </li>
+        </ul>
+      
+    </main>
+
+    <footer>
+        <%- include('partials/footer') %> 
+    </footer>
+
+
+    <script>
+        console.log('dit wordt uitgevoerd na het laden van de pagina')
+
+        const optionList = document.querySelector('#view-list');
+        const optionGrid = document.querySelector('#view-grid');
+        let deLijst = document.querySelector('ul');
+
+        optionList.addEventListener('change', showInList);
+        optionGrid.addEventListener('change', showInGrid);
+
+
+        function showInList() {
+            deLijst.classList.remove('grid-view');
+            console.log('classlist grid is removed');
+
+            deLijst.classList.add('list-view');
+            console.log('classlist list has been added');
+        }
+
+        function showInGrid() {
+            deLijst.classList.remove('list-view');
+            console.log('classlist list is removed');
+
+            deLijst.classList.add('grid-view');
+            console.log('classlist grid has been added');
+        }
+
+
+
+    </script>
+</body>
+</html>
