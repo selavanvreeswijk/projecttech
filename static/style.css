@@ -47,3 +47,19 @@ body{
 a{
     text-decoration: none;
 }
+
+/* styling for svg icons */
+.cls-1, .cls-2 {
+    stroke-width: 1em;
+    stroke: var(--color-lines);
+    fill: var(--color-icons-not-filled);
+
+}
+
+.icons {
+    width: 1.2em;
+    align-self: center;
+    margin-right: .5em;
+    overflow: visible;
+
+}
