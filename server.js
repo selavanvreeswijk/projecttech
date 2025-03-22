@@ -26,7 +26,8 @@ app
     .get('/favorites', onFavorites)
     .get('/results', onResults)
     .get('/detail', onDetail)
-
+    .get('/log-in', onLogIn)
+    .get('/register', onRegister)
 
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
@@ -89,7 +90,7 @@ async function onFavorites(req, res) {
 
 async function onDetail(req, res) {
     const plantId = req.params.id; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
-    const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
+    const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
 
     try {
         const response = await fetch(detailUrl, options);
@@ -104,7 +105,32 @@ async function onDetail(req, res) {
 }
 
 
+async function onLogIn(req, res) {
+    try {
+        const response = await fetch(allUrl, options);
+        const plants = await response.json();
 
+        res.render('log-in', { plants: plants }); //stuur de data van de api naar ejs bestand
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }
+    
+    console.log('Server is running on http://localhost:9000/log-in');
+}
+
+
+async function onRegister(req, res) {
+    try {
+        const response = await fetch(allUrl, options);
+        const plants = await response.json();
+
+        res.render('register', { plants: plants }); //stuur de data van de api naar ejs bestand
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }
+    
+    console.log('Server is running on http://localhost:9000/register');
+}
 
 
 // checken of API werkt, hij laat ALLE planten zien:
