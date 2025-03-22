@@ -28,6 +28,7 @@ app
     .get('/detail', onDetail)
 
 
+
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
 })
@@ -89,7 +90,7 @@ async function onFavorites(req, res) {
 
 async function onDetail(req, res) {
     const plantId = req.params.id; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
-    const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
+    const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
 
     try {
         const response = await fetch(detailUrl, options);
@@ -102,9 +103,6 @@ async function onDetail(req, res) {
     }  
     console.log('Server is running on http://localhost:9000/detail');
 }
-
-
-
 
 
 // checken of API werkt, hij laat ALLE planten zien:
