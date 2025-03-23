@@ -1,26 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
-    <link rel="stylesheet" href="/style.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quiz</title>
+        <link rel="stylesheet" href="/style.css">
 
-    <%- include('partials/header') %>
-</head>
+        <%- include('partials/header') %>
 
-<body>
-    <!--Progressiebar-->
+        <style>
+            main{
+                display: flex;
+                flex-direction: column;
+            }
 
-    <!--Antwoordveld-->
 
-    <!--Buttons-->
+            h1{
+                text-align: center;
+            }
 
-    </script>
 
-    <footer>
-        <%- include('partials/footer') %>
-    </footer>
-</body>
+            .buttons{
+                display: flex;
+                flex-direction: row;
+            }
+
+            .nav-buttons, 
+            section{
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <h1>Quiz</h1>
+
+            <div class="begin">
+                <p>
+                    Got 30 seconds? Get matched to your perfect plant! 
+                </p>
+    
+                <button>Begin</button>
+            </div>
+
+            <section>
+                <h2 id="question-text"></h2>
+                <input type="range" id="progress" min="0" max="100" value="50" oninput="saveAnswer(this.value)">    
+            </section>
+ 
+            <div class="nav-buttons">
+                <button onclick="prevQuestion()">Previous</button>
+                <button onclick="nextQuestion()">Next</button>
+            </div>
+        </main>
+       
+        <footer>
+            <%- include('partials/footer') %>
+        </footer>
+
+        <script>
+            const begin = document.querySelector('.begin')
+            const beginButton = document.querySelector('.begin button')
+            const questionAndAnswer = document.querySelector('section')
+            const navButtons = document.querySelector('.nav-buttons')
+
+            beginButton.addEventListener('click', function(){
+                begin.style.display = 'none';
+
+                questionAndAnswer.style.display = 'block';
+                navButtons.style.display = 'block';
+            })
+
+            let currentQuestionIndex = 0;
+            let answers = {};
+
+            // Vragen
+            const questions = [
+                { id: 1, text: "Hoe voel je je vandaag?" },
+                { id: 2, text: "Wat is je favoriete kleur?" },
+                { id: 3, text: "Hoeveel uur slaap je per nacht?" }
+            ]
+
+            // Laad een vraag
+            function loadQuestion() {
+                document.getElementById("question-text").innerText = questions[currentQuestionIndex].text;
+                document.getElementById("progress").value = answers[questions[currentQuestionIndex].id] || 50;
+            }
+
+            // Opslaan van antwoord
+            function saveAnswer(value) {
+                answers[questions[currentQuestionIndex].id] = value;
+                fetch('/save-answer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ questionId: questions[currentQuestionIndex].id, answer: value })
+                }).catch(err => console.error(err));
+            }
+
+            // Volgende vraag
+            function nextQuestion() {
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                }
+            }
+
+            // Vorige vraag
+            function prevQuestion() {
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    loadQuestion();
+                }
+            }
+
+            window.onload = () => {
+                loadQuestion();
+            };
+        </script>
+    </body>
 </html>
+
+
 

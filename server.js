@@ -1,5 +1,6 @@
-const express = require('express')
+const express = require('express');
 const app = express();
+const bodyParser = require('body-parser'); // quiz 
 
 require('dotenv/config');
 
@@ -50,6 +51,8 @@ async function onHome(req, res) {
     console.log('Server is running on http://localhost:9000');
 }
 
+// -------------------------quiz---------------------------------
+
 async function onQuiz(req, res) {
     try {
         const response = await fetch(allUrl, options);
@@ -63,6 +66,19 @@ async function onQuiz(req, res) {
     
     console.log('Server is running on http://localhost:9000/quiz');
 }
+
+app.use(express.static('public')); // quiz test
+app.use(bodyParser.json()); // quiz test
+
+let userAnswers = {}; // quiz test
+
+app.post('/save-answer', (req, res) => { // quiz test
+    const { questionId, answer } = req.body;
+    userAnswers[questionId] = answer;
+    res.json({ success: true });
+}); 
+
+// -------------------------quiz---------------------------------
 
 async function onResults(req, res) {
     try {
