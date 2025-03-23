@@ -25,7 +25,7 @@ app
     .get('/quiz', onQuiz)
     .get('/favorites', onFavorites)
     .get('/results', onResults)
-    .get('/detail', onDetail)
+    .get('/plant/:plantId', onDetail)
 
 
     .listen(9000, () => {
@@ -100,14 +100,14 @@ async function onFavorites(req, res) {
 }
 
 async function onDetail(req, res) {
-    const plantId = req.params.id; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
+    const plantId = req.params.plantId; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
     const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
 
     try {
         const response = await fetch(detailUrl, options);
-        const plants = await response.json();
+        const plant = await response.json();
 
-        const detailPlant = plants.map (plant => ({
+        const detailPlant = {
             category: plant.Categories,
             img: plant.Img,
             commonName: plant['Common name'],
@@ -118,11 +118,11 @@ async function onDetail(req, res) {
             heightPotential: plant['Height potential'],
             tempMax: plant['Temperature max'],
             watering: plant.Watering
-        }))
+        }
 
         console.log(detailPlant)
 
-        res.render('detail', { plants: detailPlant }); //stuur de data van de api naar ejs bestand
+        res.render('detail', { plant: detailPlant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
