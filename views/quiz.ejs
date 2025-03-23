@@ -12,22 +12,45 @@
             main{
                 display: flex;
                 flex-direction: column;
-            }
-
-
-            h1{
                 text-align: center;
             }
 
 
-            .buttons{
-                display: flex;
-                flex-direction: row;
+            button{
+                background: var(--color-background-inputfield);
+
+                border: 0.09em solid var(--color-lines);
+                border-radius: 0.8em;
+
+                width: 40%;
+                padding: 0.3em 0.9em;
             }
 
-            .nav-buttons, 
+
             section{
                 display: none;
+            }
+
+
+            .begin{
+                margin: 10em 2em;
+            }
+
+
+            .begin button{
+                margin-top: 2em;
+            }
+
+
+            h2{
+                margin: 1em;
+            }
+
+
+            .nav-buttons{
+                display: none;
+
+                margin-top: 2.5em;
             }
         </style>
     </head>
@@ -45,7 +68,7 @@
             </div>
 
             <section>
-                <h2 id="question-text"></h2>
+                <h2 id="question-text"></h2> <!--Nog kijken hoe ik dit lowercase maak-->
                 <input type="range" id="progress" min="0" max="100" value="50" oninput="saveAnswer(this.value)">    
             </section>
  
@@ -77,9 +100,11 @@
 
             // Vragen
             const questions = [
-                { id: 1, text: "Hoe voel je je vandaag?" },
-                { id: 2, text: "Wat is je favoriete kleur?" },
-                { id: 3, text: "Hoeveel uur slaap je per nacht?" }
+                { id: 1, text: "How much of an plant-expert are you?" },
+                { id: 2, text: "Do you currently own plants?" },
+                { id: 3, text: "How much time would you like to invest in plants?" },
+                { id: 4, text: "How much money would you like to invest in plants?" },
+                { id: 5, text: "How big do you want your plant to be?" },
             ]
 
             // Laad een vraag
