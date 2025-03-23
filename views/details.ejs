@@ -16,11 +16,13 @@
 
 <body>
     <main>
-        <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
+        <a href="/results"> <!--Nog linken aan gebruiker-->
+            <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
+        </a>
 
         <article>
             <section>
-                <h1><%= "Common name" %> </h1>
+                <h1><%= plant['Common name'] %></h1>
 
                 <img src="<%= plant.Img %>" alt="Picture of plant">
             </section>
@@ -28,7 +30,10 @@
             <p>Detailbeschrijving</p>
             <p>Andere elementen detailpagina</p>
 
-            <img src="/img/favorieten.svg" alt="Icoon favorieten">
+            <a href="/favorieten"> <!--Nog linken aan gebruiker-->
+                <img src="/img/favorieten.svg" alt="Icoon favorieten">
+            </a>
+
         </article>
 
 

@@ -78,7 +78,7 @@
     <main>
     <% plants.slice(0, 3).forEach(plant => { %> <!-- DIT IS DUS TEST, MOET WORDEN VERANDERD, EERSTE DRIE PLANTEN WORDEN LATEN ZIEN -->
         <article>
-            <a href="/plant/<%=plant.id%>"> <!-- Link naar detailpagina -->
+            <a href="/details/<%=plant.id%>">
             <div>
 
                 <h3><%= "Common name" %> </h3>
@@ -93,7 +93,7 @@
 
             </div>
 
-            <img src="<%= plant.Img %>" alt="">
+            <img src="<%= plant.Img %>" alt="Picture of a plant">
 
             </a> 
         </article>

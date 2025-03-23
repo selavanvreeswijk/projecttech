@@ -25,10 +25,10 @@ app
     .get('/quiz', onQuiz)
     .get('/favorites', onFavorites)
     .get('/results', onResults)
-    // .get('/detail', onDetail) doet het niet
     .get('/log-in', onLogIn)
     .get('/register', onRegister)
-    .get('/details', onDetails)
+    // .get('/details', onDetails)
+    .get('/details/:id', onDetails)
 
 
     .listen(9000, () => {
@@ -118,34 +118,25 @@ async function onRegister(req, res) {
     console.log('Server is running on http://localhost:9000/register');
 }
 
-// kan niet achterhalen waarom de onderstaande het niet doet!! 
-
-// async function onDetail(req, res) { 
-//     const plantId = req.params.id; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
-//     const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
-
-//     try {
-//         const response = await fetch(detailUrl, options);
-//         const plant = await response.json();
-
-//         res.render('detail', { plant }); //stuur de data van de api naar ejs bestand
-    
-//     } catch (error) {
-//         console.error("Fout bij ophalen API:", error);
-//     }  
-//     console.log('Server is running on http://localhost:9000/detail');
-// }
-
 async function onDetails(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
+    const plantId = req.params.id; // Haal de plant-ID op uit de URL
+    const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantID}`;
 
-        res.render('details', { plants: plants }); //stuur de data van de api naar ejs bestand
+    try {
+        const response = await fetch(detailUrl, options);
+        const plant = await response.json();
+
+        if (!plant) {
+            return res.status(404).send("Could not find plant");
+        }
+
+        res.render('details', { plant }); //stuur de data van de api naar ejs bestand
+
     } catch (error) {
-        console.error("Fout bij ophalen API:", error);
+        console.error("Error with API:", error);
+        res.status(500).send("An error has occurred.");
     }
-    
+
     console.log('Server is running on http://localhost:9000/details');
 }
 
