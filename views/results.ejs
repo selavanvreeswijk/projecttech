@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlantMatch</title>
+    <title>Results</title>
     <link rel="stylesheet" href="/style.css">
 
     <%- include('partials/header') %>    
 
     <style>
-        body{
-            background: var(--color-background);
-            height: 100vh;
-        }
-
         .radio-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1em 1em;
+            grid-template-rows: 1fr;
+
             gap: 1em;
-            justify-content: flex-end;
             margin: 0 1em .5em 1em;
         }
         
@@ -66,7 +63,7 @@
 
     
         .custom-radio-list:has(input:checked) {
-            background: var(--color-lines);
+            background: var(--color-logo);
         }
 
         .custom-radio-grid{
@@ -89,7 +86,20 @@
 
         
         .custom-radio-grid:has(input:checked) span {
-            background: var(--color-lines);
+            background: var(--color-logo);
+        }
+
+
+        .sort-options {
+            grid-column: 1 / 2;
+            width: 8em;
+
+            background: var(--color-background-inputfield);
+            border: .1em solid var(--color-lines);
+            color: var(--color-tekst);
+            border-radius: .3em;
+
+            font-family: var(--font-Montserrat-light);
         }
      
     </style>
@@ -99,6 +109,14 @@
     <main>
 
         <div class="radio-container">
+
+            <label for="sort-options"></label>
+                <select class="sort-options">
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name(Z-A)</option>
+                    <option value="date-asc">Date (Old → New)</option>
+                    <option value="date-desc">Date (New → Old)</option>
+                </select>
  
             <label for="view-list" class="custom-radio-list">
                 <input type="radio" name="view" value="list" id="view-list" checked>

@@ -21,13 +21,13 @@
 }
 
 
-
 @font-face{
     font-family: 'Montserrat';
     src: url('./fonts/static/Montserrat-Light.ttf');
 }
 
-h1, h2, h3, h4, p, a{
+
+h1, h2, h3, h4, p, a, label{
     font-family: var(--font-Montserrat-light);
     color: var(--color-tekst);
 }
@@ -35,4 +35,29 @@ h1, h2, h3, h4, p, a{
 
 h1, h2, h3{
     text-transform: uppercase;
+}
+
+
+body{
+    background: var(--color-background);
+    height: 100vh;
+}
+
+
+a{
+    text-decoration: none;
+}
+
+/* styling for svg icons */
+.cls-1, .cls-2 {
+    stroke: var(--color-lines);
+    fill: var(--color-icons-not-filled);
+
+}
+
+.icons {
+    width: 1.5em;
+    align-self: center;
+    overflow: visible;
+
 }
