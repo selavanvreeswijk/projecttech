@@ -15,24 +15,14 @@
         }
 
 
-        .container{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            text-align: center;
-        }
-
-
-        .container section{
+        section:first-of-type{
             display: flex;
             flex-direction: row;
-
-            margin-right: 3em;
+            align-items: center;
         }
 
 
-        .picture{
+        .picture{ /*div:first-of-type werkt niet want dan pakt hij de header mee*/
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -43,6 +33,12 @@
         .picture img{
             width: 90vw;
         } 
+
+        .description{
+            display: flex;
+            flex-direction: column;
+            margin: 1em;
+        }
 
         
         svg{
@@ -58,43 +54,43 @@
 <body>
     <main>
         <article>
-            <section class="container">
-                <section>
-                    <a href="/results"> <!--Nog linken aan gebruiker-->
-                        <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
-                    </a>
+            <section>
+                <a href="/results"> <!--Nog linken aan gebruiker-->
+                    <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
+                </a>
     
-                    <h1>Plant details</h1>
-                </section>
-                
-                <h2><%= plants.commonName %></h2>
+                 <h1>Plant details</h1>
             </section>
 
-            <div class="picture">
-                <img src="<%= plants.img %>" alt="Picture of plant">
-
-                <a href="/favorieten"> <!--Nog linken aan gebruiker-->
-                    <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
-                    
-                        <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
-                        <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
-                    </svg>            
-                </a>
-            </div>
-
-            <div>
-                <p><%= plants.category %></p>
-                <p><%= plants.heightPurchase.CM %></p>
-                <p><%= plants.idealLight %></p>
-            </div>
-
-            <div>
-                <button>See more categories</button>
-
-                <p><%= plants.growth %></p>
-                <p><%= plants.heightPotential.CM %></p>
-                <p><%= plants.tempMax.C %></p>
-                <p><%= plants.watering %></p>
+            <div class="description">
+                <div class="picture">
+                    <img src="<%= plants.img %>" alt="Picture of plant">
+    
+                    <a href="/favorieten"> <!--Nog linken aan gebruiker-->
+                        <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
+                        
+                            <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                            <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
+                        </svg>            
+                    </a>
+                </div>
+    
+                <section>
+                    <h2><%= plants.commonName %></h2>
+    
+                    <p><%= plants.category %></p>
+                    <p><%= plants.heightPurchase.CM %></p>
+                    <p><%= plants.idealLight %></p>
+                </section>
+    
+                <div>
+                    <button>See more categories</button>
+    
+                    <p><%= plants.growth %></p>
+                    <p><%= plants.heightPotential.CM %></p>
+                    <p><%= plants.tempMax.C %></p>
+                    <p><%= plants.watering %></p>
+                </div>
             </div>
         </article>
 
