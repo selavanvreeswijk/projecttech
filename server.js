@@ -121,24 +121,33 @@ async function onFavorites(req, res) {
 
 async function onDetail(req, res) {
     const plantId = req.params.plantId; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
-    const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
+    const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
 
-      const detailPlant = {
-            category: plant.Categories,
-            img: plant.Img,
-            commonName: plant['Common name'],
-            heightPurchase: plant['Height at purchase'],
-            idealLight: plant['Light ideal'],
-            id: plant.id,
-            growth: plant.Growth,
-            heightPotential: plant['Height potential'],
-            tempMax: plant['Temperature max'],
-            watering: plant.Watering
+    try {
+
+        const response = await fetch(detailUrl, options);
+        const plants = await response.json();
+      
+        const detailPlant = {
+            category: plants.Categories,
+            img: plants.Img,
+            commonName: plants['Common name'],
+            heightPurchase: plants['Height at purchase'],
+            idealLight: plants['Light ideal'],
+            id: plants.id,
+            growth: plants.Growth,
+            heightPotential: plants['Height potential'],
+            tempMax: plants['Temperature max'],
+            watering: plants.Watering
         }
 
         console.log(detailPlant)
 
-        res.render('detail', { plant: detailPlant }); //stuur de data van de api naar ejs bestand
+        res.render('details', { plants: detailPlant }); //stuur de data van de api naar ejs bestand
+    }
+    catch (error) {
+        console.error("Error with API", error)
+    }
 }
 
 async function onLogIn(req, res) {
