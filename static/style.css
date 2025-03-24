@@ -80,6 +80,8 @@ a{
 
     column-gap: 1em;
     margin: 0 1em 1em 1em;
+
+    position: relative;
 }
 
 
@@ -133,7 +135,8 @@ ul.grid-view li {
 
     grid-column: 4 / 5;
 
-    background: var(--color-list-icon);
+    background: var(--color-background-inputfield);
+    border: .07em solid var(--color-lines);
 
 }
 
@@ -181,7 +184,25 @@ ul.grid-view li {
     
 }
 
-.sort-options {
-    width: 8em;
+.sort-options, .filter-options {
     font-family: var(--font-Montserrat-light);
+
+    position: absolute;
+    top: 100%;
+    width: max-content;
+
+    display: flex;
+    flex-direction: column;
+    border: .1em solid var(--color-lines);
+}
+
+
+.sort-options{
+    left: 2.66em;
+}
+
+
+.filter-options{
+    left: 0;
+    
 }

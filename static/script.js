@@ -1,5 +1,7 @@
 // code voor listJS in favorieten en resultaten
 
+// grid-view en list-view?
+
 console.log('dit wordt uitgevoerd na het laden van de pagina')
 
 const optionList = document.querySelector('#view-list');
@@ -26,3 +28,34 @@ function showInGrid() {
     console.log('classlist grid has been added');
 }
 
+
+// sorteer en filtreer button
+// .hidden wordt aan/uit gezet
+
+document.getElementById('sort-btn').addEventListener('click', function () {
+    document.getElementById('sort-options').classList.toggle('hidden');
+});
+
+// dropdown weg wanneer je hier buiten klikt
+
+document.addEventListener('click', function (event){
+    const sortOptions = document.getElementById('sort-options');
+    const sortButton = document.getElementById('sort-btn');
+
+    if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)){
+        sortOptions.classList.add('hidden');
+    }
+});
+
+document.getElementById('filter-btn').addEventListener('click', function () {
+    document.getElementById('filter-options').classList.toggle('hidden');
+});
+
+document.addEventListener('click', function (event){
+    const filterOptions = document.getElementById('filter-options');
+    const filterButton = document.getElementById('filter-btn');
+
+    if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)){
+        sortOptions.classList.add('hidden');
+    }
+});
