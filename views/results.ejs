@@ -6,16 +6,50 @@
     <title>Results</title>
     <link rel="stylesheet" href="/style.css">
 
-    <%- include('partials/header') %>    
+    <%- include('partials/header') %>   
+    
+    <style>
+        .filter-button{
+            height: 2em;
+        }
+        .sort-btn{
+            height: 2em;
+        }
+    </style>
 
 </head>
 
 <body>
     <main>
 
+        <h1 class="h1-small">Results</h1>
+
         <div class="radio-container">
 
-            <h1 class="h1-small">Results</h1>
+            <button id="filter-btn" class="filter-button">
+                <svg class="icons"  viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="cls-1" d="M11 12L6 7V6L19 6L19 7L14 12V17L11 19V12Z" stroke="#121923" stroke-width="1.2" stroke-linecap="square"/>
+                    </svg>
+            </button>
+
+            <div id="filter-options" class="filter-options hidden">
+                <fieldset class="filter-options">
+                    <legend>Category</legend>
+                    <label><input type="checkbox" class="filter-category" value="sunlight"> Sunlight</label>
+                    <label><input type="checkbox" class="filter-category" value="experience"> Experience</label>
+                    <label><input type="checkbox" class="filter-category" value="Water"> Water</label>
+                </fieldset>
+
+            </div>
+
+            <button id="sort-btn" class="sort-btn">
+                <svg class="icons" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path class="cls-1" d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cls-1" d="M4 12L14 12" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cls-1" d="M4 17H6" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </button>
+        
 
             <label for="sort-options"></label>
                 <select class="sort-options">
@@ -24,6 +58,7 @@
                     <option value="date-asc">Date (Old → New)</option>
                     <option value="date-desc">Date (New → Old)</option>
                 </select>
+
  
             <label for="view-list" class="custom-radio-list">
                 <input type="radio" name="view" value="list" id="view-list" checked>
@@ -74,36 +109,7 @@
     </footer>
 
 
-    <!-- <script>
-        console.log('dit wordt uitgevoerd na het laden van de pagina')
 
-        const optionList = document.querySelector('#view-list');
-        const optionGrid = document.querySelector('#view-grid');
-        let deLijst = document.querySelector('ul');
-
-        optionList.addEventListener('change', showInList);
-        optionGrid.addEventListener('change', showInGrid);
-
-
-        function showInList() {
-            deLijst.classList.remove('grid-view');
-            console.log('classlist grid is removed');
-
-            deLijst.classList.add('list-view');
-            console.log('classlist list has been added');
-        }
-
-        function showInGrid() {
-            deLijst.classList.remove('list-view');
-            console.log('classlist list is removed');
-
-            deLijst.classList.add('grid-view');
-            console.log('classlist grid has been added');
-        }
-
-
-
-    </script> -->
     <script src="/script.js" defer></script>
 </body>
 </html>
