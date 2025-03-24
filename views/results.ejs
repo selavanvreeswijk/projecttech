@@ -6,117 +6,61 @@
     <title>Results</title>
     <link rel="stylesheet" href="/style.css">
 
-    <%- include('partials/header') %>    
-
+    <%- include('partials/header') %>   
+    
     <style>
-        .radio-container {
-            display: grid;
-            grid-template-columns: 1fr 1em 1em;
-            grid-template-rows: 1fr;
-
-            gap: 1em;
-            margin: 0 1em .5em 1em;
+        .filter-button{
+            height: 2em;
         }
-        
-
-        input[type="radio"] {
-            display: none; /* Verberg de standaard radio button */
+        .sort-btn{
+            height: 2em;
         }
-
-    
-        ul.list-view{
-            display: grid;
-            grid-gap: var(--white-space);
-            margin: 0 1em;
-        }
-
-        ul.list-view li{
-            list-style-type: none;
-        }
-
-
-        /* grid-view template */
-        ul.grid-view {
-            display: grid;
-            grid-gap: var(--white-space);
-            margin: 0 1em;
-
-            grid-template-columns:1fr 1fr;
-        }
-
-        ul.grid-view li {
-            grid-template-columns: 1fr;
-            list-style-type: none;
-
-        }
-
-
-        /* styling radio buttons */
-        .custom-radio-list{
-            width: 1em;
-            height: 1.5em;
-            border-radius: .2em;
-
-            background: var(--color-list-icon);
-
-        }
-
-    
-        .custom-radio-list:has(input:checked) {
-            background: var(--color-logo);
-        }
-
-        .custom-radio-grid{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-        
-            width: 1em;
-            height: 1.5em;
-            gap: .2em;
-            
-        }
-
-        .custom-radio-grid span{
-            height: .65em;
-
-            border-radius: .1em;
-            background: var(--color-list-icon);
-
-        }
-
-        
-        .custom-radio-grid:has(input:checked) span {
-            background: var(--color-logo);
-        }
-
-
-        .sort-options {
-            grid-column: 1 / 2;
-            width: 8em;
-
-            background: var(--color-background-inputfield);
-            border: .1em solid var(--color-lines);
-            color: var(--color-tekst);
-            border-radius: .3em;
-
-            font-family: var(--font-Montserrat-light);
-        }
-     
     </style>
+
 </head>
 
 <body>
     <main>
 
+        <h1 class="h1-small">Results</h1>
+
         <div class="radio-container">
 
+            <button id="filter-btn" class="filter-button">
+                <svg class="icons"  viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="cls-1" d="M11 12L6 7V6L19 6L19 7L14 12V17L11 19V12Z" stroke="#121923" stroke-width="1.2" stroke-linecap="square"/>
+                    </svg>
+            </button>
+
+            <div id="filter-options" class="filter-options hidden">
+                <fieldset class="filter-options">
+                    <legend>Category</legend>
+                    <label><input type="checkbox" class="filter-category" value="sunlight"> Sunlight</label>
+                    <label><input type="checkbox" class="filter-category" value="experience"> Experience</label>
+                    <label><input type="checkbox" class="filter-category" value="Water"> Water</label>
+                </fieldset>
+
+            </div>
+
+            <button id="sort-btn" class="sort-btn">
+                <svg class="icons" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path class="cls-1" d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cls-1" d="M4 12L14 12" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cls-1" d="M4 17H6" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </button>
+
+
+            <div id="sort-options" class="sort-options hidden"> 
             <label for="sort-options"></label>
-                <select class="sort-options">
+                <select>
                     <option value="name-asc">Name (A-Z)</option>
                     <option value="name-desc">Name(Z-A)</option>
                     <option value="date-asc">Date (Old → New)</option>
                     <option value="date-desc">Date (New → Old)</option>
                 </select>
+            </div>
+
  
             <label for="view-list" class="custom-radio-list">
                 <input type="radio" name="view" value="list" id="view-list" checked>
@@ -174,35 +118,7 @@
     </footer>
 
 
-    <script>
-        console.log('dit wordt uitgevoerd na het laden van de pagina')
 
-        const optionList = document.querySelector('#view-list');
-        const optionGrid = document.querySelector('#view-grid');
-        let deLijst = document.querySelector('ul');
-
-        optionList.addEventListener('change', showInList);
-        optionGrid.addEventListener('change', showInGrid);
-
-
-        function showInList() {
-            deLijst.classList.remove('grid-view');
-            console.log('classlist grid is removed');
-
-            deLijst.classList.add('list-view');
-            console.log('classlist list has been added');
-        }
-
-        function showInGrid() {
-            deLijst.classList.remove('list-view');
-            console.log('classlist list is removed');
-
-            deLijst.classList.add('grid-view');
-            console.log('classlist grid has been added');
-        }
-
-
-
-    </script>
+    <script src="/script.js" defer></script>
 </body>
 </html>
