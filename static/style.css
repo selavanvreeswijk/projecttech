@@ -75,7 +75,7 @@ a{
 
 .radio-container {
     display: grid;
-    grid-template-columns: 1.7em 1.7em 1fr 1em 1em;
+    grid-template-columns: 1.66em 1.66em 1fr 1.66em 1.66em;
     grid-auto-flow: column;
 
     column-gap: 1em;
@@ -127,8 +127,8 @@ ul.grid-view li {
 
 /* styling radio buttons */
 .custom-radio-list{
-    width: 1em;
-    height: 1.5em;
+    width: 1.66em;
+    height: 1.66em;
     border-radius: .2em;
 
     grid-column: 4 / 5;
@@ -149,8 +149,8 @@ ul.grid-view li {
 
     grid-column: 5 / 6;
 
-    width: 1em;
-    height: 1.5em;
+    width: 1.66em;
+    height: 1.36em;
     gap: .2em;
     
 }
@@ -160,7 +160,8 @@ ul.grid-view li {
     height: .65em;
 
     border-radius: .1em;
-    background: var(--color-list-icon);
+    background: var(--color-background-inputfield);
+    border: .07em solid var(--color-lines);
 
 }
 
