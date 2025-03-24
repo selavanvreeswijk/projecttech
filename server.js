@@ -141,9 +141,15 @@ async function onDetail(req, res) {
         res.render('detail', { plant: detailPlant }); //stuur de data van de api naar ejs bestand
 }
 
-  async function onLogIn(req, res) {
+async function onLogIn(req, res) {
+    try {
+        const response = await fetch(allUrl, options);
+        const plants = await response.json();
 
         res.render('log-in', { plants: plants }); //stuur de data van de api naar ejs bestand
+    } catch (error) {
+        console.error("Fout bij ophalen API:", error);
+    }
     
     console.log('Server is running on http://localhost:9000/log-in');
 }
