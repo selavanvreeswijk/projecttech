@@ -96,6 +96,7 @@ ul.list-view{
     margin: 0 1em;
 }
 
+
 ul.list-view li{
     list-style-type: none;
 }
@@ -109,6 +110,7 @@ ul.grid-view {
 
     grid-template-columns:1fr 1fr;
 }
+
 
 ul.grid-view li {
     grid-template-columns: 1fr;
@@ -134,6 +136,7 @@ ul.grid-view li {
     background: var(--color-logo);
 }
 
+
 .custom-radio-grid{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -145,6 +148,7 @@ ul.grid-view li {
     gap: .2em;
     
 }
+
 
 .custom-radio-grid span{
     height: .65em;
