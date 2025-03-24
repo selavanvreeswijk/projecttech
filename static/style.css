@@ -194,15 +194,22 @@ ul.grid-view li {
     display: flex;
     flex-direction: column;
     border: .1em solid var(--color-lines);
+    background: var(--color-background-inputfield);
 }
 
 
 .sort-options{
     left: 2.66em;
+    height: auto;
 }
 
 
 .filter-options{
     left: 0;
     
+}
+
+select{
+    font-family: var(--font-Montserrat-light);
+    background: var(--color-background-inputfield);
 }

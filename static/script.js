@@ -55,7 +55,7 @@ document.addEventListener('click', function (event){
     const filterOptions = document.getElementById('filter-options');
     const filterButton = document.getElementById('filter-btn');
 
-    if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)){
-        sortOptions.classList.add('hidden');
+    if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)){
+        filterOptions.classList.add('hidden');
     }
 });
