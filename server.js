@@ -85,11 +85,11 @@ async function onResults(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        const cardPlant = plants.map (plant => ({
-            img: plant.Img,
-            commonName: plant['Common name'],
-            id: plant.id
-        }))
+        const cardPlant = {
+            img: plants.Img,
+            commonName: plants['Common name'],
+            id: plants.id
+        }
 
         res.render('results', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
@@ -104,11 +104,11 @@ async function onFavorites(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        const cardPlant = plants.map (plant => ({
-            img: plant.Img,
-            commonName: plant['Common name'],
-            id: plant.id
-        }))
+        const cardPlant ={
+            img: plants.Img,
+            commonName: plants['Common name'],
+            id: plants.id
+        }
 
         res.render('favorites', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
