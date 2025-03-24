@@ -26,10 +26,10 @@ app
     .get('/quiz', onQuiz)
     .get('/favorites', onFavorites)
     .get('/results', onResults)
+    .get('/plant/:plantId', onDetail)
     .get('/log-in', onLogIn)
     .get('/register', onRegister)
-    // .get('/details', onDetails)
-    .get('/details/:id', onDetails)
+
 
 
     .listen(9000, () => {
@@ -85,12 +85,18 @@ async function onResults(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        res.render('results', { plants: plants }); //stuur de data van de api naar ejs bestand
+        const cardPlant = plants.map (plant => ({
+            img: plant.Img,
+            commonName: plant['Common name'],
+            id: plant.id
+        }))
+
+        res.render('results', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     } 
-    console.log('Server is running on http://localhost:9000/results'); 
+    console.log('Server is running on http://localhost:9000/results');
 }
 
 async function onFavorites(req, res) {
@@ -98,7 +104,13 @@ async function onFavorites(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        res.render('favorites', { plants: plants }); //stuur de data van de api naar ejs bestand
+        const cardPlant = plants.map (plant => ({
+            img: plant.Img,
+            commonName: plant['Common name'],
+            id: plant.id
+        }))
+
+        res.render('favorites', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
@@ -107,15 +119,31 @@ async function onFavorites(req, res) {
 }
 
 
-async function onLogIn(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
+async function onDetail(req, res) {
+    const plantId = req.params.plantId; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
+    const detailUrl = 'https://house-plants2.p.rapidapi.com/id/${plantId}';
+
+      const detailPlant = {
+            category: plant.Categories,
+            img: plant.Img,
+            commonName: plant['Common name'],
+            heightPurchase: plant['Height at purchase'],
+            idealLight: plant['Light ideal'],
+            id: plant.id,
+            growth: plant.Growth,
+            heightPotential: plant['Height potential'],
+            tempMax: plant['Temperature max'],
+            watering: plant.Watering
+        }
+
+        console.log(detailPlant)
+
+        res.render('detail', { plant: detailPlant }); //stuur de data van de api naar ejs bestand
+}
+
+  async function onLogIn(req, res) {
 
         res.render('log-in', { plants: plants }); //stuur de data van de api naar ejs bestand
-    } catch (error) {
-        console.error("Fout bij ophalen API:", error);
-    }
     
     console.log('Server is running on http://localhost:9000/log-in');
 }

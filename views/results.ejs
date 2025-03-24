@@ -134,7 +134,14 @@
 
 
         <ul class="list-view">
-            <li>
+            <!-- <% plants.forEach(plant => { %>
+                <li>
+                    <%- include('partials/cards-klein', { plant: plant }) %>
+                </li>
+            <% }) %> HET LUKT MIJ NIET HET WERKEND TE MAKEN -->
+
+
+             <li>
                 <%- include('partials/cards-klein') %>
             </li>
             <li>
@@ -157,7 +164,7 @@
             </li>
             <li>
                 <%- include('partials/cards-klein') %>
-            </li>
+            </li> 
         </ul>
       
     </main>

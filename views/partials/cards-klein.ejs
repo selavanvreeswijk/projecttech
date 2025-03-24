@@ -62,6 +62,7 @@
         }
 
         #icon-favorites-cards{
+
             stroke-width: 1em;
             stroke: var(--color-lines);
 
@@ -78,7 +79,7 @@
     <main>
     <% plants.slice(0, 3).forEach(plant => { %> <!-- DIT IS DUS TEST, MOET WORDEN VERANDERD, EERSTE DRIE PLANTEN WORDEN LATEN ZIEN -->
         <article>
-            <a href="/details/<%=plant.id%>">
+            <a href="/plant/<%=plant.id%>">
             <div>
 
                 <h3><%= "Common name" %> </h3>
