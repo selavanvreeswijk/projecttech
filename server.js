@@ -85,17 +85,18 @@ async function onResults(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        const cardPlant = {
-            img: plants.Img,
-            commonName: plants['Common name'],
-            id: plants.id
-        }
+        // const cardPlant = plants.map(plant => ({
+        //     img: plant.Img,
+        //     commonName: plant['Common name'],
+        //     id: plant.id
+        // }))
 
-        res.render('results', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
+        res.render('results', {plants: plants}); //stuur de data van de api naar ejs bestand - PLAATS DIT NA 'results': , { plants: cardPlant }
     
     } catch (error) {
         console.error("Fout bij ophalen API:", error);
     } 
+    
     console.log('Server is running on http://localhost:9000/results');
 }
 
@@ -104,11 +105,11 @@ async function onFavorites(req, res) {
         const response = await fetch(allUrl, options);
         const plants = await response.json();
 
-        const cardPlant ={
+        const cardPlant = plants.map (plant => ({
             img: plants.Img,
             commonName: plants['Common name'],
             id: plants.id
-        }
+        }))
 
         res.render('favorites', { plants: cardPlant }); //stuur de data van de api naar ejs bestand
     
