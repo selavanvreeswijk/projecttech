@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390.62 390.62">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke-width: 8px;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-3 {
+        stroke-width: 8px;
+      }
+    </style>
+  </defs>
+  <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="179.3" y="179.31" width="32" height="32"/>
+  <g>
+    <rect class="cls-1" width="390.62" height="390.62"/>
+    <rect class="cls-2" x="39.96" y="126.21" width="310.66" height="138.1" rx="12.21" ry="12.21" transform="translate(-80.87 195.28) rotate(-45)"/>
+    <line class="cls-3" x1="201.41" y1="91.55" x2="250.24" y2="140.38"/>
+    <line class="cls-3" x1="146.48" y1="146.48" x2="195.31" y2="195.31"/>
+    <line class="cls-3" x1="91.55" y1="201.41" x2="140.38" y2="250.24"/>
+  </g>
+</svg>

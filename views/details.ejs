@@ -15,7 +15,7 @@
         }
 
 
-        section:first-of-type{
+        .nav-and-name{
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -34,6 +34,7 @@
             width: 90vw;
         } 
 
+
         .description{
             display: flex;
             flex-direction: column;
@@ -41,25 +42,58 @@
         }
 
         
-        svg{
+        svg{ /* nog iets mee doen */
             position: absolute;
         }
 
 
+        .firstCategories{
+            margin-bottom: 1em;
+        }
 
-     
+
+        h2{
+            margin-bottom: 0.5em;
+        }
+
+
+        .secondCategories{
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        
+        .container{
+            padding: 0.5em;
+            margin-top: 1em;
+
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+
+        .icons{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .icons img{
+            width: 3em;
+            height: 3em;
+        }
+
+
     </style>
 </head>
 
 <body>
     <main>
         <article>
-            <section>
+            <section class="nav-and-name">
                 <a href="/results"> <!--Nog linken aan gebruiker-->
                     <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
                 </a>
     
-                 <h1>Plant details</h1>
+                 <h1><%= plants.commonName %></h1>
             </section>
 
             <div class="description">
@@ -75,21 +109,46 @@
                     </a>
                 </div>
     
-                <section>
-                    <h2><%= plants.commonName %></h2>
+                <div class="container">
+                    <section class="firstCategories">
+                        <h2>Most common categories:</h2>
+   
+                        <div class="icons">
+                            <div>
+                                <img src="/img/plant.svg" alt="Plant icon">
+                                <p><%= plants.category %></p> <!--Bron https://www.iconfinder.com/search?q=plant+sprout-->
+                            </div>
+                           
+                            <div>
+                                <img src="/img/sun.svg" alt="Sun icon">
+                                <p><%= plants.idealLight %></p> <!--Bron https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun--> <!--If else statement van maken-->
+                            </div>
     
-                    <p><%= plants.category %></p>
-                    <p><%= plants.heightPurchase.CM %></p>
-                    <p><%= plants.idealLight %></p>
-                </section>
+                            <div>
+                                <img src="/img/gieter.svg" alt="Plant waterer icon">
+                                <p><%= plants.watering %></p> <!--Bron https://www.iconfinder.com/search?q=watering--> 
+                            </div>
     
-                <div>
-                    <button>See more categories</button>
-    
-                    <p><%= plants.growth %></p>
-                    <p><%= plants.heightPotential.CM %></p>
-                    <p><%= plants.tempMax.C %></p>
-                    <p><%= plants.watering %></p>
+                            <div>
+                                <img src="/img/ruler.svg" alt="Ruler icon">
+                                <p><%= plants.heightPurchase.CM %>cm</p> <!--Bron https://www.iconfinder.com/search?q=ruler-->
+                            </div>
+                        </div>
+                        
+                        <svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37" alt="icon favorites">
+                    
+                            <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                            <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
+                        </svg> 
+                    </section>
+        
+                    <div class="secondCategories"> <!--Drop down van maken-->
+                        <p>See more categories:</p>
+        
+                        <p>Plant growth: <%= plants.growth %></p>
+                        <p>Potential height: <%= plants.heightPotential.CM %>cm</p>
+                        <p>Max. temp: <%= plants.tempMax.C %>°C</p>
+                    </div>
                 </div>
             </div>
         </article>
