@@ -75,7 +75,7 @@ a{
 
 .radio-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1em 1em;
+    grid-template-columns: 1.7em 1.7em 1fr 1em 1em;
     grid-auto-flow: column;
 
     column-gap: 1em;
@@ -85,8 +85,8 @@ a{
 
 .h1-small{
     font-size: 1em;
-    grid-column: 1 / 2;
-    align-self: center;
+    text-align: center;
+    margin-bottom: 1em;
 }
 
 
@@ -131,7 +131,7 @@ ul.grid-view li {
     height: 1.5em;
     border-radius: .2em;
 
-    grid-column: 3 / 4;
+    grid-column: 4 / 5;
 
     background: var(--color-list-icon);
 
@@ -147,7 +147,7 @@ ul.grid-view li {
     display: grid;
     grid-template-columns: 1fr 1fr;
 
-    grid-column: 4 / 5;
+    grid-column: 5 / 6;
 
     width: 1em;
     height: 1.5em;
@@ -172,6 +172,7 @@ ul.grid-view li {
 
 .sort-options, .filter-button, .sort-btn {  
     height: 2em;
+    width: 2em;
     background: var(--color-background-inputfield);
     border: .1em solid var(--color-lines);
     color: var(--color-tekst);
