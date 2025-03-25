@@ -97,30 +97,29 @@
             }
 
 
-            /* Basisstijl voor de labels */
-div label {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 2px solid var(--color-lines); /* Standaard border */
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    transition: all 0.3s ease-in-out;
-}
+            div label{
+                display: inline-block;
+                text-align: center;
 
-/* Zorg dat de radio buttons zelf onzichtbaar zijn */
-div input[type="radio"] {
-    display: none;
-}
+                border: 0.09em solid var(--color-lines);
+                border-radius: 0.2em;
 
-/* Stijl de labels als de radio-button is geselecteerd */
-div input[type="radio"]:checked + label {
-    border-color: var(--color-accent); /* Andere border-kleur bij selectie */
-    background: var(--color-accent-light);
-    color: white;
-}
+                margin-left: 0.3em;
+                padding: 0.3em 0.9em;
+                transition: all 0.3s ease-in-out;
+            }
 
+
+            div input[type="radio"]{
+                display: none;
+            }
+
+
+            div input[type="radio"]:checked + label{
+                border-color: var(--color-accent);
+                background: var(--color-accent-light);
+                color: white;
+            }
         </style>
     </head>
 
@@ -157,7 +156,6 @@ div input[type="radio"]:checked + label {
                         <input type="radio" id="no" name="plants" value="no" onclick="saveAnswer(2, this.value)">
                         <label for="no">No</label>
                     </div>
-                    
                 </section>
             
                 <section id="question-3" class="question">
