@@ -30,8 +30,6 @@ app
     .get('/log-in', onLogIn)
     .get('/register', onRegister)
 
-
-
     .listen(9000, () => {
         console.log('Server is running on http://localhost:9000');
 })
