@@ -14,33 +14,11 @@
 <body>
     <main>
 
-        <div class="radio-container">
+        <h1 class="h1-small">Favorites</h1>
 
-            <h1 class="h1-small">Favorites</h1>
+        <%- include ('partials/container') %>
 
-            <label for="sort-options"></label>
-                <select class="sort-options">
-                    <option value="name-asc">Name (A-Z)</option>
-                    <option value="name-desc">Name(Z-A)</option>
-                    <option value="date-asc">Date (Old → New)</option>
-                    <option value="date-desc">Date (New → Old)</option>
-                </select>
- 
-            <label for="view-list" class="custom-radio-list">
-                <input type="radio" name="view" value="list" id="view-list" checked>
-            </label>
- 
-            <label for="view-grid" class="custom-radio-grid">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <input type="radio" name="view" value="grid" id="view-grid">
-            </label>
-           
-        </div>
-
-
+        
         <ul class="list-view">
             <li>
                 <%- include('partials/cards-klein') %>
@@ -74,7 +52,6 @@
         <%- include('partials/footer') %> 
     </footer>
 
-    <script src="/script.js" defer></script>
-   
+    <script src="/script.js" defer></script>  
 </body>
 </html>

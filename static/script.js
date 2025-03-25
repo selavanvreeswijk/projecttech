@@ -68,7 +68,7 @@ document.addEventListener('click', function (event) {
     if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)) {
         sortOptions.classList.add('hidden');
         sortButton.classList.remove('active');
-        sortIcon.classList.remove('active'); 
+        sortPaths.forEach(path => path.classList.remove('active'));
     }
     if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)) {
         filterOptions.classList.add('hidden');
