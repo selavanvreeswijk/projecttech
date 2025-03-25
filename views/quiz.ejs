@@ -32,13 +32,42 @@
             }
 
 
-            .begin{
-                margin: 10em 2em;
+            .begin,
+            .questions{
+                height: 65vh; /* 65vh omdat de viewportheight pas ná de titel begint */
+
+                display: flex;
+                flex-direction: column; 
+                align-items: center;
+                justify-content: center;
+                text-align: center; 
+            }
+
+
+            .questions section div{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
+
+
+            .question div{
+                margin: 2em 0;
+            }
+
+            
+            .questions section div p{
+                padding: 0 0.5em;
             }
 
 
             .begin button{
                 margin-top: 2em;
+            }
+
+
+            .begin img{
+                width: 85vw;
             }
 
 
@@ -49,8 +78,57 @@
 
             .nav-buttons{
                 display: none;
+                width: 70%;
+            }
 
-                margin-top: 2.5em;
+
+            .nav-buttons button{
+                margin-left: 0.3em;
+            }
+
+
+            .question{
+                display: none;
+            }
+
+
+            .question.active{
+                display: block;
+            }
+
+
+            div label{
+                display: inline-block;
+                text-align: center;
+
+                border: 0.09em solid var(--color-lines);
+                border-radius: 0.2em;
+
+                margin-left: 0.5em;
+                padding: 0.3em 0.9em;
+                transition: all 0.3s ease-in-out;
+            }
+
+
+            div input[type="radio"]{
+                display: none;
+            }
+
+
+            div input[type="radio"]:checked + label{
+                border-color: var(--color-accent);
+                background: var(--color-accent-light);
+                color: white;
+            }
+
+            #question-3 div input{
+                padding: 0.5em 2em;
+            }
+
+            progress[value]{
+                color: var(90deg, --color-footer-background) 0/var(--w);
+                background: var( --color-background-inputfield);
+                border-radius: 10em;
             }
         </style>
     </head>
@@ -60,21 +138,78 @@
             <h1>Quiz</h1>
 
             <div class="begin">
-                <p>
-                    Got 30 seconds? Get matched to your perfect plant! 
-                </p>
-    
+                <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Bron https://www.freepik.com/vectors/planting-happiness-->
+                
+                <p>Got 30 seconds? Get matched to your perfect plant!</p>
+             
                 <button>Begin</button>
             </div>
 
-            <section>
-                <h2 id="question-text"></h2> <!--Nog kijken hoe ik dit lowercase maak-->
-                <input type="range" id="progress" min="0" max="100" value="50" oninput="saveAnswer(this.value)">    
-            </section>
- 
-            <div class="nav-buttons">
-                <button onclick="prevQuestion()">Previous</button>
-                <button onclick="nextQuestion()">Next</button>
+            <div class="questions">
+                <section id="question-1" class="question">
+                    <progress max="100" value="0">0%</progress> <!--Bron https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css-->
+
+                    <h2>How much of a plant-expert are you?</h2>
+
+                    <div>
+                        <p>0</p>
+                        <input type="range" min="0" max="100" value="50" oninput="saveAnswer(1, this.value)">
+                        <p>10</p>
+                    </div>
+                </section>
+            
+                <section id="question-2" class="question">
+                    <progress max="100" value="25">25%</progress>
+
+                    <h2>Do you currently own plants?</h2>
+
+                    <div>
+                        <input type="radio" id="yes" name="plants" value="yes" onclick="saveAnswer(2, this.value)">
+                        <label for="yes">Yes</label>
+                    
+                        <input type="radio" id="no" name="plants" value="no" onclick="saveAnswer(2, this.value)">
+                        <label for="no">No</label>
+                    </div>
+                </section>
+            
+                <section id="question-3" class="question">
+                    <progress max="100" value="50">50%</progress>
+
+                    <h2>How much time would you like to invest in plants per week?</h2>
+
+                    <div>
+                        <input type="number" min="0" max="24" placeholder="Hours" oninput="saveAnswer(3, this.value)">
+                    </div>
+                </section>
+            
+                <section id="question-4" class="question">
+                    <progress max="100" value="75">75%</progress>
+
+                    <h2>How much money would you like to invest in plants?</h2>
+
+                    <div>
+                        <select onchange="saveAnswer(4, this.value)">
+                            <option value="low">Less than €10</option>
+                            <option value="medium">€10 - €50</option>
+                            <option value="high">More than €50</option>
+                        </select>
+                    </div>
+                </section>
+    
+                <section id="question-5" class="question">
+                    <progress max="100" value="100">100%</progress>
+
+                    <h2>How big do you want your plant to be?</h2>
+
+                    <div>
+                        <input type="text" placeholder="Small, Medium, Large" oninput="saveAnswer(5, this.value)">
+                    </div>
+                </section>
+            
+                <div class="nav-buttons">
+                    <button onclick="prevQuestion()">Previous</button>
+                    <button onclick="nextQuestion()">Next</button>
+                </div>
             </div>
         </main>
        
@@ -82,7 +217,7 @@
             <%- include('partials/footer') %>
         </footer>
 
-        <script>
+        <script> 
             const begin = document.querySelector('.begin')
             const beginButton = document.querySelector('.begin button')
             const questionAndAnswer = document.querySelector('section')
@@ -91,56 +226,52 @@
             beginButton.addEventListener('click', function(){
                 begin.style.display = 'none';
 
-                questionAndAnswer.style.display = 'block';
-                navButtons.style.display = 'block';
+                showQuestion(0);  
+                    navButtons.style.display = 'block';
             })
 
-            let currentQuestionIndex = 0;
+            let currentQuestionIndex = 0; // Bron: hieronder heeft chatGPT bij geholpen
             let answers = {};
 
-            const questions = [
-                { id: 1, text: "How much of an plant-expert are you?" },
-                { id: 2, text: "Do you currently own plants?" },
-                { id: 3, text: "How much time would you like to invest in plants?" },
-                { id: 4, text: "How much money would you like to invest in plants?" },
-                { id: 5, text: "How big do you want your plant to be?" },
-            ]
+            const questions = document.querySelectorAll(".question");
 
-            // Laad een vraag
-            function loadQuestion() {
-                document.getElementById("question-text").innerText = questions[currentQuestionIndex].text;
-                document.getElementById("progress").value = answers[questions[currentQuestionIndex].id] || 50;
+            function showQuestion(index) {
+                    questions.forEach((question) => {
+                    question.classList.remove("active");
+                })
+
+                questions[index].classList.add("active");
+
+                const prevButton = document.querySelector(".nav-buttons button:first-child");
+                if (index === 0) {
+                    prevButton.style.display = "none";
+                } else {
+                    prevButton.style.display = "inline-block";
+                }
             }
 
-            // Opslaan van antwoord
-            function saveAnswer(value) {
-                answers[questions[currentQuestionIndex].id] = value;
-                fetch('/save-answer', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ questionId: questions[currentQuestionIndex].id, answer: value })
-                }).catch(err => console.error(err));
-            }
-
-            // Volgende vraag
-            function nextQuestion() {
+            function nextQuestion(){
                 if (currentQuestionIndex < questions.length - 1) {
                     currentQuestionIndex++;
-                    loadQuestion();
+                    showQuestion(currentQuestionIndex);
                 }
             }
 
-            // Vorige vraag
-            function prevQuestion() {
+            function prevQuestion(){
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
-                    loadQuestion();
+                    showQuestion(currentQuestionIndex);
                 }
             }
 
-            window.onload = () => {
-                loadQuestion();
-            };
+            function saveAnswer(questionId, value){
+                answers[questionId] = value;
+                console.log(answers); 
+            }
+
+            window.onload = () =>{
+                showQuestion(currentQuestionIndex);
+            }
         </script>
     </body>
 </html>
