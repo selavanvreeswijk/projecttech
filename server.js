@@ -59,7 +59,7 @@ async function updatePlantsCache() {
     }
 }
 
-updatePlantsCache();
+updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
 
 setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
 
