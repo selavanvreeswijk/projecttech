@@ -9,20 +9,31 @@
     <%- include('partials/header') %>    
 
     <style>
-        a img{
-            width: 2em;
-            height: 2em;
-        }
-
-
         .nav-and-name{
             display: flex;
             flex-direction: row;
             align-items: center;
+
+            padding-left: 0.5em;
+            margin-bottom: 0.3em;
         }
 
 
-        .picture{ /*div:first-of-type werkt niet want dan pakt hij de header mee*/
+        .nav-and-name a img{
+            width: 1.5em;
+            height: 1.5em;
+        }
+
+
+        h1{
+            padding-left: 0.3em;
+            /* border-bottom: 0.05em solid var(--color-lines);
+            width: 14.6em; */
+            margin-bottom: 0.2em;
+        }
+
+
+        .picture{ /* div:first-of-type werkt niet want dan pakt hij de header mee */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -32,13 +43,14 @@
         
         .picture img{
             width: 90vw;
+            border-radius: 0.7em;
         } 
 
 
         .description{
             display: flex;
             flex-direction: column;
-            margin: 1em;
+            margin: 0 1em;
         }
 
         
@@ -54,6 +66,9 @@
 
         h2{
             margin-bottom: 0.5em;
+            border-bottom: 0.05em solid var(--color-lines);
+            width: 6.5em;
+            padding: 0.2em 0;
         }
 
 
@@ -62,13 +77,18 @@
             margin-bottom: 1em;
         }
 
+
+        h3{
+            
+        }
+
         
         .container{
             padding: 0.5em;
-            margin-top: 1em;
+            margin-top: 0.7em;
 
-            border: 1px solid black;
-            border-radius: 10px;
+            border: 0.08em solid var(--color-lines);
+            border-radius: 0.7em;
         }
 
 
@@ -97,7 +117,7 @@
         <article>
 
             <section class="nav-and-name">
-                <a href="/results"> <!--Nog linken aan gebruiker-->
+                <a href="/results"> 
                     <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
                 </a>
 
@@ -119,7 +139,7 @@
 
                 <div class="container">
                     <section class="firstCategories">
-                        <h2>Most common categories:</h2>
+                        <h2>Categories</h2>
    
                         <ul class="illustrations">
                             <li>
@@ -145,7 +165,7 @@
                     </section>
         
                     <div class="secondCategories"> <!--Drop down van maken-->
-                        <p>See more categories:</p>
+                        <h3>See more categories:</h3>
         
                         <p>Plant growth: <%= plants.growth %></p>
                         <p>Potential height: <%= plants.heightPotential.CM %>cm</p>
