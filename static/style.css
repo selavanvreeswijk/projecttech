@@ -83,6 +83,7 @@ a{
     text-decoration: none;
 }
 
+
 /* styling for svg icons */
 .cls-1, .cls-2{
     stroke: var(--color-lines);
