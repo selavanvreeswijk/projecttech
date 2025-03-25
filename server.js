@@ -45,6 +45,23 @@ const options = {
 };
 
 let userAnswers = {};
+let cachedPlants = [];
+
+async function updatePlantsCache() {
+    try {
+        const response = await fetch(allUrl, options);
+        const data = await response.json();
+
+        cachedPlants = data;
+
+    } catch (error) {
+        console.error("Fout bij ophalen van planten:", error);
+    }
+}
+
+updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
+
+setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
 
 app
   .get('/', onHome)
@@ -62,11 +79,11 @@ app
     console.log(`Server draait op http://localhost:${process.env.PORT || 9000}`);
   });
 
+
+
 async function onHome(req, res) {
   try {
-    const response = await fetch(allUrl, options);
-    const plants = await response.json();
-    res.render('index', { plants });
+    res.render('index', { plants: cachedPlants });
   } catch (error) {
     console.error("Fout bij ophalen API:", error);
   }
@@ -74,9 +91,7 @@ async function onHome(req, res) {
 
 async function onQuiz(req, res) {
   try {
-    const response = await fetch(allUrl, options);
-    const plants = await response.json();
-    res.render('quiz', { plants });
+    res.render('quiz', { plants: cachedPlants });
   } catch (error) {
     console.error("Fout bij ophalen API:", error);
   }
@@ -84,9 +99,7 @@ async function onQuiz(req, res) {
 
 async function onFavorites(req, res) {
   try {
-    const response = await fetch(allUrl, options);
-    const plants = await response.json();
-    res.render('favorites', { plants });
+    res.render('favorites', { plants: cachedPlants });
   } catch (error) {
     console.error("Fout bij ophalen API:", error);
   }
@@ -94,9 +107,7 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
-    const response = await fetch(allUrl, options);
-    const plants = await response.json();
-    res.render('results', { plants });
+    res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Fout bij ophalen API:", error);
   }
