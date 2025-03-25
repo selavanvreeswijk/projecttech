@@ -37,14 +37,45 @@ h1, h2, h3{
     text-transform: uppercase;
 }
 
-h1 {
+
+h1{
     font-size: 1.5em;
 }
 
 
+.h1-small{
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+
+h2{
+    font-size: 1.1em;
+}
+
+
+.h2-small{
+    font-size: 0.9em;
+}
+
+
+h3{
+    font-size: 1em;
+}
+
+
+p{
+    font-size: 0.9em;
+}
+
+
+html, 
 body{
     background: var(--color-background);
-    height: 100%;
+    height: 100vh;
+    background-attachment: fixed; 
+    overflow-y: auto;
 }
 
 
@@ -52,12 +83,13 @@ a{
     text-decoration: none;
 }
 
+
 /* styling for svg icons */
-.cls-1, .cls-2 {
+.cls-1, .cls-2{
     stroke: var(--color-lines);
     fill: var(--color-icons-not-filled);
-
 }
+
 
 .cls-1.active, .cls-2.active{
     stroke: var(--color-icons-not-filled);
@@ -76,7 +108,7 @@ a{
 
 /* styling voor zowel favorieten als resultaten */
 
-.radio-container {
+.radio-container{
     display: grid;
     grid-template-columns: 1.66em 1.66em 1fr 1.66em 1.66em;
     grid-auto-flow: column;
@@ -88,15 +120,8 @@ a{
 }
 
 
-.h1-small{
-    font-size: 1em;
-    text-align: center;
-    margin-bottom: 1em;
-}
-
-
-input[type="radio"] {
-    display: none; /* Verberg de standaard radio button */
+input[type="radio"]{
+    display: none; /* Verbergt de standaard radio button */
 }
 
 
@@ -109,12 +134,11 @@ ul.list-view{
 
 ul.list-view li{
     list-style-type: none;
-    
 }
 
 
 /* grid-view template */
-ul.grid-view {
+ul.grid-view{
     display: grid;
     grid-gap: var(--white-space);
     margin: 0 1em;
@@ -123,10 +147,9 @@ ul.grid-view {
 }
 
 
-ul.grid-view li {
+ul.grid-view li{
     grid-template-columns: 1fr;
     list-style-type: none;
-
 }
 
 
@@ -144,7 +167,7 @@ ul.grid-view li {
 }
 
 
-.custom-radio-list:has(input:checked) {
+.custom-radio-list:has(input:checked){
     background: var(--color-logo);
 }
 
@@ -158,7 +181,6 @@ ul.grid-view li {
     width: 1.66em;
     height: 1.36em;
     gap: .2em;
-    
 }
 
 
@@ -168,28 +190,13 @@ ul.grid-view li {
     border-radius: .1em;
     background: var(--color-background-inputfield);
     border: .07em solid var(--color-lines);
-
 }
 
 
-.custom-radio-grid:has(input:checked) span {
+.custom-radio-grid:has(input:checked) span{
     background: var(--color-logo);
 }
 
-
-/* .sort-options, .filter-button, .sort-btn { 
-    display: flex;
-    flex-direction: column; 
-    position: absolute;
-    top: 100%;
-    
-
-    font-family: var(--font-Montserrat-light);
-    border: .08em solid var(--color-lines);
-    border-radius: .7em;
-    background: var(--color-background-inputfield);
-    padding: .5em;
-} */
 
 .filter-button, .sort-btn{
     font-family: var(--font-Montserrat-light);
@@ -237,10 +244,12 @@ ul.grid-view li {
 
 }
 
+
 select{
-    font-family: var(--font-Montserrat-light);
+  font-family: var(--font-Montserrat-light);
     background: var(--color-background-inputfield);
     border: none;
+
 }
 
 

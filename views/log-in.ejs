@@ -9,7 +9,7 @@
     <%- include('partials/header') %>    
 
     <style>
-        body {
+        body{
             display: flex;
             flex-direction: column;
         }
@@ -27,12 +27,13 @@
 
 
         h2{
-            border-bottom: 0.05em solid black;
+            border-bottom: 0.05em solid var(--color-lines);
 
             width: 11.3em;
             padding-bottom: 0.2em;
         }
 
+        
         label{
             margin-top: 10em;
             margin-bottom: 0.5em;
@@ -50,12 +51,13 @@
             margin-top: 0.3em;
         }
 
+
         form div{
             margin-top: 1.5em;
         }
 
 
-        button {
+        button{
             background: var(--color-background-inputfield);
 
             border: 0.09em solid var(--color-lines);
@@ -70,13 +72,14 @@
 
         
     
-        .register {
+        .register{
             display: flex;
             flex-direction: column;
             align-items: center;
 
             margin-top: 3em;
         }
+
 
         .register a{
             background: var(--color-background-inputfield);
@@ -99,7 +102,7 @@
     
                 <form action="/login" method="POST">
                     <div>
-                        <label for="username">Username</label>
+                        <label for="email">E-mail Adress</label>
                         <input type="text" name="username" required>
                     </div>
          
@@ -108,7 +111,7 @@
                         <input type="password" name="password" required>
                     </div>
      
-                    <button type="submit">Log In</button>
+                    <button type="submit">Log In</button> <!--BACKEND, inloggen-->
                 </form>
             </div>
     
