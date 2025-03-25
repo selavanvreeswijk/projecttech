@@ -48,11 +48,14 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
-
-                margin: 2em 0;
             }
 
 
+            .question div{
+                margin: 2em 0;
+            }
+
+            
             .questions section div p{
                 padding: 0 0.5em;
             }
@@ -61,6 +64,7 @@
             .begin button{
                 margin-top: 2em;
             }
+
 
             .begin img{
                 width: 75vw;
@@ -77,6 +81,7 @@
                 width: 70%;
             }
 
+
             .nav-buttons button{
                 margin-left: 0.3em;
             }
@@ -90,6 +95,32 @@
             .question.active{
                 display: block;
             }
+
+
+            /* Basisstijl voor de labels */
+div label {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid var(--color-lines); /* Standaard border */
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Zorg dat de radio buttons zelf onzichtbaar zijn */
+div input[type="radio"] {
+    display: none;
+}
+
+/* Stijl de labels als de radio-button is geselecteerd */
+div input[type="radio"]:checked + label {
+    border-color: var(--color-accent); /* Andere border-kleur bij selectie */
+    background: var(--color-accent-light);
+    color: white;
+}
+
         </style>
     </head>
 
@@ -100,16 +131,15 @@
             <div class="begin">
                 <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Bron https://www.freepik.com/vectors/planting-happiness-->
                 
-                <p>
-                    Got 30 seconds? Get matched to your perfect plant! 
-                </p>
-
+                <p>Got 30 seconds? Get matched to your perfect plant!</p>
+             
                 <button>Begin</button>
             </div>
 
             <div class="questions">
                 <section id="question-1" class="question">
                     <h2>How much of a plant-expert are you?</h2>
+
                     <div>
                         <p>0</p>
                         <input type="range" min="0" max="100" value="50" oninput="saveAnswer(1, this.value)">
@@ -119,31 +149,43 @@
             
                 <section id="question-2" class="question">
                     <h2>Do you currently own plants?</h2>
-                    <label>
-                        <input type="radio" name="plants" value="yes" onclick="saveAnswer(2, this.value)"> Yes
-                    </label>
-                    <label>
-                        <input type="radio" name="plants" value="no" onclick="saveAnswer(2, this.value)"> No
-                    </label>
+
+                    <div>
+                        <input type="radio" id="yes" name="plants" value="yes" onclick="saveAnswer(2, this.value)">
+                        <label for="yes">Yes</label>
+                    
+                        <input type="radio" id="no" name="plants" value="no" onclick="saveAnswer(2, this.value)">
+                        <label for="no">No</label>
+                    </div>
+                    
                 </section>
             
                 <section id="question-3" class="question">
                     <h2>How much time would you like to invest in plants?</h2>
-                    <input type="number" min="0" max="24" placeholder="Hours per week" oninput="saveAnswer(3, this.value)">
+
+                    <div>
+                        <input type="number" min="0" max="24" placeholder="Hours per week" oninput="saveAnswer(3, this.value)">
+                    </div>
                 </section>
             
                 <section id="question-4" class="question">
                     <h2>How much money would you like to invest in plants?</h2>
-                    <select onchange="saveAnswer(4, this.value)">
-                        <option value="low">Less than €10</option>
-                        <option value="medium">€10 - €50</option>
-                        <option value="high">More than €50</option>
-                    </select>
+
+                    <div>
+                        <select onchange="saveAnswer(4, this.value)">
+                            <option value="low">Less than €10</option>
+                            <option value="medium">€10 - €50</option>
+                            <option value="high">More than €50</option>
+                        </select>
+                    </div>
                 </section>
             
                 <section id="question-5" class="question">
                     <h2>How big do you want your plant to be?</h2>
-                    <input type="text" placeholder="Small, Medium, Large" oninput="saveAnswer(5, this.value)">
+
+                    <div>
+                        <input type="text" placeholder="Small, Medium, Large" oninput="saveAnswer(5, this.value)">
+                    </div>
                 </section>
             
                 <div class="nav-buttons">
