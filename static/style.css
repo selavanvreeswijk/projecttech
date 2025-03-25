@@ -75,6 +75,7 @@ body{
     background: var(--color-background);
     height: 100vh;
     background-attachment: fixed; 
+    overflow-y: auto;
 }
 
 
@@ -83,27 +84,26 @@ a{
 }
 
 /* styling for svg icons */
-.cls-1, .cls-2 {
+.cls-1, .cls-2{
     stroke: var(--color-lines);
     fill: var(--color-icons-not-filled);
-
 }
 
-.icons {
+
+.icons{
     width: 1.5em;
     align-self: center;
     overflow: visible;
-    
-
 }
 
-.hidden {
+
+.hidden{
     display: none;
 }
 
 /* styling voor zowel favorieten als resultaten */
 
-.radio-container {
+.radio-container{
     display: grid;
     grid-template-columns: 1.66em 1.66em 1fr 1.66em 1.66em;
     grid-auto-flow: column;
@@ -113,7 +113,7 @@ a{
 }
 
 
-input[type="radio"] {
+input[type="radio"]{
     display: none; /* Verbergt de standaard radio button */
 }
 
@@ -127,12 +127,11 @@ ul.list-view{
 
 ul.list-view li{
     list-style-type: none;
-    
 }
 
 
 /* grid-view template */
-ul.grid-view {
+ul.grid-view{
     display: grid;
     grid-gap: var(--white-space);
     margin: 0 1em;
@@ -141,10 +140,9 @@ ul.grid-view {
 }
 
 
-ul.grid-view li {
+ul.grid-view li{
     grid-template-columns: 1fr;
     list-style-type: none;
-
 }
 
 
@@ -157,11 +155,10 @@ ul.grid-view li {
     grid-column: 4 / 5;
 
     background: var(--color-list-icon);
-
 }
 
 
-.custom-radio-list:has(input:checked) {
+.custom-radio-list:has(input:checked){
     background: var(--color-logo);
 }
 
@@ -175,7 +172,6 @@ ul.grid-view li {
     width: 1.66em;
     height: 1.36em;
     gap: .2em;
-    
 }
 
 
@@ -185,16 +181,15 @@ ul.grid-view li {
     border-radius: .1em;
     background: var(--color-background-inputfield);
     border: .07em solid var(--color-lines);
-
 }
 
 
-.custom-radio-grid:has(input:checked) span {
+.custom-radio-grid:has(input:checked) span{
     background: var(--color-logo);
 }
 
 
-.sort-options, .filter-button, .sort-btn {  
+.sort-options, .filter-button, .sort-btn{  
     height: 2em;
     width: 2em;
     background: var(--color-background-inputfield);
@@ -204,7 +199,7 @@ ul.grid-view li {
     
 }
 
-.sort-options {
+.sort-options{
     width: 8em;
     font-family: var(--font-Montserrat-light);
 }
