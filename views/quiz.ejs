@@ -134,13 +134,13 @@
 
             progress[value]::-webkit-progress-bar {
                 background-color: var(--color-background-inputfield); /* Achtergrondkleur */
-                border-radius: 10em;
-                border: .1em solid var(--color-lines);
+                border-radius: 1em;
+                border: .07em solid var(--color-lines);
             }
 
             progress[value]::-webkit-progress-value {
-            background-color: var(--color-footer-background); /* Kleur van de gevulde balk */
-            border-radius: 10em;
+                background: var(--color-footer-background); /* Kleur van de gevulde balk */
+                border-radius: 1em;
             }
 
             
@@ -262,30 +262,55 @@
                 } else {
                     prevButton.style.display = "inline-block";
                 }
+            };
+
+
+
+
+            // progressiebar 
+
+            const progressBars = document.querySelectorAll('progress');
+            const totalQuestions = questions.length;
+
+            function updateProgress(){
+                let progressPercentage = (currentQuestionIndex / (totalQuestions - 1)) * 100;
+
+                progressBars.forEach(progress => {
+                    progress.value = progressPercentage;
+                });
             }
+
 
             function nextQuestion(){
                 if (currentQuestionIndex < questions.length - 1) {
                     currentQuestionIndex++;
                     showQuestion(currentQuestionIndex);
+
+                    updateProgress();
                 }
-            }
+            };
 
             function prevQuestion(){
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
                     showQuestion(currentQuestionIndex);
+
+                    updateProgress();
                 }
-            }
+            };
 
             function saveAnswer(questionId, value){
                 answers[questionId] = value;
                 console.log(answers); 
-            }
+            };
+
 
             window.onload = () =>{
                 showQuestion(currentQuestionIndex);
-            }
+                updateProgress();
+            };
+
+
         </script>
     </body>
 </html>
