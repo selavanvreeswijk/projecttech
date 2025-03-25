@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html lang="en ">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
-    <link rel="stylesheet" href="/style.css">
+    <title>cards</title>
+    <link rel="stylesheet" href="/static/style.css">
 
-    <%- include('partials/header') %>   
+    <style>
 
+    </style>
 </head>
 
 <body>
     <main>
 
-        <h1 class="h1-small">Results</h1>
-
-        <!-- <div class="radio-container">
+        <div class="radio-container">
 
             <button id="filter-btn" class="filter-button">
                 <svg class="icons"  viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,50 +64,9 @@
                 <input type="radio" name="view" value="grid" id="view-grid">
             </label>
            
-        </div> -->
+        </div>
 
-
-        <ul class="list-view">
-            <!-- <% plants.forEach(plant => { %>
-                <li>
-                    <%- include('partials/cards-klein', { plant: plant }) %>
-                </li>
-            <% }) %> HET LUKT MIJ NIET HET WERKEND TE MAKEN -->
-
-
-             <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li>
-            <li>
-                <%- include('partials/cards-klein') %>
-            </li> 
-        </ul>
-      
     </main>
-
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
-
-
 
     <script src="/script.js" defer></script>
 </body>
