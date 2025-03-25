@@ -92,15 +92,19 @@ a{
 }
 
 
-.icons{
+.cls-1.active, .cls-2.active{
+    stroke: var(--color-icons-not-filled);
+}
+
+.icons {
     width: 1.5em;
     align-self: center;
     overflow: visible;
+
 }
 
-
-.hidden{
-    display: none;
+.hidden {
+    display: none !important;
 }
 
 /* styling voor zowel favorieten als resultaten */
@@ -112,6 +116,8 @@ a{
 
     column-gap: 1em;
     margin: 0 1em 1em 1em;
+
+    position: relative;
 }
 
 
@@ -156,7 +162,9 @@ ul.grid-view li{
 
     grid-column: 4 / 5;
 
-    background: var(--color-list-icon);
+    background: var(--color-background-inputfield);
+    border: .07em solid var(--color-lines);
+
 }
 
 
@@ -191,17 +199,61 @@ ul.grid-view li{
 }
 
 
-.sort-options, .filter-button, .sort-btn{  
-    height: 2em;
-    width: 2em;
+.filter-button, .sort-btn{
+    font-family: var(--font-Montserrat-light);
+    border: .08em solid var(--color-lines);
+    border-radius: .2em;
     background: var(--color-background-inputfield);
-    border: .1em solid var(--color-lines);
-    color: var(--color-tekst);
-    border-radius: .3em;
-    
+    height: 2em;
+
+    transition: .3s ease-in-out;
+
 }
 
-.sort-options{
-    width: 8em;
+.sort-options, .filter-options {
+    display: flex;
+    flex-direction: column; 
+    position: absolute;
+    width: max-content;
+
     font-family: var(--font-Montserrat-light);
+    border: none;
+    border-radius: .7em;
+    background: var(--color-background-inputfield);
+    padding: .5em;
+    position: relative;
+}
+
+
+.sort-options{
+    left: 2.66em;
+    height: auto;
+}
+
+
+.filter-options{
+    left: 0;
+    
+}
+#filter-options, #sort-options{
+    height: max-content;
+    width: 94.4%;
+    border: .08em solid var(--color-lines);
+    position: absolute;
+    top: 2.66em;
+    left: 0;
+
+}
+
+
+select{
+  font-family: var(--font-Montserrat-light);
+    background: var(--color-background-inputfield);
+    border: none;
+
+}
+
+
+.filter-button.active, .sort-btn.active{
+    background: var(--color-logo);
 }
