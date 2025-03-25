@@ -59,11 +59,14 @@ a{
 
 }
 
+.cls-1.active, .cls-2.active{
+    stroke: var(--color-icons-not-filled);
+}
+
 .icons {
     width: 1.5em;
     align-self: center;
     overflow: visible;
-    
 
 }
 
@@ -194,6 +197,8 @@ ul.grid-view li {
     border-radius: .2em;
     background: var(--color-background-inputfield);
 
+    transition: .3s ease-in-out;
+
 }
 
 .sort-options, .filter-options {
@@ -235,4 +240,9 @@ select{
     font-family: var(--font-Montserrat-light);
     background: var(--color-background-inputfield);
     border: none;
+}
+
+
+.filter-button.active, .sort-btn.active{
+    background: var(--color-logo);
 }

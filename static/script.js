@@ -29,63 +29,50 @@ function showInGrid() {
 }
 
 
-// sorteer en filtreer button
-// .hidden wordt aan/uit gezet
-
-// document.getElementById('sort-btn').addEventListener('click', function () {
-//     document.getElementById('sort-options').classList.toggle('hidden');
-// });
-
-// dropdown weg wanneer je hier buiten klikt
-
-// document.addEventListener('click', function (event){
-//     const sortOptions = document.getElementById('sort-options');
-//     const sortButton = document.getElementById('sort-btn');
-
-//     if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)){
-//         sortOptions.classList.add('hidden');
-//     }
-// });
-
-// document.getElementById('filter-btn').addEventListener('click', function () {
-//     document.getElementById('filter-options').classList.toggle('hidden');
-// });
-
-// document.addEventListener('click', function (event){
-//     const filterOptions = document.getElementById('filter-options');
-//     const filterButton = document.getElementById('filter-btn');
-
-//     if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)){
-//         filterOptions.classList.add('hidden');
-//     }
-// });
-
 
 const sortButton = document.getElementById('sort-btn');
 const sortOptions = document.getElementById('sort-options');
 const filterButton = document.getElementById('filter-btn');
 const filterOptions = document.getElementById('filter-options');
 
+const sortPaths = sortButton.querySelectorAll('svg path');
+const filterIcon = filterButton.querySelector('svg path');
+
+
 // Toggle voor sorteren
 sortButton.addEventListener('click', function (event) {
     event.stopPropagation();
     sortOptions.classList.toggle('hidden');
+    sortButton.classList.toggle('active');
+    sortPaths.forEach(path => path.classList.toggle('active')); 
+
     filterOptions.classList.add('hidden');
+    filterButton.classList.remove('active');
+    filterIcon.classList.remove('active');
 });
 
 // Toggle voor filteren
 filterButton.addEventListener('click', function (event) {
     event.stopPropagation();
     filterOptions.classList.toggle('hidden');
+    filterButton.classList.toggle('active');
+    filterIcon.classList.toggle('active'); 
+
     sortOptions.classList.add('hidden');
+    sortButton.classList.remove('active');
+    sortPaths.forEach(path => path.classList.remove('active'));
 });
 
 // Klik buiten een dropdown om deze te sluiten
 document.addEventListener('click', function (event) {
     if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)) {
         sortOptions.classList.add('hidden');
+        sortButton.classList.remove('active');
+        sortIcon.classList.remove('active'); 
     }
     if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)) {
         filterOptions.classList.add('hidden');
+        filterButton.classList.remove('active');
+        filterIcon.classList.remove('active');
     }
 });
