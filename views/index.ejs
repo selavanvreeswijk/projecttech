@@ -23,7 +23,7 @@
 
 
         a{
-            color: black; 
+            color: var(--color-tekst); 
             text-decoration: none;
             border-bottom: 0.05em solid var(--color-lines);
             width: 30em;
@@ -31,15 +31,35 @@
         }
 
 
-        h1, img, p{
-            padding-bottom: 1em;
+        h1{
+            margin-bottom: 3em;
+            font-size: 1em;
         }
+
+
+        img {
+            margin-bottom: 2em;
+        }
+
+        p{
+            margin-bottom: 3em;
+        }
+
+        .index {
+            margin: 0 1em;
+        }
+
+        .index a{
+            text-transform: uppercase;
+        }
+
+        
     </style>
 </head>
 
 <body>
 
-    <main>
+    <main class="index">
         <h1>Welcome to the PlantMatch!</h1>
 
         <img src="/img/logo-groen.png" alt="Logo">
