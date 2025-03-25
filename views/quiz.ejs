@@ -67,7 +67,7 @@
 
 
             .begin img{
-                width: 75vw;
+                width: 85vw;
             }
 
 
@@ -104,7 +104,7 @@
                 border: 0.09em solid var(--color-lines);
                 border-radius: 0.2em;
 
-                margin-left: 0.3em;
+                margin-left: 0.5em;
                 padding: 0.3em 0.9em;
                 transition: all 0.3s ease-in-out;
             }
@@ -119,6 +119,16 @@
                 border-color: var(--color-accent);
                 background: var(--color-accent-light);
                 color: white;
+            }
+
+            #question-3 div input{
+                padding: 0.5em 2em;
+            }
+
+            progress[value]{
+                color: var(90deg, --color-footer-background) 0/var(--w);
+                background: var( --color-background-inputfield);
+                border-radius: 10em;
             }
         </style>
     </head>
@@ -137,6 +147,8 @@
 
             <div class="questions">
                 <section id="question-1" class="question">
+                    <progress max="100" value="0">0%</progress> <!--Bron https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css-->
+
                     <h2>How much of a plant-expert are you?</h2>
 
                     <div>
@@ -147,6 +159,8 @@
                 </section>
             
                 <section id="question-2" class="question">
+                    <progress max="100" value="25">25%</progress>
+
                     <h2>Do you currently own plants?</h2>
 
                     <div>
@@ -159,14 +173,18 @@
                 </section>
             
                 <section id="question-3" class="question">
-                    <h2>How much time would you like to invest in plants?</h2>
+                    <progress max="100" value="50">50%</progress>
+
+                    <h2>How much time would you like to invest in plants per week?</h2>
 
                     <div>
-                        <input type="number" min="0" max="24" placeholder="Hours per week" oninput="saveAnswer(3, this.value)">
+                        <input type="number" min="0" max="24" placeholder="Hours" oninput="saveAnswer(3, this.value)">
                     </div>
                 </section>
             
                 <section id="question-4" class="question">
+                    <progress max="100" value="75">75%</progress>
+
                     <h2>How much money would you like to invest in plants?</h2>
 
                     <div>
@@ -177,8 +195,10 @@
                         </select>
                     </div>
                 </section>
-            
+    
                 <section id="question-5" class="question">
+                    <progress max="100" value="100">100%</progress>
+
                     <h2>How big do you want your plant to be?</h2>
 
                     <div>
