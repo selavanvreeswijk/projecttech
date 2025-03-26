@@ -19,9 +19,13 @@
         }
 
 
-        .nav-and-name a img{
+        .nav-and-name button img{
             width: 1.5em;
             height: 1.5em;
+        }
+
+        .nav-and-name button {
+            all: unset;
         }
 
 
@@ -183,9 +187,9 @@
         <article>
             <section class="nav-and-name">
 
-                <a href="/results">  <!--BACKEND, aan profiel toevoegen-->
+                <button onclick="history.back()">  <!--BACKEND, aan profiel toevoegen-->
                     <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
-                </a>
+                </button>
 
                 <h1 class="h1-small"><%= plants.commonName %></h1>
             </section>
@@ -271,8 +275,9 @@
             })
         })
 
+       // dit zou wel weg kunnen in principe, maar moeten we nog even checken voor de zekerheid
         document.addEventListener("DOMContentLoaded", function() {
-            const heart = document.querySelector("a"); // Selecteer de <a> tag met het hartje
+            const heart = document.querySelector("button"); // Selecteer de <a> tag met het hartje
     
             heart.addEventListener("click", function(event) {
                 event.preventDefault(); // Voorkom de standaardactie van de link
