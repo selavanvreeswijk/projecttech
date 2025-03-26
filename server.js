@@ -22,6 +22,24 @@ app.use(session({
   cookie: { maxAge: 1800000 }
 }));
 
+app.get('/profile', (req, res) => {
+  if (req.session.user) {
+    return res.redirect ('/dashboard');
+  } else {
+    return res.redirect('/log-in');
+  }
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log ('Uitloggen mislukt', err)
+      return res.redirect('/dashboard'); // Of toon een error
+    }
+  })
+  return res.redirect ('/log-in')
+})
+
 // MongoDB setup
 const client = new MongoClient(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`);
 let db;
@@ -192,3 +210,5 @@ async function checkAPI(url, options) {
     console.error(error);
   }
 }
+
+
