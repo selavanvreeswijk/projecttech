@@ -190,7 +190,7 @@
             border: 0.09em solid var(--color-lines);
             border-radius: 0.8em;
 
-            width: 40%;
+            width: 50%;
             padding: 0.3em 0.9em;
 
             display: block;
@@ -280,7 +280,7 @@
                 </div>
             </div>
 
-            <button>Add to favorites</button> <!--BACKEND, nog linken aan account gebruiker-->
+            <button id="share-button">Share with friends</button> 
         </article>
     </main>
 
@@ -348,6 +348,20 @@
             }
 
             lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
+        })
+
+        // button delen met vrienden
+        document.getElementById("share-button").addEventListener("click", function (){ // Bron: hier heeft chatGPT bij geholpen
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: "Check this plant!",
+                    url: window.location.href
+                })
+                .catch((error) => console.log("Error sharing", error));
+            } else {
+                alert("Sharing is not supported on your device.");
+            }
         })
     </script>
 </body>
