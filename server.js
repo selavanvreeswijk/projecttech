@@ -60,7 +60,6 @@ async function updatePlantsCache() {
 }
 
 updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
-
 setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
 
 app
@@ -172,7 +171,7 @@ async function onRegisterPost(req, res) {
         redirect: '/register' });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
-  await db.collection('users').insertOne({ username, password: hashedPassword });
+  await db.collection('users').insertOne({ username, password: hashedPassword, favplant: [] });
   res.redirect('/log-in');
 }
 
