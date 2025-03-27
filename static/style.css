@@ -156,6 +156,15 @@ ul.grid-view li{
 }
 
 
+ul.list-view article div {
+    height: 3em;
+}
+
+/* Grotere hoogte voor grid-view */
+ul.grid-view article div {
+    height: 4em;
+}
+
 /* styling radio buttons */
 .custom-radio-list{
     width: 1.66em;

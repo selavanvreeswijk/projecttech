@@ -9,36 +9,42 @@
     <style>
         article{
             display: grid;
-            grid-template-rows: 10em 1fr;
+            grid-template-rows: auto 1fr;
 
             width: 100%;
-            height: fit-content;
+            height: 100%;
 
             background: var(--color-background-inputfield);
             border-radius: .7em;
             border: .08em solid var(--color-lines);
+
+            box-sizing: border-box;
             
         }
 
 
         article div{
-            display: grid;
-            grid-template-columns: 1fr 1.5em;
-            width: 100%;
-            height: fit-content;
+            display: flex;
             justify-content: space-between;
-            align-self: center;
-            grid-row: 2 / 3;
+            align-items: center;
+
+            width: 100%;
+            height: 3em;
+            padding: .5em;
+            gap: .5em;
+            box-sizing: border-box;
+            
         }
-
-
         
-        h3{
+        .h3-cards {
             color: var(--color-tekst);
             text-transform: uppercase;
             font-size: .7em;
 
-            margin-left: .5em;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            word-break: break-all;
+
             align-self: center;
         }
 
@@ -50,7 +56,7 @@
         article a > img{
             width: 100%;
             grid-row: 1 / 2;
-            height: 8em;
+            height: 10em;
             order: -1;
 
             object-fit: cover;
@@ -68,7 +74,6 @@
             stroke: var(--color-lines);
 
             width: 1.2em;
-            margin-right: .5em;
         }
        
 
@@ -82,7 +87,7 @@
             <a href="/plant/<%=plant.id%>">
             <div>
 
-                <h3><%= plant['Common name'] %> </h3>
+                <h3 class="h3-cards"><%= plant['Common name'] %> </h3>
 
                 <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
                 
