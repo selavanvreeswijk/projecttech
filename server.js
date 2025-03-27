@@ -171,7 +171,7 @@ async function onDashboard(req, res) {
 
 async function onLoginPost(req, res) {
   const { username, password } = req.body;
-  const user = await db.collection('users').findOne({ username });
+  const user = await db.collection('users').findOne({ _id: new ObjectId(username) });
   
   if (user && await bcrypt.compare(password, user.password)) {
     req.session.user = { 
