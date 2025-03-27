@@ -242,9 +242,9 @@
                             </li>
                            
                             <li>
-                                <img src="/img/sun.svg" alt="Sun icon">
-                                <p><%= plants.idealLight %></p> <!--Bron https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun--> <!--If else statement van maken-->
-                            </li>
+                                <img class="light-icon" src="/img/sun.svg" alt="Sun icon">
+                                <p class="light-text"><%= plants.idealLight %></p> <!--Bron https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun--> <!--If else statement van maken-->
+                            </li>                      
     
                             <li>
                                 <img src="/img/gieter.svg" alt="Plant waterer icon">
@@ -324,6 +324,22 @@
                 })
             }, 2500)
         })
+
+        // veel, weinig of gemiddeld licht 
+        document.addEventListener("DOMContentLoaded", function (){
+
+        const lightIcon = document.querySelector(".light-icon")
+        const lightText = document.querySelector(".light-text").textContent
+
+        let imgSrc = "/img/sun.svg"; 
+        if (lightText === "Low light") {
+            imgSrc = "/img/cloud.svg" // Bron https://www.iconfinder.com/search?q=cloud
+        } else if (lightText === "Medium light") {
+            imgSrc = "/img/cloud-and-sun.svg" // Bron https://www.flaticon.com/free-icon/clouds-and-sun_3443317
+        }
+
+        lightIcon.src = imgSrc;
+    })
     </script>
 </body>
 </html>
