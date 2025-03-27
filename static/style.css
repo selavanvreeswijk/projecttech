@@ -143,8 +143,10 @@ ul.grid-view{
     display: grid;
     grid-gap: var(--white-space);
     margin: 0 1em;
+    grid-template-columns: calc((100% - var(--white-space)) / 2) 
+                           calc((100% - var(--white-space)) / 2);
 
-    grid-template-columns:1fr 1fr;
+
 }
 
 
