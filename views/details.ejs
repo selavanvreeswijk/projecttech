@@ -9,6 +9,27 @@
     <%- include('partials/header') %>    
 
     <style>
+        /* loading icon */
+        .loading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 9em;
+        }
+
+        
+        .loading img{
+            width: 15em;
+            height: 15em;
+        }
+
+
+        .hidden{
+            display: none;
+        }
+
+
         .nav-and-name{
             display: flex;
             flex-direction: row;
@@ -24,6 +45,7 @@
             height: 1.5em;
         }
 
+        
         .nav-and-name button {
             all: unset;
         }
@@ -35,7 +57,7 @@
         } */
 
 
-        .picture{ /* div:first-of-type werkt niet want dan pakt hij de header mee */
+        .picture{ 
             position: relative;
 
             display: flex;
@@ -51,21 +73,19 @@
         } 
 
 
-        .favorite-btn{
+        .favorite-button{
             display: flex;
             align-items: center;
             justify-content: center;
 
             position: absolute;
 
-            bottom: 1.5em;
-            right: 1.5em; 
-
-            all: unset;
+            bottom: 1.2em;
+            right: 1.2em; 
         }
 
 
-        .favorite-btn svg{
+        .favorite-button svg{
             width: 2em; 
             height: 2em;
         }
@@ -75,11 +95,6 @@
             display: flex;
             flex-direction: column;
             margin: 0 1em;
-        }
-
-        
-        svg{  
-            position: absolute;
         }
 
 
@@ -163,7 +178,7 @@
         }
 
 
-        article button{
+        #share-button{
             background: var(--color-background-inputfield);
 
             border: 0.09em solid var(--color-lines);
@@ -181,14 +196,16 @@
 </head>
 
 <body>
-    <main>
+    <div class="loading">
+        <img src="/img/loading.gif" alt="Loading gif"> <!--Bron https://giphy.com/stickers/sticker-plant-grow-fnTxHzv7wCEPo18uDg-->
+    </div>
 
+    <main class="hidden">
         
         <article>
             <section class="nav-and-name">
-
-                <button onclick="history.back()">  <!--BACKEND, aan profiel toevoegen-->
-                    <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
+                <button onclick="history.back()">
+                    <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
                 </button>
 
                 <h1 class="h1-small"><%= plants.commonName %></h1>
@@ -198,7 +215,7 @@
                 <div class="picture">
                     <img src="<%= plants.img %>" alt="Picture of plant">
     
-                    <button class="favorite-btn" data-id="<%= plants.id %>">
+                    <button class="favorite-button" data-id="<%= plants.id %>">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
                         
                             <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
@@ -218,9 +235,9 @@
                             </li>
                            
                             <li>
-                                <img src="/img/sun.svg" alt="Sun icon">
-                                <p><%= plants.idealLight %></p> <!--Bron https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun--> <!--If else statement van maken-->
-                            </li>
+                                <img class="light-icon" src="/img/sun.svg" alt="Sun icon">
+                                <p class="light-text"><%= plants.idealLight %></p> <!--Bron https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun--> <!--If else statement van maken-->
+                            </li>                      
     
                             <li>
                                 <img src="/img/gieter.svg" alt="Plant waterer icon">
@@ -243,18 +260,24 @@
                         </h3>
                         <div class="content">
                             <p>Plant growth: <%= plants.growth %></p>
-                            <p>Potential height: <%= plants.heightPotential.CM %>cm</p>
                             <p>Max. temp: <%= plants.tempMax.C %>°C</p>
+
+                            <!--Nieuw-->
+                            <p>Style: <%= plants.style %></p>
+                            <p>Color of leaf: <%= plants.colorLeaf %></p>
+                            <p>Color blooms: <%= plants.colorBlooms %></p>
+                            <p>Min. temp: <%= plants.minTemp %>°C</p>
+                            <p>Price: <%= plants.price %></p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <button>Add to favorites</button> <!--BACKEND, nog linken aan account gebruiker-->
+            <button id="share-button">Share</button> 
         </article>
     </main>
 
-    <footer>
+    <footer class="hidden">
         <%- include('partials/footer') %> 
     </footer>
 
@@ -284,9 +307,55 @@
                 
                 // Toggle de 'clicked' class om de kleur van het hartje te veranderen
                 heart.classList.toggle("clicked");
-            });
-        });
+            })
+        })
 
+        // loading gif
+        window.addEventListener("load", function (){
+            const loading = document.querySelector(".loading")
+            const content = document.querySelectorAll("main, footer")
+
+            setTimeout(() => {
+                loading.style.display = "none"
+
+                content.forEach(section => {
+                    section.classList.remove("hidden")
+                })
+            }, 2500)
+        })
+
+        // veel, weinig of gemiddeld licht 
+        document.addEventListener("DOMContentLoaded", function (){
+            const lightIcon = document.querySelector(".light-icon")
+            const lightTextElement = document.querySelector(".light-text")
+
+            if (!lightIcon || !lightTextElement) return // Versimpelen van de waarde die uit de API komt
+
+            const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Hier heeft chatGPT bij geholpen
+            lightTextElement.textContent = simplifiedLightText; 
+
+            const icons = {
+                "Low light": "/img/cloud.svg",
+                "Medium light": "/img/cloud-and-sun.svg",
+                "Strong light": "/img/sun.svg"
+            }
+
+            lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
+        })
+
+        // button delen met vrienden
+        document.getElementById("share-button").addEventListener("click", function (){ // Bron: hier heeft chatGPT bij geholpen
+            if (navigator.share) {
+                navigator.share({
+                    title: document.title,
+                    text: "Check this plant!",
+                    url: window.location.href
+                })
+                .catch((error) => console.log("Error sharing", error));
+            } else {
+                alert("Sharing is not supported on your device.");
+            }
+        })
     </script>
 </body>
 </html>
