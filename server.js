@@ -172,8 +172,12 @@ async function onDashboard(req, res) {
 async function onLoginPost(req, res) {
   const { username, password } = req.body;
   const user = await db.collection('users').findOne({ username });
+  
   if (user && await bcrypt.compare(password, user.password)) {
-    req.session.user = { username: user.username };
+    req.session.user = { 
+      _id: user._id.toString(),
+      username: user.username 
+    };
     return res.redirect('/dashboard');
   }
   res.render('error', { 
@@ -216,5 +220,28 @@ app.post('/add-favorite', async (req, res) => {
     return res.status(401).json({ succes: false, message: 'You need to be logged in to add favorites'})
   }
 
-  const userId = req.session.user.username
+  const userId = req.session.user._id;
+  const { plantId } = req.body;
+
+  try {
+    const userObjectId = new ObjectId(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if(!user) {
+      return res.status(404).json({ succes: false, message: "No user found"})
+    }
+
+    if(user.favplant.includes(plantId)) {
+      return res.json({ succes:false, mesage:"Plant is already in your favorites!"})
+    }
+
+    await db.collection('users').updateOne(
+      { _id:userObjectId},
+      { $push: {favplant: plantId}}
+    );
+
+    res.json({success: true, message:"Plant added to favorites!"})
+  } catch (error) {
+    console.error("Error with adding to favorites:", error);
+  }
 })
