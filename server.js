@@ -124,6 +124,7 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
+    console.log(cachedPlants)
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Fout bij ophalen API:", error);
@@ -146,15 +147,13 @@ async function onDetail(req, res) {
       growth: plants.Growth,
       tempMax: plants['Temperature max'],
       watering: plants.Watering,
-
-      // Nog koppelen
-      use: plants.use,
-      style: plants.style,
-      colorOfLeaf: plants.colorLeaf,
-      colorOfBlooms: plants.colorBlooms,
-      minTemp: plants.minTemp,
-      price: plants.price
+      use: plants.Use,
+      style: plants.Style,
+      colorOfLeaf: plants['Color of leaf'],
+      colorOfBlooms: plants['Color of blooms'],
+      minTemp: plants['Temperature min'],
     };
+    console.log(detailPlant)
     res.render('details', { plants: detailPlant });
   } catch (error) {
     console.error("Error with API", error);
