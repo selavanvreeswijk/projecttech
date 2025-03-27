@@ -1,202 +1,213 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser'); // quiz 
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const { MongoClient, ObjectId } = require('mongodb');
+const bcrypt = require('bcryptjs');
 
-require('dotenv/config');
+// Middleware
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static('static')); // Voor afbeeldingen en bestaande project
+app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
+app.use(bodyParser.json());
 
-//API variabelen die te gebruiken zijn:
-const apiKey = process.env.API_KEY
-const allUrl = 'https://house-plants2.p.rapidapi.com/all';
-const options = {
-    method: 'GET',
-    headers: {
-        'x-rapidapi-key': apiKey,
-        'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
+// Sessions
+app.use(session({
+  secret: 'a3d7f8b9c10e2f4d5a6b7c8d9e0f1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1800000 }
+}));
+
+app.get('/profile', (req, res) => {
+  if (req.session.user) {
+    return res.redirect ('/dashboard');
+  } else {
+    return res.redirect('/log-in');
+  }
+});
+
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log ('Uitloggen mislukt', err)
+      return res.redirect('/dashboard'); // Of toon een error
     }
-};
-
-
-//EJS
-app.set('view engine', 'ejs')
-app.set('views', 'views') 
-app.use(express.static('static')); // voor afbeeldingen
-
-app
-    .get('/', onHome)
-    .get('/quiz', onQuiz)
-    .get('/favorites', onFavorites)
-    .get('/results', onResults)
-    .get('/plant/:plantId', onDetail)
-    .get('/log-in', onLogIn)
-    .get('/register', onRegister)
-
-    .listen(9000, () => {
-        console.log('Server is running on http://localhost:9000');
+  })
+  return res.redirect ('/log-in')
 })
 
-async function onHome(req, res) {
+// MongoDB setup
+const client = new MongoClient(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`);
+let db;
+
+client.connect()
+  .then(() => {
+    console.log('✅ Verbonden met MongoDB');
+    db = client.db(process.env.DB_NAME);
+  })
+  .catch(err => console.log('❌ Database fout:', err));
+
+// API setup
+const apiKey = process.env.API_KEY;
+const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+const options = {
+  method: 'GET',
+  headers: {
+    'x-rapidapi-key': apiKey,
+    'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
+  }
+};
+
+let userAnswers = {};
+let cachedPlants = [];
+
+async function updatePlantsCache() {
     try {
         const response = await fetch(allUrl, options);
-        const plants = await response.json();
+        const data = await response.json();
 
-        res.render('index', { plants: plants }); //stuur de data van de api naar ejs bestand
+        cachedPlants = data;
 
-    
     } catch (error) {
-        console.error("Fout bij ophalen API:", error);
+        console.error("Fout bij ophalen van planten:", error);
     }
-    
-    console.log('Server is running on http://localhost:9000');
 }
 
-// -------------------------quiz---------------------------------
+updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
+setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
+
+app
+  .get('/', onHome)
+  .get('/quiz', onQuiz)
+  .get('/favorites', onFavorites)
+  .get('/results', onResults)
+  .get('/plant/:plantId', onDetail)
+  .get('/log-in', onLogIn)
+  .get('/register', onRegister)
+  .get('/dashboard', onDashboard)
+  .post('/log-in', onLoginPost)
+  .post('/register', onRegisterPost)
+  .post('/save-answer', onSaveAnswer)
+  .listen(process.env.PORT || 9000, () => {
+    console.log(`Server draait op http://localhost:${process.env.PORT || 9000}`);
+  });
+
+
+
+async function onHome(req, res) {
+  try {
+    res.render('index', { plants: cachedPlants });
+  } catch (error) {
+    console.error("Fout bij ophalen API:", error);
+  }
+}
 
 async function onQuiz(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
-
-        res.render('quiz', { plants: plants }); //stuur de data van de api naar ejs bestand
-    
-    } catch (error) {
-        console.error("Fout bij ophalen API:", error);
-    }
-    
-    console.log('Server is running on http://localhost:9000/quiz');
-}
-
-app.use(express.static('public')); // quiz test
-app.use(bodyParser.json()); // quiz test
-
-let userAnswers = {}; // quiz test
-
-app.post('/save-answer', (req, res) => { // quiz test
-    const { questionId, answer } = req.body;
-    userAnswers[questionId] = answer;
-    res.json({ success: true });
-}); 
-
-// -------------------------quiz---------------------------------
-
-async function onResults(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
-
-        res.render('results', {plants: plants }); //stuur de data van de api naar ejs bestand - PLAATS DIT NA 'results': , { plants: cardPlant }
-    
-    } catch (error) {
-        console.error("Fout bij ophalen API:", error);
-    } 
-
-    console.log('Server is running on http://localhost:9000/results');
+  try {
+    res.render('quiz', { plants: cachedPlants });
+  } catch (error) {
+    console.error("Fout bij ophalen API:", error);
+  }
 }
 
 async function onFavorites(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
-
-        res.render('favorites', { plants: plants }); //stuur de data van de api naar ejs bestand
-    
-    } catch (error) {
-        console.error("Fout bij ophalen API:", error);
-    }  
-    console.log('Server is running on http://localhost:9000/favorites');
+  try {
+    res.render('favorites', { plants: cachedPlants });
+  } catch (error) {
+    console.error("Fout bij ophalen API:", error);
+  }
 }
 
+async function onResults(req, res) {
+  try {
+    res.render('results', { plants: cachedPlants });
+  } catch (error) {
+    console.error("Fout bij ophalen API:", error);
+  }
+}
 
 async function onDetail(req, res) {
-    const plantId = req.params.plantId; //als een gebruiker klikt op een plant uit resultatenlijst, wordt het id hierdoor opgehaald en in de url hieronder geplaatst
-    const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
-
-    try {
-
-        const response = await fetch(detailUrl, options);
-        const plants = await response.json();
-      
-        const detailPlant = {
-            category: plants.Categories,
-            img: plants.Img,
-            commonName: plants['Common name'],
-            heightPurchase: plants['Height at purchase'],
-            idealLight: plants['Light ideal'],
-            id: plants.id,
-            growth: plants.Growth,
-            heightPotential: plants['Height potential'],
-            tempMax: plants['Temperature max'],
-            watering: plants.Watering
-        }
-
-        res.render('details', { plants: detailPlant }); //stuur de data van de api naar ejs bestand
-    }
-    catch (error) {
-        console.error("Error with API", error)
-    }
+  const plantId = req.params.plantId;
+  const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
+  try {
+    const response = await fetch(detailUrl, options);
+    const plants = await response.json();
+    const detailPlant = {
+      category: plants.Categories,
+      img: plants.Img,
+      commonName: plants['Common name'],
+      heightPurchase: plants['Height at purchase'],
+      idealLight: plants['Light ideal'],
+      id: plants.id,
+      growth: plants.Growth,
+      heightPotential: plants['Height potential'],
+      tempMax: plants['Temperature max'],
+      watering: plants.Watering
+    };
+    res.render('details', { plants: detailPlant });
+  } catch (error) {
+    console.error("Error with API", error);
+  }
 }
 
 async function onLogIn(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
-
-        res.render('log-in', { plants: plants }); //stuur de data van de api naar ejs bestand
-    } catch (error) {
-        console.error("Fout bij ophalen API:", error);
-    }
-    
-    console.log('Server is running on http://localhost:9000/log-in');
+  res.render('log-in');
 }
-
 
 async function onRegister(req, res) {
-    try {
-        const response = await fetch(allUrl, options);
-        const plants = await response.json();
-
-        res.render('register', { plants: plants }); //stuur de data van de api naar ejs bestand
-    } catch (error) {
-        console.error("Fout bij ophalen API:", error);
-    }
-    
-    console.log('Server is running on http://localhost:9000/register');
+  res.render('register');
 }
 
-async function onDetails(req, res) {
-    const plantId = req.params.id; // Haal de plant-ID op uit de URL
-    const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantID}`;
-
-    try {
-        const response = await fetch(detailUrl, options);
-        const plant = await response.json();
-
-        if (!plant) {
-            return res.status(404).send("Could not find plant");
-        }
-
-        res.render('details', { plant }); //stuur de data van de api naar ejs bestand
-
-    } catch (error) {
-        console.error("Error with API:", error);
-        res.status(500).send("An error has occurred.");
-    }
-
-    console.log('Server is running on http://localhost:9000/details');
+async function onDashboard(req, res) {
+  if (!req.session.user) {
+    return res.redirect('/log-in');
+  }
+  res.render('dashboard', { username: req.session.user.username });
 }
 
-
-// checken of API werkt, hij laat ALLE planten zien:
-async function checkAPI(url, options){
-    try {
-        const response = await fetch(allUrl, options);
-        const result = await response.json();
-    
-    // haal de '//' weg als je alle planten wilt zien   
-        console.log(result);
-    } catch (error) {
-        console.error(error);
-    }
+async function onLoginPost(req, res) {
+  const { username, password } = req.body;
+  const user = await db.collection('users').findOne({ username });
+  if (user && await bcrypt.compare(password, user.password)) {
+    req.session.user = { username: user.username };
+    return res.redirect('/dashboard');
+  }
+  res.render('error', { 
+    message: 'Ongeldige gebruikersnaam of wachtwoord',
+    redirect: '/log-in' });
 }
 
-// checkAPI(allUrl, options)
+async function onRegisterPost(req, res) {
+  const { username, password, confirmPassword } = req.body;
+  if (password !== confirmPassword) {
+    return res.render('error', { 
+        message: 'Wachtwoorden komen niet overeen!',
+        redirect: '/register' });
+  }
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await db.collection('users').insertOne({ username, password: hashedPassword, favplant: [] });
+  res.redirect('/log-in');
+}
+
+function onSaveAnswer(req, res) {
+  const { questionId, answer } = req.body;
+  userAnswers[questionId] = answer;
+  res.json({ success: true });
+}
+
+// Optional API check
+async function checkAPI(url, options) {
+  try {
+    const response = await fetch(allUrl, options);
+    const result = await response.json();
+    // console.log(result); // uncomment voor debuggen
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
