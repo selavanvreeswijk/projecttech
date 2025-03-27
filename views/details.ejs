@@ -9,6 +9,26 @@
     <%- include('partials/header') %>    
 
     <style>
+        .loading{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-top: 9em;
+        }
+
+        
+        .loading img{
+            width: 15em;
+            height: 15em;
+        }
+
+
+        .hidden{
+            display: none;
+        }
+
+
         .nav-and-name{
             display: flex;
             flex-direction: row;
@@ -24,6 +44,7 @@
             height: 1.5em;
         }
 
+        
         .nav-and-name button {
             all: unset;
         }
@@ -181,14 +202,17 @@
 </head>
 
 <body>
-    <main>
+    <div class="loading">
+        <img src="/img/loading.gif" alt="Loading gif"> <!--Bron https://giphy.com/stickers/sticker-plant-grow-fnTxHzv7wCEPo18uDg-->
+    </div>
 
+    <main class="hidden">
         
         <article>
             <section class="nav-and-name">
 
                 <button onclick="history.back()">  <!--BACKEND, aan profiel toevoegen-->
-                    <img src="/img/arrow-left.svg" alt="Icon arrow left"></li> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
+                    <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Bron https://www.iconfinder.com/search?q=arrow+left -->
                 </button>
 
                 <h1 class="h1-small"><%= plants.commonName %></h1>
@@ -254,7 +278,7 @@
         </article>
     </main>
 
-    <footer>
+    <footer class="hidden">
         <%- include('partials/footer') %> 
     </footer>
 
@@ -284,9 +308,22 @@
                 
                 // Toggle de 'clicked' class om de kleur van het hartje te veranderen
                 heart.classList.toggle("clicked");
-            });
-        });
+            })
+        })
 
+        // loading gif
+        window.addEventListener("load", function (){
+            const loading = document.querySelector(".loading")
+            const content = document.querySelectorAll("main, footer")
+
+            setTimeout(() => {
+                loading.style.display = "none"
+
+                content.forEach(section => {
+                    section.classList.remove("hidden")
+                })
+            }, 2500)
+        })
     </script>
 </body>
 </html>
