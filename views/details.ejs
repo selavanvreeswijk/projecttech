@@ -333,19 +333,22 @@
 
         // veel, weinig of gemiddeld licht 
         document.addEventListener("DOMContentLoaded", function (){
+            const lightIcon = document.querySelector(".light-icon")
+            const lightTextElement = document.querySelector(".light-text")
 
-        const lightIcon = document.querySelector(".light-icon")
-        const lightText = document.querySelector(".light-text").textContent
+            if (!lightIcon || !lightTextElement) return // Versimpelen van de waarde die uit de API komt
 
-        let imgSrc = "/img/sun.svg"; 
-        if (lightText === "Low light") {
-            imgSrc = "/img/cloud.svg" // Bron https://www.iconfinder.com/search?q=cloud
-        } else if (lightText === "Medium light") {
-            imgSrc = "/img/cloud-and-sun.svg" // Bron https://www.flaticon.com/free-icon/clouds-and-sun_3443317
-        }
+            const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Hier heeft chatGPT bij geholpen
+            lightTextElement.textContent = simplifiedLightText; 
 
-        lightIcon.src = imgSrc;
-    })
+            const icons = {
+                "Low light": "/img/cloud.svg",
+                "Medium light": "/img/cloud-and-sun.svg",
+                "Strong light": "/img/sun.svg"
+            }
+
+            lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
+        })
     </script>
 </body>
 </html>
