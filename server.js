@@ -144,9 +144,16 @@ async function onDetail(req, res) {
       idealLight: plants['Light ideal'],
       id: plants.id,
       growth: plants.Growth,
-      heightPotential: plants['Height potential'],
       tempMax: plants['Temperature max'],
-      watering: plants.Watering
+      watering: plants.Watering,
+
+      // Nog koppelen
+      use: plants.use,
+      style: plants.style,
+      colorOfLeaf: plants.colorLeaf,
+      colorOfBlooms: plants.colorBlooms,
+      minTemp: plants.minTemp,
+      price: plants.price
     };
     res.render('details', { plants: detailPlant });
   } catch (error) {
