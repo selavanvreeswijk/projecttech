@@ -33,7 +33,7 @@ app.get('/profile', (req, res) => {
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.log ('Uitloggen mislukt', err)
+      console.log ('Logout failed:', err)
       return res.redirect('/dashboard'); // Of toon een error
     }
   })
@@ -46,10 +46,10 @@ let db;
 
 client.connect()
   .then(() => {
-    console.log('✅ Verbonden met MongoDB');
+    console.log('✅ Connected with MongoDB');
     db = client.db(process.env.DB_NAME);
   })
-  .catch(err => console.log('❌ Database fout:', err));
+  .catch(err => console.log('❌ Database error:', err));
 
 // API setup
 const apiKey = process.env.API_KEY;
@@ -73,7 +73,7 @@ async function updatePlantsCache() {
         cachedPlants = data;
 
     } catch (error) {
-        console.error("Fout bij ophalen van planten:", error);
+        console.error("Error while retrieving plants:", error);
     }
 }
 
@@ -93,7 +93,7 @@ app
   .post('/register', onRegisterPost)
   .post('/save-answer', onSaveAnswer)
   .listen(process.env.PORT || 9000, () => {
-    console.log(`Server draait op http://localhost:${process.env.PORT || 9000}`);
+    console.log(`Server is runnning on http://localhost:${process.env.PORT || 9000}`);
   });
 
 
@@ -102,7 +102,7 @@ async function onHome(req, res) {
   try {
     res.render('index', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
@@ -110,7 +110,7 @@ async function onQuiz(req, res) {
   try {
     res.render('quiz', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
@@ -118,7 +118,7 @@ async function onFavorites(req, res) {
   try {
     res.render('favorites', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
@@ -126,7 +126,7 @@ async function onResults(req, res) {
   try {
     res.render('results', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
@@ -177,7 +177,7 @@ async function onLoginPost(req, res) {
     return res.redirect('/dashboard');
   }
   res.render('error', { 
-    message: 'Ongeldige gebruikersnaam of wachtwoord',
+    message: 'Invalid username or password',
     redirect: '/log-in' });
 }
 
@@ -185,7 +185,7 @@ async function onRegisterPost(req, res) {
   const { username, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
     return res.render('error', { 
-        message: 'Wachtwoorden komen niet overeen!',
+        message: 'Password do not match!',
         redirect: '/register' });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -210,4 +210,11 @@ async function checkAPI(url, options) {
   }
 }
 
+//add to fav
+app.post('/add-favorite', async (req, res) => {
+  if (!req.session.user) { // checken of gebruiker is ingelogd
+    return res.status(401).json({ succes: false, message: 'You need to be logged in to add favorites'})
+  }
 
+  const userId = req.session.user.username
+})
