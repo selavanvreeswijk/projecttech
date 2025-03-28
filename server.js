@@ -149,7 +149,7 @@ async function onDetail(req, res) {
       watering: plants.Watering,
       use: plants.Use,
       colorOfLeaf: plants['Color of leaf'],
-      minTemp: plants['Temperature min']
+      minTemp: plants['Temperature min'],
     };
     console.log(detailPlant)
     res.render('details', { plants: detailPlant });
