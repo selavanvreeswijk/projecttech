@@ -258,12 +258,13 @@
                             </span>
                             See more categories
                         </h3>
+
                         <div class="content">
-                            <p>Color of leaf: <%= plants.colorOfLeaf%></p>
-                            <p>Plant growth: <%= plants.growth %></p>
-                            <p>Max. temp: <%= plants.tempMax.C %>°C</p>
                             <p>Min. temp: <%= plants.minTemp.C%>°C</p>
-                            <p>Use: <%= plants.use %></p>
+                            <p>Max. temp: <%= plants.tempMax.C %>°C</p>
+                            <p class="use">Use: <%= plants.use %></p>
+                            <p>Plant growth: <%= plants.growth %></p>
+                            <p class="color-of-leaf">Color of leaf: <%= plants.colorOfLeaf%></p>
                         </div>
                     </div>
                 </div>
@@ -278,7 +279,8 @@
     </footer>
 
     <script>
-       document.addEventListener("DOMContentLoaded", function (){
+        // animatie drop down
+        document.addEventListener("DOMContentLoaded", function (){
             const drop = document.querySelector(".drop");
             const content = document.querySelector(".content");
             const arrow = document.querySelector(".arrow img");
@@ -294,7 +296,7 @@
             })
         })
 
-       // dit zou wel weg kunnen in principe, maar moeten we nog even checken voor de zekerheid
+        // dit zou wel weg kunnen in principe, maar moeten we nog even checken voor de zekerheid
         document.addEventListener("DOMContentLoaded", function() {
             const heart = document.querySelector("button"); // Selecteer de <a> tag met het hartje
     
@@ -327,7 +329,7 @@
 
             if (!lightIcon || !lightTextElement) return // Versimpelen van de waarde die uit de API komt
 
-            const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Hier heeft chatGPT bij geholpen
+            const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Bron: https://www.w3schools.com/jsref/jsref_split.asp (sorry, de mdn website had geen goede voorbeelden)
             lightTextElement.textContent = simplifiedLightText; 
 
             const icons = {
@@ -339,7 +341,27 @@
             lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
         })
 
-        // button delen met vrienden
+
+        // Bij categorie 'use' alleen eerste element in de array tonen
+        document.addEventListener("DOMContentLoaded", function (){
+            const useElement = document.querySelector('.use')
+            const simplifiedUse = useElement.textContent.split(",")[0]
+
+            useElement.textContent = `${simplifiedUse}`
+        })
+
+
+        // Na eerste element van 'color leaf' een spatie toevoegen
+        document.addEventListener("DOMContentLoaded", function (){
+            const colorLeafElement = document.querySelector('.color-of-leaf')
+
+            if (colorLeafElement) {
+                colorLeafElement.textContent = colorLeafElement.textContent.replace(",", ", ")
+            }
+        })
+
+
+        // Button delen met vrienden
         document.getElementById("share-button").addEventListener("click", function (){ // Bron: hier heeft chatGPT bij geholpen
             if (navigator.share) {
                 navigator.share({
