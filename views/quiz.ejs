@@ -88,6 +88,7 @@
             /* Questions */
             .question{
                 display: none;
+
                 width: 80%;
                 max-width: 600px;
                 margin: 1em 0;
@@ -163,6 +164,32 @@
             #question-3 div input{
                 padding: 0.5em 2em;
             }
+
+
+            /* Question 5 */
+            /* Verberg de checkboxes */
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            /* Basisstijl voor labels */
+            label {
+                display: inline-block;
+                cursor: pointer;
+                border: 2px solid var(--color-lines);
+                border-radius: 0.2em;
+                padding: 0.5em 1em;
+                margin: 0.5em;
+                transition: all 0.3s ease-in-out;
+            }
+
+            /* Stijl als geselecteerd (wanneer checkbox is aangevinkt) */
+            input[type="checkbox"]:checked + label {
+                background: var(--color-accent-light);
+                border-color: var(--color-accent);
+                color: white;
+            }
+
 
 
             /* Navigation buttons */
@@ -243,14 +270,21 @@
     
                 <section id="question-5" class="question">
                     <progress max="100" value="100">100%</progress>
-
+                
                     <h2>How big do you want your plant to be?</h2>
-
+                
                     <div>
-                        <input type="text" placeholder="Small, Medium, Large" oninput="saveAnswer(5, this.value)">
+                        <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this)">
+                        <label for="small">Small</label>
+                    
+                        <input type="checkbox" id="medium" name="plants" value="medium" onclick="saveAnswer(5, this)">
+                        <label for="medium">Medium</label>
+                
+                        <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this)">
+                        <label for="large">Large</label>
                     </div>
                 </section>
-            
+                
                 <div class="nav-buttons">
                     <button onclick="prevQuestion()">Previous</button>
                     <button onclick="nextQuestion()">Next</button>
@@ -322,6 +356,21 @@
 
             function saveAnswer(questionId, value){
                 answers[questionId] = value;
+
+                if (!answers[questionId]) {
+                    answers[questionId] = []; // Maak een lege array als er nog geen antwoorden zijn
+                }
+
+                if (checkbox.checked) {
+                    // Voeg toe als het nog niet bestaat in de array
+                    if (!answers[questionId].includes(checkbox.value)) {
+                        answers[questionId].push(checkbox.value);
+                    }
+                } else {
+                    // Verwijder uit de array als het wordt uitgevinkt
+                    answers[questionId] = answers[questionId].filter(value => value !== checkbox.value);
+                }
+
                 console.log(answers); 
             };
 
