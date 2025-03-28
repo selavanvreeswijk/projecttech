@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
+const fetch = require('node-fetch');
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -54,6 +55,7 @@ client.connect()
 // API setup
 const apiKey = process.env.API_KEY;
 const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+
 const options = {
   method: 'GET',
   headers: {
@@ -79,6 +81,11 @@ async function updatePlantsCache() {
 
 updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
 setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
+
+// API-endpoint om de gecachede planten op te vragen
+app.get('/api/plants', (req, res) =>{
+  res.json(cachedPlants);
+});
 
 app
   .get('/', onHome)

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
 
     <%- include('partials/header') %>   
 
@@ -50,7 +50,7 @@
         // api gegevens ophalen en toevoegen aan lijst
         async function fetchPlants() {
             try {
-                const response = await fetch(apiKey);
+                const response = await fetch(allUrl, options);
                 const plants = await response.json();
 
                 // selecteert de lijst in html
@@ -65,8 +65,8 @@
                     
                 });
 
-                let options = { valueNames: [plant-names] };
-                new list('list-view', options);
+                let plantOptions = { valueNames: [plant-names] };
+                new list('list-view', plantOptions);
 
             } catch(error){
                 console.log('error fetching plants:', errors)
@@ -74,6 +74,54 @@
         }
 
         fetchPlants();
+
+
+        const sortButton = document.getElementById('sort-btn');
+        const sortOptions = document.getElementById('sort-options');
+        const filterButton = document.getElementById('filter-btn');
+        const filterOptions = document.getElementById('filter-options');
+
+        const sortPaths = sortButton.querySelectorAll('svg path');
+        const filterIcon = filterButton.querySelector('svg path');
+
+
+        // Toggle voor sorteren
+        sortButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            sortOptions.classList.toggle('hidden');
+            sortButton.classList.toggle('active');
+            sortPaths.forEach(path => path.classList.toggle('active')); 
+
+            filterOptions.classList.add('hidden');
+            filterButton.classList.remove('active');
+            filterIcon.classList.remove('active');
+        });
+
+        // Toggle voor filteren
+        filterButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            filterOptions.classList.toggle('hidden');
+            filterButton.classList.toggle('active');
+            filterIcon.classList.toggle('active'); 
+
+            sortOptions.classList.add('hidden');
+            sortButton.classList.remove('active');
+            sortPaths.forEach(path => path.classList.remove('active'));
+        });
+
+        // Klik buiten een dropdown om deze te sluiten
+        document.addEventListener('click', function (event) {
+            if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)) {
+                sortOptions.classList.add('hidden');
+                sortButton.classList.remove('active');
+                sortPaths.forEach(path => path.classList.remove('active'));
+            }
+            if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)) {
+                filterOptions.classList.add('hidden');
+                filterButton.classList.remove('active');
+                filterIcon.classList.remove('active');
+            }
+        });
 
     </script>
 
