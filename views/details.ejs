@@ -266,11 +266,11 @@
                             </h3>
 
                             <div class="content">
-                                <p>Min. temp: <%= plants.minTemp.C%>°C</p>
+                                <p>Min. temp: <%= plants.minTemp.C %>°C</p>
                                 <p>Max. temp: <%= plants.tempMax.C %>°C</p>
                                 <p class="use">Use: <%= plants.use %></p>
                                 <p>Plant growth: <%= plants.growth %></p>
-                                <p class="color-of-leaf">Color of leaf: <%= plants.colorOfLeaf%></p>
+                                <p class="color-of-leaf">Color of leaf: <%= plants.colorOfLeaf %></p>
                             </div>
                         </div>
                     </div>
@@ -316,25 +316,24 @@
                 }, 2500)
             })
 
-            // Icons change per light-element
-            document.addEventListener("DOMContentLoaded", function (){
-                const lightIcon = document.querySelector(".light-icon")
-                const lightTextElement = document.querySelector(".light-text")
+            // // Icons change per light-element
+            document.addEventListener("DOMContentLoaded", function () {
+                const lightIcon = document.querySelector(".light-icon");
+                const lightTextElement = document.querySelector(".light-text");
 
-                if (!lightIcon || !lightTextElement) return
+                if (!lightIcon || !lightTextElement) return;
 
-                const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Source: https://www.w3schools.com/jsref/jsref_split.asp (MDN website didn't have good examples)
+                const simplifiedLightText = lightTextElement.textContent.split(" (")[0].trim() // Source: https://www.w3schools.com/jsref/jsref_split.asp (MDN website didn't have good examples)
                 lightTextElement.textContent = simplifiedLightText; 
 
                 const icons = {
-                    "Low light": "/img/cloud.svg",
-                    "Medium light": "/img/cloud-and-sun.svg",
-                    "Strong light": "/img/sun.svg"
+                    "strong light": "/img/cloud-and-sun.png",
+                    "full sun": "/img/sun.svg"
                 }
 
-                lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
+                const lightTextKey = simplifiedLightText.toLowerCase();
+                lightIcon.src = icons[lightTextKey] || "/img/cloud-and-sun.png"; 
             })
-
 
             // For category 'use' only the first element shown in the array
             document.addEventListener("DOMContentLoaded", function (){
