@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 
     <%- include('partials/header') %>   
 
@@ -37,33 +37,33 @@
     <script>
 
         // API setup
-        const apiKey = process.env.API_KEY;
-        const allUrl = 'https://house-plants2.p.rapidapi.com/all';
-        const options = {
-        method: 'GET',
-        headers: {
-            'x-rapidapi-key': apiKey,
-            'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
-        }
-        };
+        // const apiKey = process.env.API_KEY;
+        // const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+        // const options = {
+        // method: 'GET',
+        // headers: {
+        //     'x-rapidapi-key': apiKey,
+        //     'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
+        // }
+        // };
+
+        //variabele voor de planten
+        let plantsData = [];
 
         // api gegevens ophalen en toevoegen aan lijst
         async function fetchPlants() {
             try {
-                const response = await fetch(allUrl, options);
+                const response = await fetch('/api/plants');  //vraagt data op via server
                 const plants = await response.json();
 
-                // selecteert de lijst in html
-                const listElement = document.getElementById('list-view');
+                //slaat de planten op in de globale variabele
+                plantsData = plants;
 
-                // zet de planten in de lijst
-                plants.forEach(plant => {
-                    const li = document.querySelector('li');
-                    li.classList.add('plant-names');
-                    li.innerHTML = `${plant["Common name"]}`;
-                    listElement.appendChild(li);
-                    
-                });
+                //vul de lijst met planten
+                renderPlantList(plantsData);
+
+               
+              
 
                 let plantOptions = { valueNames: [plant-names] };
                 new list('list-view', plantOptions);
@@ -73,6 +73,39 @@
             }
         }
 
+        function renderPlantList(plants){
+             // selecteert de lijst in html
+             const listElement = document.getElementById('list-view');
+             listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
+
+               // zet de planten in de lijst
+               plants.forEach((plant) => {
+                    const li = document.querySelector('li');
+                    li.classList.add('plant-names');
+                    li.innerHTML = `${plant["Common name"]}`;
+                    listElement.appendChild(li);
+                    
+                });
+
+        }
+
+        //planten filteren op basis van de zoekterm
+        function filterPlants(searchTerm) {
+            const filteredPlants = plantsData.filter(plant =>{
+                return plant['Common name'].toLowerCase().includes(searchTerm.toLowerCase());
+            }); 
+            //toLowerCase() maakt de functie hoofletterongevoelig
+            //includes() checkt of de plantnaam de zoekterm bevat
+            renderPlantList(filteredPlants); //update de lijst met gefilterde planten
+        }
+
+        //event listener voor zoekveld
+        document.getElementById('search-input').addEventListener('input', (event) =>{
+            const searchTerm = event.target.value;
+            filterPlants(searchTerm);
+        });
+
+        //laad de planten wanneer de pagina geladen wordt
         fetchPlants();
 
 
