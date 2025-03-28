@@ -134,7 +134,7 @@
             }
 
 
-            /* Question 2 */
+            /* Question 1 */
             div label{
                 display: inline-block;
                 text-align: center;
@@ -202,6 +202,13 @@
             .nav-buttons button{
                 margin-left: 0.3em;
             }
+
+
+            /* Choose anwser before next question */
+            .warning{
+                display: none;
+                color: red;
+            }
         </style>
     </head>
 
@@ -219,28 +226,30 @@
 
             <div class="questions">
                 <section id="question-1" class="question">
-                    <progress max="100" value="20">20%</progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp-->
+                    <progress max="100" value="20">20%</progress>
+
+                    <h2>Do you currently own plants?</h2>
+
+                    <div>
+                        <input type="radio" id="yes" name="plants" value="yes" onclick="saveAnswer(1, this.value)">
+                        <label for="yes">Yes</label>
+                    
+                        <input type="radio" id="no" name="plants" value="no" onclick="saveAnswer(1, this.value)">
+                        <label for="no">No</label>
+                    </div>
+
+                    <p class="warning">Please choose an awnser</p>
+                </section>
+
+                <section id="question-2" class="question">
+                    <progress max="100" value="40">40%</progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp-->
 
                     <h2>How much of a plant-expert are you?</h2>
 
                      <div>
                         <p>0</p>
-                        <input type="range" min="0" max="100" value="50" oninput="saveAnswer(1, this.value)">
+                        <input type="range" min="0" max="100" value="50" oninput="saveAnswer(2, this.value)">
                         <p>10</p>
-                    </div>
-                </section>
-            
-                <section id="question-2" class="question">
-                    <progress max="100" value="40">40%</progress>
-
-                    <h2>Do you currently own plants?</h2>
-
-                    <div>
-                        <input type="radio" id="yes" name="plants" value="yes" onclick="saveAnswer(2, this.value)">
-                        <label for="yes">Yes</label>
-                    
-                        <input type="radio" id="no" name="plants" value="no" onclick="saveAnswer(2, this.value)">
-                        <label for="no">No</label>
                     </div>
                 </section>
             
@@ -252,20 +261,24 @@
                     <div>
                         <input type="number" min="0" max="24" placeholder="Hours" oninput="saveAnswer(3, this.value)">
                     </div>
+
+                    <p class="warning">Please choose an awnser</p>
                 </section>
             
                 <section id="question-4" class="question">
                     <progress max="100" value="80">80%</progress>
 
-                    <h2>How much money would you like to invest in plants?</h2>
+                    <h2>How much light do you have in your room?</h2>
 
                     <div>
                         <select onchange="saveAnswer(4, this.value)">
-                            <option value="low">Less than €10</option>
-                            <option value="medium">€10 - €50</option>
-                            <option value="high">More than €50</option>
+                            <option value="low">No sun</option>
+                            <option value="medium">A couple of hours sun</option>
+                            <option value="high">A lot of sun</option>
                         </select>
                     </div>
+
+                    <p class="warning">Please choose an awnser</p>
                 </section>
     
                 <section id="question-5" class="question">
@@ -283,6 +296,8 @@
                         <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this)">
                         <label for="large">Large</label>
                     </div>
+
+                    <p class="warning">Please choose an awnser</p>
                 </section>
                 
                 <div class="nav-buttons">
@@ -339,11 +354,27 @@
                 }
             }
 
-            // Go to next question + save anwser 
+            // Next question 
+            // Warning: awnser question before going to next question
             function nextQuestion(){
-                if (currentQuestionIndex < questions.length - 1) {
+                const currentQuestion = questions[currentQuestionIndex];
+                const inputs = currentQuestion.querySelectorAll("input");
+                const warningText = currentQuestion.querySelector(".warning");
+
+                let answered = false;
+
+                inputs.forEach(input => {
+                    if ((input.type === "radio" || input.type === "checkbox") && input.checked) {
+                        answered = true;
+                    }
+                });
+
+                if (answered) {
+                    warningText.style.display = "none"; 
                     currentQuestionIndex++;
                     showQuestion(currentQuestionIndex);
+                } else {
+                    warningText.style.display = "block";
                 }
             }
 
