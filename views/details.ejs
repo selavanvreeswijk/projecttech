@@ -1,373 +1,371 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Details plant</title>
-    <link rel="stylesheet" href="/style.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Details plant</title>
+        <link rel="stylesheet" href="/style.css">
 
-    <%- include('partials/header') %>    
+        <%- include('partials/header') %>    
 
-    <style>
-        /* Loading icon */
-        .loading{
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        <style>
+            /* Loading icon */
+            .loading{
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-            margin-top: 9em;
-        }
+                margin-top: 9em;
+            }
 
-        
-        .loading img{
-            width: 15em;
-            height: 15em;
-        }
-
-
-        .hidden{
-            display: none;
-        }
+            
+            .loading img{
+                width: 15em;
+                height: 15em;
+            }
 
 
-        /* Arrow back + common name */
-        .nav-and-name{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            padding-left: 0.5em;
-            margin-bottom: 0.3em;
-        }
+            .hidden{
+                display: none;
+            }
 
 
-        h1{
-            align-self: center;
-        }
+            /* Arrow back to results + common name */
+            .nav-and-name{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                padding-left: 0.5em;
+                margin-bottom: 0.3em;
+            }
 
 
-        .nav-and-name button img{
-            width: 1.5em;
-            height: 1.5em;
-        }
-
-        
-        .nav-and-name button{
-            all: unset;
-        }
+            h1{
+                width: 80vw;
+                padding-bottom: 0.2em;
+            }
 
 
-        /* Image plant + favorites button */
-        .picture{ 
-            position: relative;
+            .nav-and-name button img{
+                width: 1.5em;
+                height: 1.5em;
+            }
 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        
-        .picture img{
-            width: 90vw;
-            border-radius: 0.7em;
-        } 
+            
+            .nav-and-name button{
+                all: unset;
+            }
 
 
-        .favorite-button{
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            /* Image plant + favorites button */
+            .picture{ 
+                position: relative;
 
-            position: absolute;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-            bottom: 1.2em;
-            right: 1.2em; 
-        }
-
-
-        .favorite-button svg{
-            width: 2em; 
-            height: 2em;
-        }
-
-
-        /* Main categories */
-        .container{
-            padding: 0.5em;
-            margin-top: 0.7em;
-
-            border: 0.08em solid var(--color-lines);
-            border-radius: 0.7em;
-        }
+            
+            .picture img{
+                width: 90vw;
+                border-radius: 0.7em;
+            } 
 
 
-        .description{
-            display: flex;
-            flex-direction: column;
-            margin: 0 1em;
-        }
+            .favorite-button{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: absolute;
+
+                bottom: 1.2em;
+                right: 1.2em; 
+            }
 
 
-        .firstCategories{
-            margin-bottom: 0.5em;
-        }
+            .favorite-button svg{
+                width: 2em; 
+                height: 2em;
+            }
 
 
-        h2{
-            margin-bottom: 0.5em;
-            border-bottom: 0.05em solid var(--color-lines);
-            width: 6.5em;
-            padding: 0.2em 0;
-        }
+            /* Main categories */
+            .container{
+                padding: 0.5em;
+                margin-top: 0.7em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+            }
 
 
-        /* Icons categories */
-        .illustrations li{
-            display: flex;
-            flex-direction: row;
-
-            align-items: center;
-            padding-bottom: 0.5em;
-        }
-
-        
-        .illustrations li img{
-            margin-right: 0.55em;
-            padding-left: 0.25em;
-            width: 2em;
-            height: 2em;
-        }
+            .description{
+                display: flex;
+                flex-direction: column;
+                margin: 0 1em;
+            }
 
 
-        /* Secundary categories */
-        .secondCategories{
-            padding: 0.1em;
-        }
+            .firstCategories{
+                margin-bottom: 0.5em;
+            }
 
 
-        .drop{
-            display: flex;
-            align-items: center; 
-            gap: 0.4em;
-        }
-
-        
-        .arrow img{
-            width: 1.1em;
-            height: 1.1em;
-            transition: transform 0.5s ease;
-        }
+            h2{
+                margin-bottom: 0.5em;
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 6.5em;
+                padding: 0.2em 0;
+            }
 
 
-        .content{
-            max-height: 0;
-            overflow: hidden;
-            transition: 0.4s ease-out;
+            /* Icons categories */
+            .illustrations li{
+                display: flex;
+                flex-direction: row;
 
-            padding-bottom: 0.2em;
-        }
+                align-items: center;
+                padding-bottom: 0.5em;
+            }
 
-
-        .content.show{
-            max-height: 500px;
-        }
-
-
-        h3{
-            margin-bottom: 0.5em;
-            border-bottom: 0.05em solid var(--color-lines);
-            width: 16em;
-            padding: 0.2em 0;
-        }
+            
+            .illustrations li img{
+                margin-right: 0.55em;
+                padding-left: 0.25em;
+                width: 2em;
+                height: 2em;
+            }
 
 
-        /* Share button */
-        #share-button{
-            background: var(--color-background-inputfield);
+            /* Secundary categories */
+            .secondCategories{
+                padding: 0.1em;
+            }
 
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
 
-            width: 40%;
-            padding: 0.3em 0.9em;
+            .drop{
+                display: flex;
+                align-items: center; 
+                gap: 0.4em;
+            }
 
-            display: block;
-            margin: 0 auto;
-            margin-top: 2em;
-            margin-bottom: 4em;
-        }
-    </style>
-</head>
+            
+            .arrow img{
+                width: 1.1em;
+                height: 1.1em;
+                transition: transform 0.5s ease;
+            }
 
-<body>
-    <div class="loading">
-        <img src="/img/loading.gif" alt="Loading gif"> <!--Source https://giphy.com/stickers/sticker-plant-grow-fnTxHzv7wCEPo18uDg-->
-    </div>
 
-    <main class="hidden">
-        
-        <article>
-            <section class="nav-and-name">
-                <button onclick="history.back()">
-                    <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Source https://www.iconfinder.com/search?q=arrow+left -->
-                </button>
+            .content{
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.4s ease-out;
 
-                <h1 class="h1-small"><%= plants.commonName %></h1>
-            </section>
+                padding-bottom: 0.2em;
+            }
 
-            <div class="description">
-                <div class="picture">
-                    <img src="<%= plants.img %>" alt="Picture of plant">
-    
-                    <button class="favorite-button" data-id="<%= plants.id %>">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
-                        
-                            <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
-                            <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
-                        </svg>            
+
+            .content.show{
+                max-height: 500px;
+            }
+
+
+            h3{
+                margin-bottom: 0.5em;
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 16em;
+                padding: 0.2em 0;
+            }
+
+
+            /* Share button */
+            #share-button{
+                background: var(--color-background-inputfield);
+
+                border: 0.09em solid var(--color-lines);
+                border-radius: 0.8em;
+
+                width: 40%;
+                padding: 0.3em 0.9em;
+
+                display: block;
+                margin: 0 auto;
+                margin-top: 2em;
+                margin-bottom: 4em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="loading">
+            <img src="/img/loading.gif" alt="Loading gif"> <!--Source https://giphy.com/stickers/sticker-plant-grow-fnTxHzv7wCEPo18uDg-->
+        </div>
+
+        <main class="hidden">
+            
+            <article>
+                <section class="nav-and-name">
+                    <button onclick="history.back()">
+                        <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Source https://www.iconfinder.com/search?q=arrow+left -->
                     </button>
-                </div>
 
-                <div class="container">
-                    <section class="firstCategories">
-                        <h2>Categories</h2>
-   
-                        <ul class="illustrations">
-                            <li>
-                                <img src="/img/plant.svg" alt="Plant icon">
-                                <p><%= plants.category %></p> <!--Source https://www.iconfinder.com/search?q=plant+sprout-->
-                            </li>
-                           
-                            <li>
-                                <img class="light-icon" src="/img/sun.svg" alt="Sun icon">
-                                <p class="light-text"><%= plants.idealLight %></p> <!--Source https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun-->
-                            </li>                      
-    
-                            <li>
-                                <img src="/img/gieter.svg" alt="Plant waterer icon">
-                                <p><%= plants.watering %></p> <!--Source https://www.iconfinder.com/search?q=watering--> 
-                            </li>
-    
-                            <li>
-                                <img src="/img/ruler.svg" alt="Ruler icon">
-                                <p>± <%= plants.heightPurchase.CM %>cm</p> <!--Source https://www.iconfinder.com/search?q=ruler-->
-                            </li>
-                        </ul>
-                    </section>
+                    <h1 class="h1-small"><%= plants.commonName %></h1>
+                </section>
+
+                <div class="description">
+                    <div class="picture">
+                        <img src="<%= plants.img %>" alt="Picture of plant">
         
-                    <div class="secondCategories">
-                        <h3 class="drop">
-                            <span class="arrow">
-                                <img src="/img/arrow-down.svg" alt="Drop-down"> <!--Source https://www.iconfinder.com/icons/211687/down_arrow_icon-->
-                            </span>
-                            See more categories
-                        </h3>
+                        <button class="favorite-button" data-id="<%= plants.id %>">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
+                            
+                                <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                                <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
+                            </svg>            
+                        </button>
+                    </div>
 
-                        <div class="content">
-                            <p>Min. temp: <%= plants.minTemp.C%>°C</p>
-                            <p>Max. temp: <%= plants.tempMax.C %>°C</p>
-                            <p class="use">Use: <%= plants.use %></p>
-                            <p>Plant growth: <%= plants.growth %></p>
-                            <p class="color-of-leaf">Color of leaf: <%= plants.colorOfLeaf%></p>
+                    <div class="container">
+                        <section class="firstCategories">
+                            <h2>Categories</h2>
+    
+                            <ul class="illustrations">
+                                <li>
+                                    <img src="/img/plant.svg" alt="Plant icon">
+                                    <p><%= plants.category %></p> <!--Source https://www.iconfinder.com/search?q=plant+sprout-->
+                                </li>
+                            
+                                <li>
+                                    <img class="light-icon" src="/img/sun.svg" alt="Sun icon">
+                                    <p class="light-text"><%= plants.idealLight %></p> <!--Source https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun-->
+                                </li>                      
+        
+                                <li>
+                                    <img src="/img/gieter.svg" alt="Plant waterer icon">
+                                    <p><%= plants.watering %></p> <!--Source https://www.iconfinder.com/search?q=watering--> 
+                                </li>
+        
+                                <li>
+                                    <img src="/img/ruler.svg" alt="Ruler icon">
+                                    <p>± <%= plants.heightPurchase.CM %>cm</p> <!--Source https://www.iconfinder.com/search?q=ruler-->
+                                </li>
+                            </ul>
+                        </section>
+            
+                        <div class="secondCategories">
+                            <h3 class="drop">
+                                <span class="arrow">
+                                    <img src="/img/arrow-down.svg" alt="Drop-down"> <!--Source https://www.iconfinder.com/icons/211687/down_arrow_icon-->
+                                </span>
+                                See more categories
+                            </h3>
+
+                            <div class="content">
+                                <p>Min. temp: <%= plants.minTemp.C%>°C</p>
+                                <p>Max. temp: <%= plants.tempMax.C %>°C</p>
+                                <p class="use">Use: <%= plants.use %></p>
+                                <p>Plant growth: <%= plants.growth %></p>
+                                <p class="color-of-leaf">Color of leaf: <%= plants.colorOfLeaf%></p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <button id="share-button">Share</button> 
-        </article>
-    </main>
+                <button id="share-button">Share</button> 
+            </article>
+        </main>
 
-    <footer class="hidden">
-        <%- include('partials/footer') %> 
-    </footer>
+        <footer class="hidden">
+            <%- include('partials/footer') %> 
+        </footer>
 
-    <script>
-        // Animation drop down
-        document.addEventListener("DOMContentLoaded", function (){
-            const drop = document.querySelector(".drop");
-            const content = document.querySelector(".content");
-            const arrow = document.querySelector(".arrow img");
+        <script>
+            // Animation drop down
+            document.addEventListener("DOMContentLoaded", function (){
+                const drop = document.querySelector(".drop");
+                const content = document.querySelector(".content");
+                const arrow = document.querySelector(".arrow img");
 
-            drop.addEventListener("click", function (){
-                content.classList.toggle("show");
-                
-                if (content.classList.contains("show")) {
-                    arrow.style.transform = "rotate(180deg)";
-                } else {
-                    arrow.style.transform = "rotate(0deg)"; 
+                drop.addEventListener("click", function (){
+                    content.classList.toggle("show");
+                    
+                    if (content.classList.contains("show")) {
+                        arrow.style.transform = "rotate(180deg)";
+                    } else {
+                        arrow.style.transform = "rotate(0deg)"; 
+                    }
+                })
+            })
+
+            // Loading gif
+            window.addEventListener("load", function (){
+                const loading = document.querySelector(".loading")
+                const content = document.querySelectorAll("main, footer")
+
+                setTimeout(() => {
+                    loading.style.display = "none"
+
+                    content.forEach(section => {
+                        section.classList.remove("hidden")
+                    })
+                }, 2500)
+            })
+
+            // Icons change per light-element
+            document.addEventListener("DOMContentLoaded", function (){
+                const lightIcon = document.querySelector(".light-icon")
+                const lightTextElement = document.querySelector(".light-text")
+
+                if (!lightIcon || !lightTextElement) return
+
+                const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Source: https://www.w3schools.com/jsref/jsref_split.asp (MDN website didn't have good examples)
+                lightTextElement.textContent = simplifiedLightText; 
+
+                const icons = {
+                    "Low light": "/img/cloud.svg",
+                    "Medium light": "/img/cloud-and-sun.svg",
+                    "Strong light": "/img/sun.svg"
+                }
+
+                lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
+            })
+
+
+            // For category 'use' only the first element shown in the array
+            document.addEventListener("DOMContentLoaded", function (){
+                const useElement = document.querySelector('.use')
+                const simplifiedUse = useElement.textContent.split(",")[0]
+
+                useElement.textContent = `${simplifiedUse}`
+            })
+
+            // Add a space after first element of 'color leaf'
+            document.addEventListener("DOMContentLoaded", function (){
+                const colorLeafElement = document.querySelector('.color-of-leaf')
+
+                if (colorLeafElement) {
+                    colorLeafElement.textContent = colorLeafElement.textContent.replace(",", ", ")
                 }
             })
-        })
-        
 
-        // Loading gif
-        window.addEventListener("load", function (){
-            const loading = document.querySelector(".loading")
-            const content = document.querySelectorAll("main, footer")
-
-            setTimeout(() => {
-                loading.style.display = "none"
-
-                content.forEach(section => {
-                    section.classList.remove("hidden")
-                })
-            }, 2500)
-        })
-
-        // Icons change per light-element
-        document.addEventListener("DOMContentLoaded", function (){
-            const lightIcon = document.querySelector(".light-icon")
-            const lightTextElement = document.querySelector(".light-text")
-
-            if (!lightIcon || !lightTextElement) return
-
-            const simplifiedLightText = lightTextElement.textContent.split(" (")[0] // Source: https://www.w3schools.com/jsref/jsref_split.asp (MDN website didn't have good examples)
-            lightTextElement.textContent = simplifiedLightText; 
-
-            const icons = {
-                "Low light": "/img/cloud.svg",
-                "Medium light": "/img/cloud-and-sun.svg",
-                "Strong light": "/img/sun.svg"
-            }
-
-            lightIcon.src = icons[simplifiedLightText] || "/img/sun.svg"
-        })
-
-
-        // For category 'use' only the first element shown in the array
-        document.addEventListener("DOMContentLoaded", function (){
-            const useElement = document.querySelector('.use')
-            const simplifiedUse = useElement.textContent.split(",")[0]
-
-            useElement.textContent = `${simplifiedUse}`
-        })
-
-
-        // Add a space after first element of 'color leaf'
-        document.addEventListener("DOMContentLoaded", function (){
-            const colorLeafElement = document.querySelector('.color-of-leaf')
-
-            if (colorLeafElement) {
-                colorLeafElement.textContent = colorLeafElement.textContent.replace(",", ", ")
-            }
-        })
-
-
-        // Sharing button
-        document.getElementById("share-button").addEventListener("click", function (){ // Source: chatGPT
-            if (navigator.share) {
-                navigator.share({
-                    title: document.title,
-                    text: "Check this plant!",
-                    url: window.location.href
-                })
-                .catch((error) => console.log("Error sharing", error));
-            } else {
-                alert("Sharing is not supported on your device.");
-            }
-        })
-    </script>
-</body>
+            // Sharing button
+            document.getElementById("share-button").addEventListener("click", function (){ // Source: chatGPT
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: "Check this plant!",
+                        url: window.location.href
+                    })
+                    .catch((error) => console.log("Error sharing", error));
+                } else {
+                    alert("Sharing is not supported on your device.");
+                }
+            })
+        </script>
+    </body>
 </html>
