@@ -167,13 +167,6 @@
             }
 
 
-            /* Question 2 */ 
-            /* Range slider styling */
-            .questions section div p{ 
-                padding: 0 0.5em;
-            }
-
-
             /* Question 3 */
             #question-3 div input{
                 padding: 0.5em 2em;
@@ -244,7 +237,7 @@
                 <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
 
                 <section id="question-1" class="question">
-                    <h2>Do you currently own plants?</h2>
+                    <h2>Are you currently a plant parent?</h2>
 
                     <div>
                         <input type="radio" id="yes" name="plants" value="yes" onclick="saveAnswer(1, this.value)">
@@ -258,19 +251,27 @@
                 </section>
 
                 <section id="question-2" class="question">
-                    <h2>How much of a plant-expert are you?</h2>
+                    <h2>How green are your fingers?</h2>
 
-                     <div>
-                        <p>0</p>
-                        <input type="range" min="1" max="100" value="50" oninput="saveAnswer(2, this.value)">
-                        <p>10</p>
-                    </div>
+                    <div>
+                        <input type="radio" id="none" name="level" value="none" onclick="saveAnswer(2, this.value)">
+                        <label for="beginner">None</label>
+
+                        <input type="radio" id="beginner" name="level" value="beginner" onclick="saveAnswer(2, this.value)">
+                        <label for="beginner">Beginner</label>
+                        
+                        <input type="radio" id="intermediate" name="level" value="intermediate" onclick="saveAnswer(2, this.value)">
+                        <label for="intermediate">Intermediate</label>
+                        
+                        <input type="radio" id="expert" name="level" value="expert" onclick="saveAnswer(2, this.value)">
+                        <label for="expert">Expert</label>
+                    </div>                    
 
                     <p class="warning">Please choose an anwser</p>
                 </section>
             
                 <section id="question-3" class="question">
-                    <h2>How much time would you like to invest in plants per week?</h2>
+                    <h2>How much love would you like to invest per week?</h2>
                  
                     <div>
                         <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this)">
@@ -394,7 +395,7 @@
                 const warningText = currentQuestion.querySelector(".warning");
 
                 let answered = Array.from(inputs).some(input => {
-                    if (input.type === "radio" || input.type === "checkbox" || input.type === 'range') return input.checked; 
+                    if (input.type === "radio" || input.type === "checkbox") return input.checked; 
                     return input.value.trim() !== "";
                 });
 
