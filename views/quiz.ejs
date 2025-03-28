@@ -214,6 +214,7 @@
     <body>
         <main>
             <h1 class="h1-small">Quiz</h1>
+            <p>Skip</p>
 
             <div class="begin">
                 <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Source https://www.freepik.com/vectors/planting-happiness-->
@@ -255,10 +256,18 @@
             
                 <section id="question-3" class="question">
                     <h2>How much time would you like to invest in plants per week?</h2>
-
+                 
                     <div>
-                        <input type="number" min="0" max="24" placeholder="Hours" oninput="saveAnswer(3, this.value)">
+                        <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this)">
+                        <label for="half-hour">0.5 hours per week</label>
+                    
+                        <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this)">
+                        <label for="one-hour">1 hour per week</label>
+                    
+                        <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this)">
+                        <label for="two-hours">2 hours per week</label>
                     </div>
+                    
 
                     <p class="warning">Please choose an awnser</p>
                 </section>
@@ -339,8 +348,8 @@
 
                 updateProgress();
 
-                 // First 'previous' button
-                 // Last 'next button'
+                // First 'previous' button
+                // Last 'next button'
                 prevButton.style.display = index === 0 ? "none" : "inline-block";
                 nextButton.textContent = index === questions.length - 1 ? "Finish" : "Next"; 
 
