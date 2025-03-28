@@ -150,7 +150,7 @@
                 border-radius: 0.2em;
 
                 margin-left: 0.5em;
-                padding: 1.5em 2em;
+                padding: 1.5em 1.5em;
                 transition: all 0.3s ease-in-out;
             }
 
@@ -254,7 +254,7 @@
                         <label for="no">No</label>
                     </div>
 
-                    <p class="warning">Please choose an awnser</p>
+                    <p class="warning">Please choose an anwser</p>
                 </section>
 
                 <section id="question-2" class="question">
@@ -266,7 +266,7 @@
                         <p>10</p>
                     </div>
 
-                    <p class="warning">Please choose an awnser</p>
+                    <p class="warning">Please choose an anwser</p>
                 </section>
             
                 <section id="question-3" class="question">
@@ -283,22 +283,25 @@
                         <label for="two-hours">2h</label>
                     </div>
                     
-
-                    <p class="warning">Please choose an awnser</p>
+                    <p class="warning">Please choose an anwser</p>
                 </section>
             
                 <section id="question-4" class="question">
                     <h2>How much light do you have in your room?</h2>
 
                     <div>
-                        <select onchange="saveAnswer(4, this.value)">
-                            <option value="low">No sun</option>
-                            <option value="medium">A couple of hours sun</option>
-                            <option value="high">A lot of sun</option>
-                        </select>
+                        <input type="radio" id="low" name="sunlight" value="low" onclick="saveAnswer(4, this.value)">
+                        <label for="low">No sun</label>
+                    
+                        <input type="radio" id="medium" name="sunlight" value="medium" onclick="saveAnswer(4, this.value)">
+                        <label for="medium">A couple of hours sun</label>
+                    
+                        <input type="radio" id="high" name="sunlight" value="high" onclick="saveAnswer(4, this.value)">
+                        <label for="high">A lot of sun</label>
                     </div>
+                    
 
-                    <p class="warning">Please choose an awnser</p>
+                    <p class="warning">Please choose an anwser</p>
                 </section>
     
                 <section id="question-5" class="question">                
@@ -306,16 +309,16 @@
                 
                     <div>
                         <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this)">
-                        <label for="small">Small</label>
+                        <label for="small">S</label>
                     
                         <input type="checkbox" id="medium" name="plants" value="medium" onclick="saveAnswer(5, this)">
-                        <label for="medium">Medium</label>
+                        <label for="medium">M</label>
                 
                         <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this)">
-                        <label for="large">Large</label>
+                        <label for="large">L</label>
                     </div>
 
-                    <p class="warning">Please choose an awnser</p>
+                    <p class="warning">Please choose an anwser</p>
                 </section>
                 
                 <div class="nav-buttons">
@@ -385,7 +388,7 @@
                 const warningText = currentQuestion.querySelector(".warning");
 
                 let answered = Array.from(inputs).some(input => {
-                    if (input.type === "radio" || input.type === "checkbox") return input.checked;
+                    if (input.type === "radio" || input.type === "checkbox" || input.type === 'range') return input.checked; 
                     return input.value.trim() !== "";
                 });
 
