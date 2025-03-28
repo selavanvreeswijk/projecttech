@@ -262,7 +262,7 @@
 
                      <div>
                         <p>0</p>
-                        <input type="range" min="0" max="100" value="50" oninput="saveAnswer(2, this.value)">
+                        <input type="range" min="1" max="100" value="50" oninput="saveAnswer(2, this.value)">
                         <p>10</p>
                     </div>
 
@@ -346,6 +346,7 @@
             // Start quiz
             // Source: help from chatGPT
             let currentQuestionIndex = 0;
+            let answers = {};
 
             beginButton.addEventListener('click', function () {
                 begin.style.display = 'none';
@@ -361,6 +362,11 @@
             function updateProgress() {
                 let progressValue = ((currentQuestionIndex + 1) / questions.length) * 100;
                 progressBar.value = progressValue;
+            }
+
+            function saveAnswer(questionNumber, value) {
+                answers[questionNumber] = value;  
+                console.log(`Vraag ${questionNumber}: ${value}`);
             }
 
             function showQuestion(index) {
