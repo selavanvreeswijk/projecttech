@@ -140,8 +140,7 @@
                 margin: 5em 0;
             }
 
-            
-            /* Question 1 */
+
             div label{
                 display: inline-block;
                 text-align: center;
@@ -153,8 +152,9 @@
                 padding: 1.5em 1.5em;
                 transition: all 0.3s ease-in-out;
             }
-
-
+            
+            
+            /* Question 1 */
             div input[type="radio"]{
                 display: none;
             }
@@ -164,6 +164,21 @@
                 border-color: var(--color-accent);
                 background: var(--color-accent-light);
                 color: white;
+            }
+
+
+            /* Question 2 */
+            #question-2 div{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5em;
+            }
+
+
+            #question-2 div label{
+                font-size: 0.9em;
+                display: block;
+                flex: 1 1 20%;
             }
 
 
@@ -254,9 +269,6 @@
                     <h2>How green are your fingers?</h2>
 
                     <div>
-                        <input type="radio" id="none" name="level" value="none" onclick="saveAnswer(2, this.value)">
-                        <label for="beginner">None</label>
-
                         <input type="radio" id="beginner" name="level" value="beginner" onclick="saveAnswer(2, this.value)">
                         <label for="beginner">Beginner</label>
                         
