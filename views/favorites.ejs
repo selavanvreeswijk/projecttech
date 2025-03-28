@@ -22,34 +22,20 @@
 
         <%- include ('partials/container') %>
 
-        
-        <ul class="list-view">
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-        </ul>
-      
+        <% if (plants.length === 0) { %>
+            <!-- VUL IN MET VORMGEVING ALS ER GEEN FAVORIETEN ZIJN</p> -->
+        <% } else { %>
+            <ul class="list-view">
+
+                <% plants.forEach(plant => { %>
+                    <li>
+                        <%- include('partials/cards', { plant: plant }) %>
+                    </li>
+                <% }) %> 
+              
+            </ul>
+       <% } %>
+    
     </main>
 
     <footer>
