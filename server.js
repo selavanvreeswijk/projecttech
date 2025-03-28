@@ -171,11 +171,11 @@ async function onDashboard(req, res) {
 
 async function onLoginPost(req, res) {
   const { username, password } = req.body;
-  const user = await db.collection('users').findOne({ _id: new ObjectId(username) });
+  const user = await db.collection('users').findOne({ username: username });
   
   if (user && await bcrypt.compare(password, user.password)) {
     req.session.user = { 
-      _id: user._id.toString(),
+      _id: user._id,
       username: user.username 
     };
     return res.redirect('/dashboard');
@@ -232,7 +232,11 @@ app.post('/add-favorite', async (req, res) => {
     }
 
     if(user.favplant.includes(plantId)) {
-      return res.json({ succes:false, mesage:"Plant is already in your favorites!"})
+      await db.collection('users').updateOne(
+        { _id:userObjectId},
+        { $pull: {favplant: plantId}}
+      );
+      return res.json({ succes: true, message:"Plant removed from your favorites!"}) // berichtje klopt niet
     }
 
     await db.collection('users').updateOne(

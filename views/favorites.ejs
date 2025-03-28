@@ -18,30 +18,11 @@
 
         
         <ul class="list-view">
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
-            <li>
-                <%- include('partials/cards') %>
-            </li>
+            <% plants.forEach(plant => { %>
+                <li>
+                    <%- include('partials/cards', { plant: plant }) %>
+                </li>
+            <% }) %> 
         </ul>
       
     </main>
