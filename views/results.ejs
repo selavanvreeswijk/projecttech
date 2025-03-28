@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
     <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 
     <%- include('partials/header') %>   
 
@@ -18,7 +19,7 @@
         <%- include ('partials/container') %>
 
 
-        <ul class="list-view">
+        <ul class="list-view" id="list-view-plants">
 
              <% plants.forEach(plant => { %>
                 <li class= "plant-names">
@@ -35,17 +36,6 @@
     </footer>
 
     <script>
-
-        // API setup
-        // const apiKey = process.env.API_KEY;
-        // const allUrl = 'https://house-plants2.p.rapidapi.com/all';
-        // const options = {
-        // method: 'GET',
-        // headers: {
-        //     'x-rapidapi-key': apiKey,
-        //     'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
-        // }
-        // };
 
         //variabele voor de planten
         let plantsData = [];
@@ -65,22 +55,26 @@
                
               
 
-                let plantOptions = { valueNames: [plant-names] };
-                new list('list-view', plantOptions);
+                let plantOptions = { valueNames: ['plant-names'] };
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    new list('list-view-plants', plantOptions);
+                });
+
 
             } catch(error){
-                console.log('error fetching plants:', errors)
+                console.log('error fetching plants:', error)
             }
         }
 
         function renderPlantList(plants){
              // selecteert de lijst in html
-             const listElement = document.getElementById('list-view');
+             const listElement = document.querySelector('#list-view-plants');
              listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
 
                // zet de planten in de lijst
                plants.forEach((plant) => {
-                    const li = document.querySelector('li');
+                    const li = document.createElement('li');
                     li.classList.add('plant-names');
                     li.innerHTML = `${plant["Common name"]}`;
                     listElement.appendChild(li);
@@ -92,8 +86,17 @@
         //planten filteren op basis van de zoekterm
         function filterPlants(searchTerm) {
             const filteredPlants = plantsData.filter(plant =>{
-                return plant['Common name'].toLowerCase().includes(searchTerm.toLowerCase());
+                const commonName = plant['Common name']; 
+
+                //controleer of CommonName een string is voordat toLowerCase wordt aangeroepen
+                if (typeof commonName === 'string'){
+                    return commonName.toLowerCase().includes(searchTerm.toLowerCase());
+                } else {
+                    //als commonName geen string is, retourneer false
+                    return false;
+                }     
             }); 
+            
             //toLowerCase() maakt de functie hoofletterongevoelig
             //includes() checkt of de plantnaam de zoekterm bevat
             renderPlantList(filteredPlants); //update de lijst met gefilterde planten
@@ -105,8 +108,9 @@
             filterPlants(searchTerm);
         });
 
-        //laad de planten wanneer de pagina geladen wordt
-        fetchPlants();
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchPlants(); // Zorg ervoor dat de DOM geladen is voordat je dingen probeert te renderen
+        });
 
 
         const sortButton = document.getElementById('sort-btn');

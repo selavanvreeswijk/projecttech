@@ -1,15 +1,12 @@
 // code voor listJS in favorieten en resultaten
 
-// grid-view en list-view?
+// grid-view en list-view
 
 console.log('dit wordt uitgevoerd na het laden van de pagina')
 
 const optionList = document.querySelector('#view-list');
 const optionGrid = document.querySelector('#view-grid');
 let deLijst = document.querySelector('ul');
-// let Article = document.querySelector('li')
-
-// const articleList = document.querySelector('.list-view-li')
 
 optionList.addEventListener('change', showInList);
 optionGrid.addEventListener('change', showInGrid);

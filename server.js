@@ -5,13 +5,19 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
-const fetch = require('node-fetch');
 
 // Middleware
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('static')); // Voor afbeeldingen en bestaande project
+app.use(express.static('static', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')){
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+})); // Voor afbeeldingen en bestaande project
+//juist MIME-type forceren
 app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
 app.use(bodyParser.json());
 
@@ -146,7 +152,7 @@ async function onDetail(req, res) {
     const detailPlant = {
       category: plants.Categories,
       img: plants.Img,
-      commonName: plants['Common name'],
+      commonName: typeof plants['Common name'] === 'string' ? plants['Common name'] : '',
       heightPurchase: plants['Height at purchase'],
       idealLight: plants['Light ideal'],
       id: plants.id,
