@@ -115,11 +115,32 @@ async function onQuiz(req, res) {
 }
 
 async function onFavorites(req, res) {
-  try {
-    res.render('favorites', { plants: cachedPlants });
-  } catch (error) {
-    console.error("Error with API:", error);
+  if (!req.session.user) {
+    return res.redirect('/log-in');
   }
+
+  const userId = req.session.user._id;
+
+  try {
+    const userObjectId = ObjectId.createFromHexString(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if (!user || !user.favplant || user.favplant.length === 0) {
+      return res.render('favorites', { plants: [] });
+    }
+
+    const favoritePlantIds = user.favplant; 
+    const favoritePlants = [];
+
+    for (const plantId of favoritePlantIds) {
+      favoritePlants.push(cachedPlants)
+    }
+    res.render('favorites', { plants: favoritePlants });
+  } catch (error) {
+    console.error("Error retrieving favorites:", error);
+    res.status(500).send("Something went wrong");
+  }
+
 }
 
 async function onResults(req, res) {
