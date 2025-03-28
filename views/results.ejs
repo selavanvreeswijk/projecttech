@@ -21,8 +21,8 @@
         <ul class="list-view">
 
              <% plants.forEach(plant => { %>
-                <li>
-                    <%- include('partials/cards', { plant: plant }) %>
+                <li class= "plant-names">
+                    <%- include('partials/cards', { plant: plant }) >
                 </li>
             <% }) %> 
 
@@ -33,6 +33,15 @@
     <footer>
         <%- include('partials/footer') %> 
     </footer>
+
+    <script>
+         let options = {
+                    valueNames: ['plant-names']
+                };
+
+    </script>
+
+
 
     <script src="/script.js" defer></script>
 </body>
