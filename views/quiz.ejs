@@ -27,20 +27,63 @@
             }
 
 
-            section{
-                display: none;
+            /* Begin */
+            .begin button{
+                margin-top: 2em;
+                color: var(--color-tekst);
             }
 
 
+            .begin img{
+                width: 85vw;
+            }
+            
+
             .begin,
             .questions{
-                height: 65vh; /* 65vh omdat de viewportheight pas ná de titel begint */
+                height: 65vh; 
 
                 display: flex;
                 flex-direction: column; 
                 align-items: center;
                 justify-content: center;
                 text-align: center; 
+            }
+
+
+            /* Questions */
+            /* Progress bar */
+            progress[value]{
+                color: var(90deg, --color-footer-background) 0/var(--w);
+                background: var( --color-background-inputfield);
+                
+            }
+
+
+            progress[value]::-webkit-progress-bar {
+                background-color: var(--color-background-inputfield);
+                border-radius: 1em;
+                border: .07em solid var(--color-lines);
+            }
+
+
+            progress[value]::-webkit-progress-value {
+                background: var(--color-footer-background); 
+                border-radius: 1em;
+
+                transition: width 0.5s ease-in-out;
+            }
+
+
+            /* Questions */
+            section, 
+            .question{
+                display: none;
+            }
+
+
+            .question.active{
+                display: block;
             }
 
 
@@ -61,43 +104,11 @@
             }
 
 
-            .begin button{
-                margin-top: 2em;
-                color: var(--color-tekst);
-            }
-
-
-            .begin img{
-                width: 85vw;
-            }
-
-
             h2{
                 margin: 1em;
             }
 
-
-            .nav-buttons{
-                display: none;
-                width: 70%;
-            }
-
-
-            .nav-buttons button{
-                margin-left: 0.3em;
-            }
-
-
-            .question{
-                display: none;
-            }
-
-
-            .question.active{
-                display: block;
-            }
-
-
+            /* Question 2 */
             div label{
                 display: inline-block;
                 text-align: center;
@@ -122,30 +133,23 @@
                 color: white;
             }
 
+
+            /* Question 3 */
             #question-3 div input{
                 padding: 0.5em 2em;
             }
 
-            progress[value]{
-                color: var(90deg, --color-footer-background) 0/var(--w);
-                background: var( --color-background-inputfield);
-                
+
+            /* Navigation buttons */
+            .nav-buttons{
+                display: none;
+                width: 70%;
             }
 
-            progress[value]::-webkit-progress-bar {
-                background-color: var(--color-background-inputfield); /* Achtergrondkleur */
-                border-radius: 1em;
-                border: .07em solid var(--color-lines);
+
+            .nav-buttons button{
+                margin-left: 0.3em;
             }
-
-            progress[value]::-webkit-progress-value {
-                background: var(--color-footer-background); /* Kleur van de gevulde balk */
-                border-radius: 1em;
-
-                transition: width 0.5s ease-in-out;
-            }
-
-            
         </style>
     </head>
 
@@ -154,7 +158,7 @@
             <h1 class="h1-small">Quiz</h1>
 
             <div class="begin">
-                <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Bron https://www.freepik.com/vectors/planting-happiness-->
+                <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Source https://www.freepik.com/vectors/planting-happiness-->
                 
                 <p>Got 30 seconds? Get matched to your perfect plant!</p>
              
@@ -163,7 +167,7 @@
 
             <div class="questions">
                 <section id="question-1" class="question">
-                    <progress max="100" value="0">0%</progress> <!--Bron https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css-->
+                    <progress max="100" value="0">0%</progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css-->
 
                     <h2>How much of a plant-expert are you?</h2>
 
@@ -234,19 +238,19 @@
         </footer>
 
         <script> 
+            // Click button 'begin' -> loading first question
             const begin = document.querySelector('.begin')
             const beginButton = document.querySelector('.begin button')
-            const questionAndAnswer = document.querySelector('section')
             const navButtons = document.querySelector('.nav-buttons')
 
             beginButton.addEventListener('click', function(){
                 begin.style.display = 'none';
-
-                showQuestion(0);  
-                    navButtons.style.display = 'block';
+                navButtons.style.display = 'block';
             })
 
-            let currentQuestionIndex = 0; // Bron: hieronder heeft chatGPT bij geholpen
+            // Show current question and navigation buttons
+            // Source: chatGPT
+            let currentQuestionIndex = 0; 
             let answers = {};
 
             const questions = document.querySelectorAll(".question");
@@ -264,25 +268,9 @@
                 } else {
                     prevButton.style.display = "inline-block";
                 }
-            };
-
-
-
-
-            // progressiebar 
-
-            const progressBars = document.querySelectorAll('progress');
-            const totalQuestions = questions.length;
-
-            function updateProgress(){
-                let progressPercentage = (currentQuestionIndex / (totalQuestions - 1)) * 100;
-
-                progressBars.forEach(progress => {
-                    progress.value = progressPercentage;
-                });
             }
 
-
+            // Go to next question + save anwser 
             function nextQuestion(){
                 if (currentQuestionIndex < questions.length - 1) {
                     currentQuestionIndex++;
@@ -290,7 +278,7 @@
 
                     updateProgress();
                 }
-            };
+            }
 
             function prevQuestion(){
                 if (currentQuestionIndex > 0) {
@@ -311,11 +299,6 @@
                 showQuestion(currentQuestionIndex);
                 updateProgress();
             };
-
-
         </script>
     </body>
 </html>
-
-
-
