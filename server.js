@@ -148,9 +148,7 @@ async function onDetail(req, res) {
       tempMax: plants['Temperature max'],
       watering: plants.Watering,
       use: plants.Use,
-      style: plants.Style,
       colorOfLeaf: plants['Color of leaf'],
-      colorOfBlooms: plants['Color of blooms'],
       minTemp: plants['Temperature min'],
     };
     console.log(detailPlant)
