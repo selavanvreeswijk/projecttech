@@ -53,10 +53,20 @@
 
             /* Questions */
             /* Progress bar */
+            progress{
+                position: fixed;
+
+                width: 80%;
+                top: 9em;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 0.9em;
+            }
+            
+
             progress[value]{
                 color: var(90deg, --color-footer-background) 0/var(--w);
                 background: var( --color-background-inputfield);
-                
             }
 
 
@@ -76,7 +86,7 @@
 
 
             /* Questions */
-            section, 
+            section,
             .question{
                 display: none;
             }
@@ -85,8 +95,9 @@
             .question.active{
                 display: block;
             }
+          
 
-
+            /* Input fields */
             .questions section div{
                 display: flex;
                 flex-direction: row;
@@ -167,11 +178,11 @@
 
             <div class="questions">
                 <section id="question-1" class="question">
-                    <progress max="100" value="0">0%</progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css-->
+                    <progress max="100" value="20">20%</progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp-->
 
                     <h2>How much of a plant-expert are you?</h2>
 
-                    <div>
+                     <div>
                         <p>0</p>
                         <input type="range" min="0" max="100" value="50" oninput="saveAnswer(1, this.value)">
                         <p>10</p>
@@ -179,7 +190,7 @@
                 </section>
             
                 <section id="question-2" class="question">
-                    <progress max="100" value="25">25%</progress>
+                    <progress max="100" value="40">40%</progress>
 
                     <h2>Do you currently own plants?</h2>
 
@@ -193,7 +204,7 @@
                 </section>
             
                 <section id="question-3" class="question">
-                    <progress max="100" value="50">50%</progress>
+                    <progress max="100" value="60">60%</progress>
 
                     <h2>How much time would you like to invest in plants per week?</h2>
 
@@ -203,7 +214,7 @@
                 </section>
             
                 <section id="question-4" class="question">
-                    <progress max="100" value="75">75%</progress>
+                    <progress max="100" value="80">80%</progress>
 
                     <h2>How much money would you like to invest in plants?</h2>
 
@@ -275,8 +286,6 @@
                 if (currentQuestionIndex < questions.length - 1) {
                     currentQuestionIndex++;
                     showQuestion(currentQuestionIndex);
-
-                    updateProgress();
                 }
             }
 
@@ -284,8 +293,6 @@
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
                     showQuestion(currentQuestionIndex);
-
-                    updateProgress();
                 }
             };
 
@@ -297,7 +304,6 @@
 
             window.onload = () =>{
                 showQuestion(currentQuestionIndex);
-                updateProgress();
             };
         </script>
     </body>
