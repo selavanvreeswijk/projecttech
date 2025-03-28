@@ -22,7 +22,7 @@
 
              <% plants.forEach(plant => { %>
                 <li class= "plant-names">
-                    <%- include('partials/cards', { plant: plant }) >
+                    <%- include('partials/cards', { plant: plant }) %>
                 </li>
             <% }) %> 
 
@@ -35,9 +35,45 @@
     </footer>
 
     <script>
-         let options = {
-                    valueNames: ['plant-names']
-                };
+
+        // API setup
+        const apiKey = process.env.API_KEY;
+        const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+        const options = {
+        method: 'GET',
+        headers: {
+            'x-rapidapi-key': apiKey,
+            'x-rapidapi-host': 'house-plants2.p.rapidapi.com'
+        }
+        };
+
+        // api gegevens ophalen en toevoegen aan lijst
+        async function fetchPlants() {
+            try {
+                const response = await fetch(apiKey);
+                const plants = await response.json();
+
+                // selecteert de lijst in html
+                const listElement = document.getElementById('list-view');
+
+                // zet de planten in de lijst
+                plants.forEach(plant => {
+                    const li = document.querySelector('li');
+                    li.classList.add('plant-names');
+                    li.innerHTML = `${plant["Common name"]}`;
+                    listElement.appendChild(li);
+                    
+                });
+
+                let options = { valueNames: [plant-names] };
+                new list('list-view', options);
+
+            } catch(error){
+                console.log('error fetching plants:', errors)
+            }
+        }
+
+        fetchPlants();
 
     </script>
 
