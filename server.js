@@ -133,8 +133,12 @@ async function onFavorites(req, res) {
     const favoritePlants = [];
 
     for (const plantId of favoritePlantIds) {
-      favoritePlants.push(cachedPlants)
+      const foundPlant = cachedPlants.find(plant => plant.id === plantId);
+      if (foundPlant) {
+        favoritePlants.push(foundPlant)
+      }
     }
+    console.log(favoritePlants)
     res.render('favorites', { plants: favoritePlants });
   } catch (error) {
     console.error("Error retrieving favorites:", error);
