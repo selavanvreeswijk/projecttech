@@ -228,7 +228,7 @@ app.post('/add-favorite', async (req, res) => {
     const user = await db.collection('users').findOne({ _id: userObjectId });
 
     if(!user) {
-      return res.status(404).json({ succes: false, message: "No user found"})
+      return res.status(404).json({ success: false, message: "No user found"})
     }
 
     if(user.favplant.includes(plantId)) {
@@ -236,7 +236,7 @@ app.post('/add-favorite', async (req, res) => {
         { _id:userObjectId},
         { $pull: {favplant: plantId}}
       );
-      return res.json({ succes: true, message:"Plant removed from your favorites!"}) // berichtje klopt niet
+      return res.json({ success: true, message:"Plant removed from your favorites!"}) // berichtje klopt niet
     }
 
     await db.collection('users').updateOne(
