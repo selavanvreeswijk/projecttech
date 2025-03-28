@@ -300,15 +300,10 @@
 
 
         document.addEventListener("DOMContentLoaded", function() {
-            const heart = document.querySelector("button"); // Selecteer de <a> tag met het hartje
-    
-            heart.addEventListener("click", function(event) {
-                event.preventDefault(); // Voorkom de standaardactie van de link
-                
+            const heart = document.querySelector("button"); // Selecteer de <a> tag met het hartje         
                 // Toggle de 'clicked' class om de kleur van het hartje te veranderen
                 heart.classList.toggle("clicked");
             });
-        });
 
     </script>
 </body>

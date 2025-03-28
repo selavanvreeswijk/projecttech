@@ -224,7 +224,7 @@ app.post('/add-favorite', async (req, res) => {
   const { plantId } = req.body;
 
   try {
-    const userObjectId = new ObjectId(userId);
+    const userObjectId = ObjectId.createFromHexString(userId);
     const user = await db.collection('users').findOne({ _id: userObjectId });
 
     if(!user) {
