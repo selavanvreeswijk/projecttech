@@ -27,6 +27,19 @@
             }
 
 
+            /* Skip link */
+            /* .skip{
+                display: none;
+            }
+
+
+            .skip a{
+                position: absolute; 
+                right: 1em;
+                top: 5.6em;
+            } */
+
+
             /* Begin */
             .begin button{
                 margin-top: 2em;
@@ -156,7 +169,7 @@
 
             /* Question 2 */ 
             /* Range slider styling */
-                .questions section div p{ 
+            .questions section div p{ 
                 padding: 0 0.5em;
             }
 
@@ -214,7 +227,10 @@
     <body>
         <main>
             <h1 class="h1-small">Quiz</h1>
-            <p>Skip</p>
+
+            <!-- <div class="skip">
+                <a href="/results">Skip</a>
+            </div> -->
 
             <div class="begin">
                 <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Source https://www.freepik.com/vectors/planting-happiness-->
@@ -228,7 +244,6 @@
                 <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
 
                 <section id="question-1" class="question">
-
                     <h2>Do you currently own plants?</h2>
 
                     <div>
@@ -259,13 +274,13 @@
                  
                     <div>
                         <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this)">
-                        <label for="half-hour">0.5 hours per week</label>
+                        <label for="half-hour">0.5h</label>
                     
                         <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this)">
-                        <label for="one-hour">1 hour per week</label>
+                        <label for="one-hour">1h</label>
                     
                         <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this)">
-                        <label for="two-hours">2 hours per week</label>
+                        <label for="two-hours">2h</label>
                     </div>
                     
 
@@ -323,6 +338,7 @@
             const questions = document.querySelectorAll(".question");
             const prevButton = document.querySelector(".nav-buttons button:first-child");
             const nextButton = document.querySelector(".nav-buttons button:last-child");
+            // const quizSkip = document.querySelector('.skip'); 
 
             // Start quiz
             // Source: help from chatGPT
@@ -333,6 +349,8 @@
                 navButtons.style.display = 'block';
                 questionSelection.style.display = 'flex';
                 progressBar.style.display = 'block';
+                // quizSkip.style.display = 'block';
+                
                 showQuestion(currentQuestionIndex);
             });
 
