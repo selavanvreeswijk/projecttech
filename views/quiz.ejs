@@ -56,7 +56,7 @@
                 display: none;
                 position: fixed;
 
-                width: 80%;
+                width: 75%;
                 top: 9em;
                 left: 50%;
                 transform: translateX(-50%);
@@ -86,6 +86,18 @@
 
 
             /* Questions */
+            /* Big container */
+            .questions{
+                display: none;
+                height: 70vh;
+
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+
+            /* Individual sections */
             .question{
                 display: none;
 
@@ -98,42 +110,24 @@
             .question.active{
                 display: block;
             }
-          
-
-            /* Input fields */
-            .questions section div{
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-            }
-
-
-            .question div{
-                margin: 2em 0;
-            }
-
-
-            .questions{
-                display: none;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-
-            
-            .questions section div p{
-                padding: 0 0.5em;
-            }
 
 
             h2{
                 margin: 1em;
+                margin-top: 6em;
+            }
+     
+
+            /* Input fields */
+            .question div{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                margin: 5em 0;
             }
 
-
+            
             /* Question 1 */
             div label{
                 display: inline-block;
@@ -143,7 +137,7 @@
                 border-radius: 0.2em;
 
                 margin-left: 0.5em;
-                padding: 0.3em 0.9em;
+                padding: 1.5em 2em;
                 transition: all 0.3s ease-in-out;
             }
 
@@ -160,6 +154,13 @@
             }
 
 
+            /* Question 2 */ 
+            /* Range slider styling */
+                .questions section div p{ 
+                padding: 0 0.5em;
+            }
+
+
             /* Question 3 */
             #question-3 div input{
                 padding: 0.5em 2em;
@@ -167,13 +168,12 @@
 
 
             /* Question 5 */
-            /* Verberg de checkboxes */
             input[type="checkbox"] {
                 display: none;
             }
 
-            /* Basisstijl voor labels */
-            label {
+
+            label{
                 display: inline-block;
                 cursor: pointer;
                 border: 2px solid var(--color-lines);
@@ -183,13 +183,12 @@
                 transition: all 0.3s ease-in-out;
             }
 
-            /* Stijl als geselecteerd (wanneer checkbox is aangevinkt) */
+
             input[type="checkbox"]:checked + label {
                 background: var(--color-accent-light);
                 border-color: var(--color-accent);
                 color: white;
             }
-
 
 
             /* Navigation buttons */
@@ -204,7 +203,7 @@
             }
 
 
-            /* Choose anwser before next question */
+            /* Error: choose anwser before next question */
             .warning{
                 display: none;
                 color: red;
@@ -225,8 +224,9 @@
             </div>
 
             <div class="questions">
+                <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
+
                 <section id="question-1" class="question">
-                    <progress max="100" value="20">20%</progress>
 
                     <h2>Do you currently own plants?</h2>
 
@@ -242,8 +242,6 @@
                 </section>
 
                 <section id="question-2" class="question">
-                    <progress max="100" value="40">40%</progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp-->
-
                     <h2>How much of a plant-expert are you?</h2>
 
                      <div>
@@ -251,11 +249,11 @@
                         <input type="range" min="0" max="100" value="50" oninput="saveAnswer(2, this.value)">
                         <p>10</p>
                     </div>
+
+                    <p class="warning">Please choose an awnser</p>
                 </section>
             
                 <section id="question-3" class="question">
-                    <progress max="100" value="60">60%</progress>
-
                     <h2>How much time would you like to invest in plants per week?</h2>
 
                     <div>
@@ -266,8 +264,6 @@
                 </section>
             
                 <section id="question-4" class="question">
-                    <progress max="100" value="80">80%</progress>
-
                     <h2>How much light do you have in your room?</h2>
 
                     <div>
@@ -281,9 +277,7 @@
                     <p class="warning">Please choose an awnser</p>
                 </section>
     
-                <section id="question-5" class="question">
-                    <progress max="100" value="100">100%</progress>
-                
+                <section id="question-5" class="question">                
                     <h2>How big do you want your plant to be?</h2>
                 
                     <div>
@@ -311,104 +305,86 @@
             <%- include('partials/footer') %>
         </footer>
 
-        <script> 
-            // Click button 'begin' -> loading first question
-            const begin = document.querySelector('.begin')
-            const beginButton = document.querySelector('.begin button')
-            const navButtons = document.querySelector('.nav-buttons')
-            const questionSelection = document.querySelector('.questions')
-            const progressBar = document.querySelector('progress')
+        <script>
+            const begin = document.querySelector('.begin');
+            const beginButton = document.querySelector('.begin button');
+            const navButtons = document.querySelector('.nav-buttons');
+            const questionSelection = document.querySelector('.questions');
+            const progressBar = document.querySelector('progress'); 
+            const questions = document.querySelectorAll(".question");
+            const prevButton = document.querySelector(".nav-buttons button:first-child");
+            const nextButton = document.querySelector(".nav-buttons button:last-child");
 
-            beginButton.addEventListener('click', function(){
+            // Start quiz
+            // Source: help from chatGPT
+            let currentQuestionIndex = 0;
+
+            beginButton.addEventListener('click', function () {
                 begin.style.display = 'none';
                 navButtons.style.display = 'block';
-                questionSelection.style.display = 'block';
+                questionSelection.style.display = 'flex';
                 progressBar.style.display = 'block';
-                updateProgress();
-            })
+                showQuestion(currentQuestionIndex);
+            });
 
-            function updateProgress(){
-                const progressValue = (currentQuestionIndex + 1) * 20;
+            // Progress bar
+            function updateProgress() {
+                let progressValue = ((currentQuestionIndex + 1) / questions.length) * 100;
                 progressBar.value = progressValue;
             }
 
-            // Show current question and navigation buttons
-            // Source: chatGPT
-            let currentQuestionIndex = 0; 
-            let answers = {};
-
-            const questions = document.querySelectorAll(".question");
-
             function showQuestion(index) {
-                    questions.forEach((question) => {
-                    question.classList.remove("active");
-                })
-
+                questions.forEach((question) => question.classList.remove("active"));
                 questions[index].classList.add("active");
 
-                const prevButton = document.querySelector(".nav-buttons button:first-child");
-                if (index === 0) {
-                    prevButton.style.display = "none";
-                } else {
-                    prevButton.style.display = "inline-block";
+                updateProgress();
+
+                 // First 'previous' button
+                 // Last 'next button'
+                prevButton.style.display = index === 0 ? "none" : "inline-block";
+                nextButton.textContent = index === questions.length - 1 ? "Finish" : "Next"; 
+
+                if (index === questions.length - 1) {
+                    nextButton.addEventListener("click", function() {
+                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
+                    });
                 }
             }
 
-            // Next question 
-            // Warning: awnser question before going to next question
-            function nextQuestion(){
+            // Next question buttons
+            function nextQuestion() {
                 const currentQuestion = questions[currentQuestionIndex];
-                const inputs = currentQuestion.querySelectorAll("input");
+                const inputs = currentQuestion.querySelectorAll("input, select");
                 const warningText = currentQuestion.querySelector(".warning");
 
-                let answered = false;
-
-                inputs.forEach(input => {
-                    if ((input.type === "radio" || input.type === "checkbox") && input.checked) {
-                        answered = true;
-                    }
+                let answered = Array.from(inputs).some(input => {
+                    if (input.type === "radio" || input.type === "checkbox") return input.checked;
+                    return input.value.trim() !== "";
                 });
 
+                // Warning if no option is chosen
                 if (answered) {
                     warningText.style.display = "none"; 
                     currentQuestionIndex++;
-                    showQuestion(currentQuestionIndex);
+                    if (currentQuestionIndex < questions.length) {
+                        showQuestion(currentQuestionIndex);
+                    }
                 } else {
                     warningText.style.display = "block";
                 }
             }
 
-            function prevQuestion(){
+            function prevQuestion() {
                 if (currentQuestionIndex > 0) {
                     currentQuestionIndex--;
                     showQuestion(currentQuestionIndex);
                 }
-            };
+            }
 
-            function saveAnswer(questionId, value){
-                answers[questionId] = value;
+            prevButton.addEventListener("click", prevQuestion);
+            nextButton.addEventListener("click", nextQuestion);
 
-                if (!answers[questionId]) {
-                    answers[questionId] = []; // Maak een lege array als er nog geen antwoorden zijn
-                }
-
-                if (checkbox.checked) {
-                    // Voeg toe als het nog niet bestaat in de array
-                    if (!answers[questionId].includes(checkbox.value)) {
-                        answers[questionId].push(checkbox.value);
-                    }
-                } else {
-                    // Verwijder uit de array als het wordt uitgevinkt
-                    answers[questionId] = answers[questionId].filter(value => value !== checkbox.value);
-                }
-
-                console.log(answers); 
-            };
-
-
-            window.onload = () =>{
-                showQuestion(currentQuestionIndex);
-            };
+            showQuestion(currentQuestionIndex);
         </script>
     </body>
 </html>
