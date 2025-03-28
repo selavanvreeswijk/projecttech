@@ -149,6 +149,7 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
+    console.log(cachedPlants)
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
@@ -169,10 +170,15 @@ async function onDetail(req, res) {
       idealLight: plants['Light ideal'],
       id: plants.id,
       growth: plants.Growth,
-      heightPotential: plants['Height potential'],
       tempMax: plants['Temperature max'],
-      watering: plants.Watering
+      watering: plants.Watering,
+      use: plants.Use,
+      style: plants.Style,
+      colorOfLeaf: plants['Color of leaf'],
+      colorOfBlooms: plants['Color of blooms'],
+      minTemp: plants['Temperature min'],
     };
+    console.log(detailPlant)
     res.render('details', { plants: detailPlant });
   } catch (error) {
     console.error("Error with API", error);
