@@ -19,12 +19,12 @@
         <%- include ('partials/container') %>
 
         <div id="list-container">
-            <ul class="list-view" id="list-view-plants">
+            <ul class="list-view list" id="list-view-plants">
 
                 <% plants.forEach(plant => { %>
-                   <li class= "plant-item">
+                   <li class= "plant-item item">
 
-                    <span class="plant-names">
+                    <span class="plant-names search">
                         <%= plant['Common name'] %>
                         <%- include('partials/cards', { plant: plant }) %>
                     </span>
@@ -76,6 +76,7 @@
 
                 const listContainer = document.querySelector('#list-container');
                 const plantListElement = document.querySelector('#list-view-plants');
+                const searchInput = document.querySelector('#search-input'); //zoekbalk buiten list-container
                 
                 setTimeout(() => {
                    
@@ -95,10 +96,11 @@
 
                         let plantOptions = { 
                             valueNames: ['plant-names'],
-                            searchClass: 'search-input' 
+                            searchClass: 'search' 
                         };
-                        
+
                         new List('list-container', plantOptions);
+                        console.log("List.js is geïnitialiseerd:", document.querySelector('.list'));
                     } else {
                         console.error("List.js kan niet starten: #list-view-plants is leeg of niet gevonden.");
                     }
@@ -115,23 +117,28 @@
          // selecteert de lijst in html
              const listElement = document.querySelector('#list-view-plants');
 
+             if(!listElement) {
+                console.log('kan #list-vew-plants niet vinden in de DOM');
+                return;
+             }
              if(plants.length === 0){
                 renderEmptyState();
                 return;
              }
 
-             listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
+            // listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
                // zet de planten in de lijst
+
                plants.forEach((plant) => {
-
-                    const plantItem = document.createElement('div');
+                    const plantItem = document.createElement('li');
                     plantItem.classList.add('plant-item')
-                    plantItem.classList.add('plant-names')
 
-                    // plantItem.textContent = plant['Common name'] || 'unknown plant'
-       
+                    const plantName = document.createElement('span')
+                    plantName.classList.add('plant-names')
+                    // plantName.textContent = plant['Common name'];
+
                     // Maak een article element aan voor de plant
-                     const article = document.createElement('article');
+                    const article = document.createElement('article');
 
                     // Maak de <a> link aan
                     const link = document.createElement('a');
@@ -171,15 +178,19 @@
 
                     // Voeg de link toe aan het article
                     article.appendChild(link);
+                    article.appendChild(plantName);
 
-                    // Voeg het article toe aan de lijstitem
-                    plantItem.appendChild(article);
+                    //voegt de plantnaam toe aan het lijstitem
+                    // plantItem.appendChild(plantName);
 
-                    //voeg het lijstitem toe aan de list
+                    //voegt het lijstitem toe aan de lijst
+
                     listElement.appendChild(plantItem);
-                    
                 });
-            }
+                console.log('lijst gevuld met planten:', listElement.innerHTML)
+            }    
+
+            
 
          //planten filteren op basis van de zoekterm
          function filterPlants(searchTerm) {
