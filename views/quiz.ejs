@@ -160,10 +160,11 @@
             }
 
 
-            div input[type="radio"]:checked + label{
-                border-color: var(--color-accent);
-                background: var(--color-accent-light);
-                color: white;
+            input[type="radio"]:checked + label,
+            input[type="checkbox"]:checked + label {
+                background: var(--color-footer-background);
+                border-color: var(--color-footer-background);
+                color: white; 
             }
 
 
@@ -221,9 +222,9 @@
 
 
             input[type="checkbox"]:checked + label {
-                background: var(--color-accent-light);
-                border-color: var(--color-accent);
-                color: white;
+                background: var(--color-footer-background);
+                border-color: var(--color-footer-background);
+                color: white; 
             }
 
 
