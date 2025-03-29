@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
     <link rel="stylesheet" href="/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+   
 
     <%- include('partials/header') %>   
 
@@ -40,7 +40,19 @@
         //variabele voor de planten
         let plantsData = [];
 
-        // api gegevens ophalen en toevoegen aan lijst
+        document.addEventListener('DOMContentLoaded', async function() {
+            //planten ophalen van de server
+            await fetchPlants();
+
+            //event listener voor zoekfunctionaliteit
+            document.getElementById('search-input').addEventListener('input', (event) =>{
+                const searchTerm = event.target.value;
+                filterPlants(searchTerm);
+            });
+        });  
+        
+        
+
         async function fetchPlants() {
             try {
                 const response = await fetch('/api/plants');  //vraagt data op via server
@@ -52,23 +64,24 @@
                 //vul de lijst met planten
                 renderPlantList(plantsData);
 
-               
-              
-
-                let plantOptions = { valueNames: ['plant-names'] };
-
-                document.addEventListener('DOMContentLoaded', () => {
+                if(!window.listInitialized){
+                    let plantOptions = { valueNames: ['plant-names'] };
                     new list('list-view-plants', plantOptions);
-                });
 
+                    window.listInitialized = true; // zorgt dat list.js maar één keer wordt geïnitialiseerd
+
+                }   
 
             } catch(error){
                 console.log('error fetching plants:', error)
             }
         }
 
+
+
+
         function renderPlantList(plants){
-             // selecteert de lijst in html
+         // selecteert de lijst in html
              const listElement = document.querySelector('#list-view-plants');
              listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
 
@@ -122,25 +135,14 @@
                     // Voeg het article toe aan de lijstitem
                     li.appendChild(article);
 
-                    // li.innerHTML = `
-                    //     <article>
-                            
-                    //         <a href="/plant/${plant.id}">
-                    //             <img src="${plant.Img}" alt="Picture of ${plant['Common name']}">
-                    //             <h3 class="h3-cards">${plant['Common name']}</h3>
-                    //         </a>
-                    //     </article>
-                    // `;
-                    
                     //voeg het lijstitem toe aan de list
                     listElement.appendChild(li);
                     
                 });
+            }
 
-        }
-
-        //planten filteren op basis van de zoekterm
-        function filterPlants(searchTerm) {
+         //planten filteren op basis van de zoekterm
+         function filterPlants(searchTerm) {
             const filteredPlants = plantsData.filter(plant =>{
                 const commonName = plant['Common name']; 
 
@@ -153,20 +155,23 @@
                 }     
             }); 
 
-            //toLowerCase() maakt de functie hoofletterongevoelig
-            //includes() checkt of de plantnaam de zoekterm bevat
-            renderPlantList(filteredPlants); //update de lijst met gefilterde planten
+        if (filteredPlants.length > 0) {
+                renderPlantList(filteredPlants);
+        } else {
+                renderEmptyState();
+            }
         }
 
-        //event listener voor zoekveld
-        document.getElementById('search-input').addEventListener('input', (event) =>{
-            const searchTerm = event.target.value;
-            filterPlants(searchTerm);
-        });
+        function renderEmptyState() {
+            const listElement = document.querySelector('#list-view-plants');
+            listElement.innerHTML = '<p>No plants founds</p>'
+        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchPlants(); // Zorg ervoor dat de DOM geladen is voordat je dingen probeert te renderen
-        });
+            //toLowerCase() maakt de functie hoofletterongevoelig
+            //includes() checkt of de plantnaam de zoekterm bevat
+            // renderPlantList(filteredPlants); //update de lijst met gefilterde planten
+       
+
 
 
         const sortButton = document.getElementById('sort-btn');
@@ -220,6 +225,8 @@
 
 
 
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
     <script src="/script.js" defer></script>
 </body>
 </html>
