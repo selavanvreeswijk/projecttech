@@ -286,7 +286,7 @@
         </footer>
 
         <script>
-        async function addToFavorites(event, plantId) {
+        async function addToFavorites(plantId) {
         
             try {
                 const response = await fetch('/add-favorite', {
@@ -296,11 +296,6 @@
                 });
 
                 const result = await response.json();
-                if (result.success) {
-                    alert(result.message);
-                } else {
-                    alert(result.message);
-                }
             } catch (error) {
                 console.error('Error:', error);
                 alert('Something went wrong!');
