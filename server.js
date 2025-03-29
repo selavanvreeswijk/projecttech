@@ -176,7 +176,6 @@ async function onDetail(req, res) {
       colorOfLeaf: plants['Color of leaf'],
       minTemp: plants['Temperature min'],
     };
-    console.log(detailPlant)
     res.render('details', { plants: detailPlant });
   } catch (error) {
     console.error("Error with API", error);
