@@ -40,7 +40,7 @@ app.get('/profile', (req, res) => {
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
-      console.log ('Uitloggen mislukt', err)
+      console.log ('Logout failed:', err)
       return res.redirect('/dashboard'); // Of toon een error
     }
   })
@@ -53,10 +53,10 @@ let db;
 
 client.connect()
   .then(() => {
-    console.log('✅ Verbonden met MongoDB');
+    console.log('✅ Connected with MongoDB');
     db = client.db(process.env.DB_NAME);
   })
-  .catch(err => console.log('❌ Database fout:', err));
+  .catch(err => console.log('❌ Database error:', err));
 
 // API setup
 const apiKey = process.env.API_KEY;
@@ -81,7 +81,7 @@ async function updatePlantsCache() {
         cachedPlants = data;
 
     } catch (error) {
-        console.error("Fout bij ophalen van planten:", error);
+        console.error("Error while retrieving plants:", error);
     }
 }
 
@@ -106,7 +106,7 @@ app
   .post('/register', onRegisterPost)
   .post('/save-answer', onSaveAnswer)
   .listen(process.env.PORT || 9000, () => {
-    console.log(`Server draait op http://localhost:${process.env.PORT || 9000}`);
+    console.log(`Server is runnning on http://localhost:${process.env.PORT || 9000}`);
   });
 
 
@@ -115,7 +115,7 @@ async function onHome(req, res) {
   try {
     res.render('index', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
@@ -123,23 +123,49 @@ async function onQuiz(req, res) {
   try {
     res.render('quiz', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
 async function onFavorites(req, res) {
-  try {
-    res.render('favorites', { plants: cachedPlants });
-  } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+  if (!req.session.user) {
+    return res.redirect('/log-in');
   }
+
+  const userId = req.session.user._id;
+
+  try {
+    const userObjectId = ObjectId.createFromHexString(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if (!user || !user.favplant || user.favplant.length === 0) {
+      return res.render('favorites', { plants: [] });
+    }
+
+    const favoritePlantIds = user.favplant; 
+    const favoritePlants = [];
+
+    for (const plantId of favoritePlantIds) {
+      const foundPlant = cachedPlants.find(plant => plant.id === plantId);
+      if (foundPlant) {
+        favoritePlants.push(foundPlant)
+      }
+    }
+    console.log(favoritePlants)
+    res.render('favorites', { plants: favoritePlants });
+  } catch (error) {
+    console.error("Error retrieving favorites:", error);
+    res.status(500).send("Something went wrong");
+  }
+
 }
 
 async function onResults(req, res) {
   try {
+    console.log(cachedPlants)
     res.render('results', { plants: cachedPlants });
   } catch (error) {
-    console.error("Fout bij ophalen API:", error);
+    console.error("Error with API:", error);
   }
 }
 
@@ -157,10 +183,13 @@ async function onDetail(req, res) {
       idealLight: plants['Light ideal'],
       id: plants.id,
       growth: plants.Growth,
-      heightPotential: plants['Height potential'],
       tempMax: plants['Temperature max'],
-      watering: plants.Watering
+      watering: plants.Watering,
+      use: plants.Use,
+      colorOfLeaf: plants['Color of leaf'],
+      minTemp: plants['Temperature min'],
     };
+    console.log(detailPlant)
     res.render('details', { plants: detailPlant });
   } catch (error) {
     console.error("Error with API", error);
@@ -184,13 +213,17 @@ async function onDashboard(req, res) {
 
 async function onLoginPost(req, res) {
   const { username, password } = req.body;
-  const user = await db.collection('users').findOne({ username });
+  const user = await db.collection('users').findOne({ username: username });
+  
   if (user && await bcrypt.compare(password, user.password)) {
-    req.session.user = { username: user.username };
+    req.session.user = { 
+      _id: user._id,
+      username: user.username 
+    };
     return res.redirect('/dashboard');
   }
   res.render('error', { 
-    message: 'Ongeldige gebruikersnaam of wachtwoord',
+    message: 'Invalid username or password',
     redirect: '/log-in' });
 }
 
@@ -198,7 +231,7 @@ async function onRegisterPost(req, res) {
   const { username, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
     return res.render('error', { 
-        message: 'Wachtwoorden komen niet overeen!',
+        message: 'Password do not match!',
         redirect: '/register' });
   }
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -223,4 +256,38 @@ async function checkAPI(url, options) {
   }
 }
 
+//add to fav
+app.post('/add-favorite', async (req, res) => {
+  if (!req.session.user) { // checken of gebruiker is ingelogd
+    return res.status(401).json({ succes: false, message: 'You need to be logged in to add favorites'})
+  }
 
+  const userId = req.session.user._id;
+  const { plantId } = req.body;
+
+  try {
+    const userObjectId = ObjectId.createFromHexString(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if(!user) {
+      return res.status(404).json({ success: false, message: "No user found"})
+    }
+
+    if(user.favplant.includes(plantId)) {
+      await db.collection('users').updateOne(
+        { _id:userObjectId},
+        { $pull: {favplant: plantId}}
+      );
+      return res.json({ success: true, message:"Plant removed from your favorites!"}) // berichtje klopt niet
+    }
+
+    await db.collection('users').updateOne(
+      { _id:userObjectId},
+      { $push: {favplant: plantId}}
+    );
+
+    res.json({success: true, message:"Plant added to favorites!"})
+  } catch (error) {
+    console.error("Error with adding to favorites:", error);
+  }
+})
