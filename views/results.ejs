@@ -18,16 +18,24 @@
 
         <%- include ('partials/container') %>
 
+        <div id="list-container">
+            <ul class="list-view" id="list-view-plants">
 
-        <ul class="list-view" id="list-view-plants">
+                <% plants.forEach(plant => { %>
+                   <li class= "plant-item">
 
-             <% plants.forEach(plant => { %>
-                <li class= "plant-names">
-                    <%- include('partials/cards', { plant: plant }) %>
-                </li>
-            <% }) %> 
+                    <span class="plant-names">
+                        <%= plant['Common name'] %>
+                        <%- include('partials/cards', { plant: plant }) %>
+                    </span>
+                     
+                   </li>
+               <% }) %> 
+   
+           </ul>
 
-        </ul>
+        </div>
+       
       
     </main>
 
@@ -41,6 +49,7 @@
         let plantsData = [];
 
         document.addEventListener('DOMContentLoaded', async function() {
+            console.log(" DOM geladen, fetchPlants wordt aangeroepen...");
             //planten ophalen van de server
             await fetchPlants();
 
@@ -58,38 +67,65 @@
                 const response = await fetch('/api/plants');  //vraagt data op via server
                 const plants = await response.json();
 
+                console.log('API response:', plants)
+
                 //slaat de planten op in de globale variabele
                 plantsData = plants;
-
-                //vul de lijst met planten
+                //vult de lijst met planten
                 renderPlantList(plantsData);
 
-                if(!window.listInitialized){
-                    let plantOptions = { valueNames: ['plant-names'] };
-                    new list('list-view-plants', plantOptions);
+                const listContainer = document.querySelector('#list-container');
+                const plantListElement = document.querySelector('#list-view-plants');
+                
+                setTimeout(() => {
+                   
 
-                    window.listInitialized = true; // zorgt dat list.js maar één keer wordt geïnitialiseerd
+                    if (!listContainer) {
+                        console.error("List.js kan niet starten: #list-container niet gevonden.");
+                        return;
+                    }
 
-                }   
+                    if (!plantListElement) {
+                        console.error("List.js kan niet starten: #list-view-plants niet gevonden.");
+                        return;
+                    }
+
+                    if (plantListElement && plantListElement.childNodes.length > 0) {
+                        console.log(" List.js wordt geïnitialiseerd...");
+
+                        let plantOptions = { valueNames: ['plant-names'] };
+                        new List('list-container', plantOptions);
+                    } else {
+                        console.error("List.js kan niet starten: #list-view-plants is leeg of niet gevonden.");
+                    }
+                }, 1000) //1000ms vertraging om zeker te zijn dat de lijst gevuld is
 
             } catch(error){
-                console.log('error fetching plants:', error)
+                console.log('error fetching plants:', error);
             }
         }
-
 
 
 
         function renderPlantList(plants){
          // selecteert de lijst in html
              const listElement = document.querySelector('#list-view-plants');
-             listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
 
+             if(plants.length === 0){
+                renderEmptyState();
+                return;
+             }
+
+             listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
                // zet de planten in de lijst
                plants.forEach((plant) => {
-                    const li = document.createElement('li');
-                    li.classList.add('plant-names');
 
+                    const plantItem = document.createElement('div');
+                    plantItem.classList.add('plant-item')
+                    plantItem.classList.add('plant-names')
+
+                    // plantItem.textContent = plant['Common name'] || 'unknown plant'
+       
                     // Maak een article element aan voor de plant
                      const article = document.createElement('article');
 
@@ -133,10 +169,10 @@
                     article.appendChild(link);
 
                     // Voeg het article toe aan de lijstitem
-                    li.appendChild(article);
+                    plantItem.appendChild(article);
 
                     //voeg het lijstitem toe aan de list
-                    listElement.appendChild(li);
+                    listElement.appendChild(plantItem);
                     
                 });
             }
