@@ -10,7 +10,14 @@ const bcrypt = require('bcryptjs');
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('static')); // Voor afbeeldingen en bestaande project
+app.use(express.static('static', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')){
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+})); // Voor afbeeldingen en bestaande project
+//juist MIME-type forceren
 app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
 app.use(bodyParser.json());
 
@@ -54,6 +61,7 @@ client.connect()
 // API setup
 const apiKey = process.env.API_KEY;
 const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+
 const options = {
   method: 'GET',
   headers: {
@@ -79,6 +87,11 @@ async function updatePlantsCache() {
 
 updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
 setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
+
+// API-endpoint om de gecachede planten op te vragen
+app.get('/api/plants', (req, res) =>{
+  res.json(cachedPlants);
+});
 
 app
   .get('/', onHome)
@@ -163,7 +176,7 @@ async function onDetail(req, res) {
     const detailPlant = {
       category: plants.Categories,
       img: plants.Img,
-      commonName: plants['Common name'],
+      commonName: typeof plants['Common name'] === 'string' ? plants['Common name'] : '',
       heightPurchase: plants['Height at purchase'],
       idealLight: plants['Light ideal'],
       id: plants.id,

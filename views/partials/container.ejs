@@ -4,9 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cards</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/style.css">
 
     <style>
+        .filter-button, .sort-btn{
+            font-family: var(--font-Montserrat-light);
+            border: .08em solid var(--color-lines);
+            border-radius: .2em;
+            background: var(--color-background-inputfield);
+            height: 2.2em;
+
+            transition: .3s ease-in-out;
+
+        }       
+
+        .sort-options, .filter-options {
+            display: flex;
+            flex-direction: column; 
+            position: absolute;
+            width: max-content;
+
+            font-family: var(--font-Montserrat-light);
+            border: none;
+            border-radius: .7em;
+            background: var(--color-background-inputfield);
+            padding: .5em;
+            position: relative;
+        }
+
+
+        .sort-options{
+            left: 2.66em;
+            height: auto;
+        }
+
+
+        .filter-options{
+            left: 0;
+            
+        }
+        #filter-options, #sort-options{
+            height: max-content;
+            width: 94.4%;
+            border: .08em solid var(--color-lines);
+            position: absolute;
+            top: 2.66em;
+            left: 0;
+
+        }
+
+        .filter-button.active, .sort-btn.active{
+            background: var(--color-logo);
+        }
+
+
+        form{
+            border: .08em solid var(--color-lines);
+            border-radius: .2em;
+            background: var(--color-background-inputfield);
+            height: 1.66em;
+
+        }
+
+        input.search{
+    
+    
+            border: none;
+            background: none;
+            height: 2em;
+            width: calc(100% - .3em);
+
+            align-self: center;
+            font-family: var(--font-Montserrat-light);
+            padding-left: .3em;
+        }
+
 
     </style>
 </head>
@@ -51,6 +123,11 @@
                 </select>
             </div>
 
+           <form action="search" >
+                <input type="text" class="search" id="search-input" placeholder="Search plant">
+
+           </form>
+
  
             <label for="view-list" class="custom-radio-list">
                 <input type="radio" name="view" value="list" id="view-list" checked>
@@ -67,6 +144,8 @@
         </div>
 
     </main>
+
+    
 
     <script src="/script.js" defer></script>
 </body>
