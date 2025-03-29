@@ -93,7 +93,11 @@
                     if (plantListElement && plantListElement.childNodes.length > 0) {
                         console.log(" List.js wordt geïnitialiseerd...");
 
-                        let plantOptions = { valueNames: ['plant-names'] };
+                        let plantOptions = { 
+                            valueNames: ['plant-names'],
+                            searchClass: 'search-input' 
+                        };
+                        
                         new List('list-container', plantOptions);
                     } else {
                         console.error("List.js kan niet starten: #list-view-plants is leeg of niet gevonden.");
