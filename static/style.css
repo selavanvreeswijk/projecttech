@@ -109,7 +109,7 @@ a{
 
 
 
-*/
+
 
 
 /* styling voor zowel favorieten als resultaten */
@@ -213,8 +213,6 @@ ul.grid-view article div {
 .custom-radio-grid:has(input:checked) span{
     background: var(--color-logo);
 }
-
-
 
 
 select{
