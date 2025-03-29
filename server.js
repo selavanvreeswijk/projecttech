@@ -138,7 +138,6 @@ async function onFavorites(req, res) {
         favoritePlants.push(foundPlant)
       }
     }
-    console.log(favoritePlants)
     res.render('favorites', { plants: favoritePlants });
   } catch (error) {
     console.error("Error retrieving favorites:", error);
@@ -149,7 +148,6 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
-    console.log(cachedPlants)
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
@@ -176,7 +174,6 @@ async function onDetail(req, res) {
       colorOfLeaf: plants['Color of leaf'],
       minTemp: plants['Temperature min'],
     };
-    console.log(detailPlant)
     res.render('details', { plants: detailPlant });
   } catch (error) {
     console.error("Error with API", error);
@@ -265,7 +262,7 @@ app.post('/add-favorite', async (req, res) => {
         { _id:userObjectId},
         { $pull: {favplant: plantId}}
       );
-      return res.json({ success: true, message:"Plant removed from your favorites!"}) // berichtje klopt niet
+      return res.json({ success: true, message:"Plant removed from your favorites!"})
     }
 
     await db.collection('users').updateOne(
