@@ -1,14 +1,137 @@
 <!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>Welkom, <%= username %>!</h1>
-    <p>Je bent ingelogd.</p>
-    <p>Hieronder jouw favorieten planten:</p>
-    <a href="/logout">Uitloggen</a>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile</title>
+        <link rel="stylesheet" href="/style.css">
+
+        <%- include('partials/header') %>    
+
+        <style>
+            .title{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+
+            /* User icon */
+            main img{
+                width: 3em;
+                margin: 1em 0;
+            }
+
+
+            /* Options */
+            .options{
+                padding: 0.5em;
+                margin: 0.7em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+            }
+
+            .options section{
+                margin-top: 1em;
+            }
+
+            /* Tasks */
+            .tasks div{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .tasks div figure{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            figure img{
+                padding: 1em;
+                margin: 0.1em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+            }
+
+            figcaption{
+                
+                font-size: 0.7em;
+            }
+
+
+            .tasks h2{
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 3.5em;
+                padding: 0.2em 0;
+                margin-bottom: 0.5em;
+            }
+
+
+            .profile h2{
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 10em;
+                padding: 0.2em 0;
+                margin-bottom: 0.5em;
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <section class="title">
+                <h1 class="h1-small">Profile</h1>
+
+                <img src="/img/gebruiker.svg" alt="Icon user">
+    
+                <h2 class="h2-small">Welcome, <%= username %>!</h2>
+            </section>
+
+            <section class="options">
+                <h2 class="h2-small">What do you want to do today?</h2>
+
+                <section class="tasks">
+                    <h2 class="h2-small">Tasks</h2>
+
+                    <div> <!--Alle afbeeldingen even groot zodat de tekst eronder netjes past-->
+                        <figure>
+                            <img src="/img/favorites.svg" alt="Favorites">
+                            <figcaption>Favorites</figcaption>
+                        </figure>
+
+                        <figure>
+                            <img src="/img/plant.svg" alt="Results quiz">
+                            <figcaption>Results</figcaption>
+                        </figure>
+
+                        <figure>
+                            <img src="/img/sun.svg" alt="Retake quiz"> <!--Veranderen naar juiste afbeelding-->
+                            <figcaption>Retake quiz</figcaption>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="profile">
+                    <h2 class="h2-small">Profile settings</h2>
+
+                    <p>Change password</p>
+        
+                    <a href="/logout">Log out</a>
+                </section>
+            </section>
+        </main>
+
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
+
+        <script>
+
+        </script>
+    </body>
 </html>
