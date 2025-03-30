@@ -34,7 +34,6 @@
 
 
         .sort-options{
-            left: 2.66em;
             height: auto;
         }
 
@@ -78,7 +77,26 @@
             font-family: var(--font-Montserrat-light);
             padding-left: .3em;
         }
+        
+        span{
+            display: flex;
+            flex-direction: column;
+        }
+        .legend-titel{
+            text-transform: uppercase;
 
+        }
+        legend{
+            margin-top: .5em;
+        }
+
+        select{
+            font-family: var(--font-Montserrat-light);
+            background: var(--color-background-inputfield);
+            border: none;
+            height: 2em;
+
+        }
 
     </style>
 </head>
@@ -96,32 +114,37 @@
 
             <div id="filter-options" class="filter-options hidden">
                 <fieldset class="filter-options">
-                    <legend>Filter plants</legend>
+                    <legend class="legend-titel">Filter plants</legend>
                     <span>
+                        <legend>Experience</legend>
                         <label><input type="checkbox" class="filter-experience" value="sunlight"> Beginner</label>
                         <label><input type="checkbox" class="filter-experience" value="experience"> Intermediate</label>
                         <label><input type="checkbox" class="filter-experience" value="Water"> Expert</label>
                     </span>
 
                     <span>
+                        <legend>Water</legend>
                         <label><input type="checkbox" class="filter-water" value="sunlight"> Low water</label>
                         <label><input type="checkbox" class="filter-water" value="experience"> Medium water</label>
                         <label><input type="checkbox" class="filter-water" value="Water"> High water</label>
                     </span>
 
                     <span>
+                        <legend>Sunlight</legend>
                         <label><input type="checkbox" class="filter-sunlight" value="a-lot-sun"> A lot of sun</label>
                         <label><input type="checkbox" class="filter-sunlight" value="couple-hours-sun"> A couple of hours sun</label>
                         <label><input type="checkbox" class="filter-sunlight" value="no-sun"> No sun</label>
                     </span>
                    
                     <span>
+                        <legend>Plant size</legend>
                         <label><input type="checkbox" class="filter-plant-size" value="small"> Small</label>
                         <label><input type="checkbox" class="filter-plant-size" value="medium"> Medium</label>
                         <label><input type="checkbox" class="filter-plant-size" value="large"> Large</label>
                     </span>
 
                     <span>
+                        <legend>Growth speed</legend>
                         <label><input type="checkbox" class="filter-growth-speed" value="slow"> Slow</label>
                         <label><input type="checkbox" class="filter-growth-speed" value="medium"> Medium</label>
                         <label><input type="checkbox" class="filter-growth-speed" value="fast"> Fast</label>
@@ -140,7 +163,7 @@
 
 
             <div id="sort-options" class="sort-options hidden"> 
-            <label for="sort-options"></label>
+                <label for="sort-options" class="legend-titel sort-options" >Sort plants</label>
                 <select>
                     <option value="name-asc">Name (A-Z)</option>
                     <option value="name-desc">Name(Z-A)</option>
