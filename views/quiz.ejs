@@ -63,24 +63,27 @@
             }
 
 
-            /* Questions */
             /* Progress bar */
             progress{
                 display: none;
-                position: fixed;
+                /* position: fixed; */
+
+                margin-top: 3em;
 
                 width: 75%;
-                top: 9em;
-                left: 50%;
-                transform: translateX(-50%);
+                /* top: 9em;
+                left: 50%; */
+                /* transform: translateX(-50%);  */
                 height: 0.9em;
             }
             
 
-            progress[value]{
-                color: var(90deg, --color-footer-background) 0/var(--w);
-                background: var( --color-background-inputfield);
+            progress[value] {
+                background-color: var(--color-background-inputfield);
+                border-radius: 1em;
+                height: 0.9em; 
             }
+
 
 
             progress[value]::-webkit-progress-bar {
@@ -102,7 +105,6 @@
             /* Big container */
             .questions{
                 display: none;
-                height: 70vh;
 
                 flex-direction: column;
                 align-items: center;
@@ -116,7 +118,13 @@
 
                 width: 80%;
                 max-width: 600px;
-                margin: 1em 0;
+                margin-top: 2em;
+                margin-bottom: 1em;
+
+                padding: 0.5em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
             }
 
 
@@ -127,7 +135,6 @@
 
             h2{
                 margin: 1em;
-                margin-top: 6em;
 
                 border-top: 0.05em solid var(--color-lines);
                 border-bottom: 0.05em solid var(--color-lines);
@@ -246,10 +253,10 @@
 
 
             /* Error: choose anwser before next question */
-            .warning{
+            /* .warning{
                 display: none;
                 color: red;
-            }
+            } */
         </style>
     </head>
 
@@ -283,7 +290,7 @@
                         <label for="no">No</label>
                     </div>
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
 
                 <section id="question-2" class="question">
@@ -300,24 +307,24 @@
                         <label for="expert">Expert</label>
                     </div>                    
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
             
                 <section id="question-3" class="question">
                     <h2>How much love would you like to invest per week?</h2>
                  
                     <div>
-                        <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this)">
+                        <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this.value)">
                         <label for="half-hour">0.5h</label>
                     
-                        <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this)">
+                        <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this.value)">
                         <label for="one-hour">1h</label>
                     
-                        <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this)">
+                        <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this.value)">
                         <label for="two-hours">2h</label>
                     </div>
                     
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
             
                 <section id="question-4" class="question">
@@ -335,24 +342,24 @@
                     </div>
                     
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
     
                 <section id="question-5" class="question">                
                     <h2>How big do you want your plant to be?</h2>
                 
                     <div>
-                        <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this)">
+                        <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this.value)">
                         <label for="small">S</label>
                     
-                        <input type="checkbox" id="medium-size" name="plants" value="medium-size" onclick="saveAnswer(5, this)">
-                        <label for="medium-size">M</label> <!-- FIXED -->
+                        <input type="checkbox" id="medium-size" name="plants" value="medium-size" onclick="saveAnswer(5, this.value)">
+                        <label for="medium-size">M</label> 
                     
-                        <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this)">
+                        <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this.value)">
                         <label for="large">L</label>
                     </div>                    
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
                 
                 <div class="nav-buttons">
@@ -422,27 +429,39 @@
             }
 
             // Next question buttons
-            function nextQuestion() {
+            function nextQuestion(){
                 const currentQuestion = questions[currentQuestionIndex];
                 const inputs = currentQuestion.querySelectorAll("input, select");
-                const warningText = currentQuestion.querySelector(".warning");
 
                 let answered = Array.from(inputs).some(input => {
                     if (input.type === "radio" || input.type === "checkbox") return input.checked; 
                     return input.value.trim() !== "";
                 });
 
-                // Warning if no option is chosen
                 if (answered) {
-                    warningText.style.display = "none"; 
                     currentQuestionIndex++;
                     if (currentQuestionIndex < questions.length) {
                         showQuestion(currentQuestionIndex);
+                    } else {
+                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
                     }
-                } else {
-                    warningText.style.display = "block";
                 }
+
+            //     // // Warning if no option is chosen
+            //     // if (answered) {
+            //     //     warningText.style.display = "none"; 
+            //     //     currentQuestionIndex++;
+            //     //     if (currentQuestionIndex < questions.length) {
+            //     //         showQuestion(currentQuestionIndex);
+            //     //     }
+            //     // } else {
+            //     //     warningText.style.display = "block";
+            //     // }
+            // }
             }
+
+            
+
 
             function prevQuestion() {
                 if (currentQuestionIndex > 0) {
