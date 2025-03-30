@@ -103,7 +103,7 @@
 
         }
 
-        div.sort-options label:nth-of-type(2){
+        div.sort-options span label:nth-of-type(2){
             padding: .5em .6em;
             margin: .3em 0;
             border-top: .05em solid var(--color-lines);
@@ -123,6 +123,17 @@
             display: inline-block;
             aspect-ratio: 1;
             height: 1em;
+        }
+
+        div.sort-options input[type="radio"]:checked + div{
+            background: var(--color-logo);
+            color: var(--color-background-inputfield);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sort-options span{
+
         }
 
     </style>
@@ -190,22 +201,20 @@
 
 
             <div id="sort-options" class="sort-options hidden"> 
-                <input type="radio" id="popular" name="popular" value="popular">
-                <label for="popular">Popular</label>
+                <span>
+                    <input type="radio" id="popular" name="popular" value="popular">
+                    <label for="popular">Popular</label>
+                </span>
 
-                <input type="radio" id="A-Z" name="sort" value="A-Z">
-                <label for="A-Z">A-Z</label>
-                
-                <input type="radio" id="Z-A" name="sort" value="Z-A">
-                <label for="Z-A">Z-A</label>
-              
-                <!-- <label for="sort-options" class="legend-titel sort-options" >Sort plants</label>
-                <select>
-                    <option value="name-asc">Name (A-Z)</option>
-                    <option value="name-desc">Name(Z-A)</option>
-                    <option value="date-asc">Date (Old → New)</option>
-                    <option value="date-desc">Date (New → Old)</option>
-                </select> -->
+                <span>
+                    <input type="radio" id="A-Z" name="sort" value="A-Z">
+                    <label for="A-Z">A-Z</label>
+                </span>
+
+                <span>
+                    <input type="radio" id="Z-A" name="sort" value="Z-A">
+                    <label for="Z-A">Z-A</label>
+                </span>     
             </div>
 
            <form action="search" >
