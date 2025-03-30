@@ -9,11 +9,22 @@
         <%- include('partials/header') %>    
 
         <style>
+            .background{
+                background: var(--color-logo);
+                height: 100vh;
+            }
+
+
             .title{
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                background: var(--color-background);
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+                padding: 0.5em;
+                margin: 0.7em;
             }
 
 
@@ -31,6 +42,7 @@
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
+                background: var(--color-background);
             }
 
 
@@ -99,7 +111,7 @@
         </style>
     </head>
 
-    <body>
+    <body class="background">
         <main>
             <section class="title">
                 <h1 class="h1-small">Profile</h1>
