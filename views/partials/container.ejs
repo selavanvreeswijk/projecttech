@@ -12,7 +12,7 @@
             border: .08em solid var(--color-lines);
             border-radius: .2em;
             background: var(--color-background-inputfield);
-            height: 2.2em;
+            /* height: 2.2em; */
 
             transition: .3s ease-in-out;
 
@@ -34,7 +34,6 @@
 
 
         .sort-options{
-            left: 2.66em;
             height: auto;
         }
 
@@ -51,6 +50,9 @@
             top: 2.66em;
             left: 0;
 
+        }
+        #sort-options{
+            width: calc(100% - .1em);
         }
 
         .filter-button.active, .sort-btn.active{
@@ -78,7 +80,61 @@
             font-family: var(--font-Montserrat-light);
             padding-left: .3em;
         }
+        
+        span{
+            display: flex;
+            flex-direction: column;
+        }
+        .legend-titel{
+            text-transform: uppercase;
 
+        }
+        legend{
+            margin: .5em 0 .2em;
+            padding-left: .6em;
+            text-transform: uppercase;
+        }
+
+        select{
+            font-family: var(--font-Montserrat-light);
+            background: var(--color-background-inputfield);
+            border: none;
+            height: 2em;
+
+        }
+
+        div.sort-options span label:nth-of-type(2){
+            padding: .5em .6em;
+            margin: .3em 0;
+            border-top: .05em solid var(--color-lines);
+            border-bottom: .05em solid var(--color-lines);
+        }
+        
+        div.sort-options{
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        label{
+            padding-left: .6em;
+        }
+
+        .filter-options input[type="radio"]{
+            display: inline-block;
+            aspect-ratio: 1;
+            height: 1em;
+        }
+
+        div.sort-options input[type="radio"]:checked + div{
+            background: var(--color-logo);
+            color: var(--color-background-inputfield);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sort-options span{
+
+        }
 
     </style>
 </head>
@@ -96,10 +152,41 @@
 
             <div id="filter-options" class="filter-options hidden">
                 <fieldset class="filter-options">
-                    <legend>Category</legend>
-                    <label><input type="checkbox" class="filter-category" value="sunlight"> Sunlight</label>
-                    <label><input type="checkbox" class="filter-category" value="experience"> Experience</label>
-                    <label><input type="checkbox" class="filter-category" value="Water"> Water</label>
+                    <legend class="legend-titel">Filter plants</legend>
+                    <span>
+                        <legend>Experience</legend>
+                        <label><input type="radio" class="filter-experience" name="experience" value="sunlight"> Beginner</label>
+                        <label><input type="radio" class="filter-experience" name="experience"  value="experience"> Intermediate</label>
+                        <label><input type="radio" class="filter-experience" name="experience" value="Water"> Expert</label>
+                    </span>
+
+                    <span>
+                        <legend>Water</legend>
+                        <label><input type="radio" class="filter-water" name="water" value="sunlight"> Low water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="experience"> Medium water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="Water"> High water</label>
+                    </span>
+
+                    <span>
+                        <legend>Sunlight</legend>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="a-lot-sun"> A lot of sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="couple-hours-sun"> A couple of hours sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="no-sun"> No sun</label>
+                    </span>
+                   
+                    <span>
+                        <legend>Plant size</legend>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="small"> Small</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="medium"> Medium</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="large"> Large</label>
+                    </span>
+
+                    <span>
+                        <legend>Growth speed</legend>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="slow"> Slow</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="medium"> Medium</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="fast"> Fast</label>
+                    </span>
                 </fieldset>
 
             </div>
@@ -114,13 +201,20 @@
 
 
             <div id="sort-options" class="sort-options hidden"> 
-            <label for="sort-options"></label>
-                <select>
-                    <option value="name-asc">Name (A-Z)</option>
-                    <option value="name-desc">Name(Z-A)</option>
-                    <option value="date-asc">Date (Old → New)</option>
-                    <option value="date-desc">Date (New → Old)</option>
-                </select>
+                <span>
+                    <input type="radio" id="popular" name="popular" value="popular">
+                    <label for="popular">Popular</label>
+                </span>
+
+                <span>
+                    <input type="radio" id="A-Z" name="sort" value="A-Z">
+                    <label for="A-Z">A-Z</label>
+                </span>
+
+                <span>
+                    <input type="radio" id="Z-A" name="sort" value="Z-A">
+                    <label for="Z-A">Z-A</label>
+                </span>     
             </div>
 
            <form action="search" >

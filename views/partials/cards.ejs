@@ -7,11 +7,143 @@
     <link rel="stylesheet" href="/style.css">
 
     <style>
+
+    article{
+        display: grid;
+        grid-template-rows: auto 1fr;
+
+        width: 100%;
+        height: 100%;
+
+        background: var(--color-background-inputfield);
+        border-radius: .7em;
+        border: .08em solid var(--color-lines);
+
+        box-sizing: border-box;
         
-       
-        button {
+    }
+
+
+    article div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100%;
+        height: 3em;
+        padding: .5em;
+        gap: .5em;
+        box-sizing: border-box;
+        
+    }
+
+    .h3-cards {
+        color: var(--color-tekst);
+        text-transform: uppercase;
+        font-size: .7em;
+
+        overflow-wrap: break-word;
+        hyphens: auto;
+        word-break: break-all;
+
+        align-self: center;
+    }
+
+    article a{
+        display: grid;
+    }
+
+
+    article a > img{
+        width: 100%;
+        grid-row: 1 / 2;
+        height: 10em;
+        order: -1;
+
+        object-fit: cover;
+        overflow: hidden;
+
+        border-top-right-radius: .7em;
+        border-top-left-radius: .7em;
+
+        
+    }
+
+    #icon-favorites-cards{
+
+        stroke-width: 1em;
+        stroke: var(--color-lines);
+
+        width: 1.2em;
+    } 
+
+    button {
             all: unset;
-        }
+    }
+
+
+/* 
+         article{
+            display: grid;
+            grid-template-rows: 8em 2em;
+
+            width: 100%;
+            height: 10em;
+
+            background: var(--color-background-inputfield);
+            border-radius: .7em;
+            border: .08em solid var(--color-lines);
+            
+        } */
+
+
+        /* article div{
+            display: flex;
+            width: 100%;
+            height: 2em;
+
+            justify-content: space-between;
+            align-self: center;
+            grid-row: 2 / 3;
+        } */
+
+
+
+        
+        /* h3{
+            color: var(--color-tekst);
+            text-transform: uppercase;
+            font-size: .7em;
+
+            margin-left: .5em;
+            align-self: center;
+        } */
+
+        /* article a{
+            display: grid;
+        } */
+
+
+        /* article a > img{
+            width: 100%;
+            grid-row: 1 / 2;
+            height: 8em;
+            order: -1;
+            object-fit: cover;
+            border-top-right-radius: .7em;
+            border-top-left-radius: .7em;
+        } */
+
+        /* #icon-favorites-cards{
+
+            stroke-width: 1em;
+            stroke: var(--color-lines);
+
+            width: 1.2em;
+            margin-right: .5em;
+        } */
+       
+       
 
     </style>
 </head>
@@ -23,10 +155,7 @@
             <a href="/plant/<%=plant.id%>">
             <div>
 
-                <h3 class="h3-cards"><%= plant['Common name'] %> </h3>
-
-                <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
-
+                <h3><%= plant['Common name'] %> </h3>
                 
                 <button class="favorite-btn" onclick="addToFavorites(event, '<%= plant.id %>')">
                     <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
