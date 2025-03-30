@@ -411,6 +411,7 @@
                 // First 'previous' button
                 // Last 'next button'
                 if (index === questions.length - 1) {
+                    nextButton.textContent = "Finish";
                     nextButton.onclick = function () {
                         window.location.href = "/results"; // BACKEND: refer to userID
                     };
