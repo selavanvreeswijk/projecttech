@@ -59,8 +59,8 @@
             }
 
             figcaption{
-                
-                font-size: 0.7em;
+                font-size: 0.75em;
+                margin-top: 0.2em;
             }
 
 
@@ -100,18 +100,24 @@
 
                     <div> <!--Alle afbeeldingen even groot zodat de tekst eronder netjes past-->
                         <figure>
-                            <img src="/img/favorites.svg" alt="Favorites">
-                            <figcaption>Favorites</figcaption>
+                            <a href="/favorites"> <!--BACKEND: favorites van gebruiker-->
+                                <img src="/img/favorites.svg" alt="Favorites">
+                                <figcaption>See favorites</figcaption>
+                            </a>
                         </figure>
 
                         <figure>
-                            <img src="/img/plant.svg" alt="Results quiz">
-                            <figcaption>Results</figcaption>
+                            <a href="/results">  <!--BACKEND: results van gebruiker-->
+                                <img src="/img/sun.svg" alt="Results quiz"> <!--Veranderen naar juiste afbeelding-->
+                                <figcaption>See results</figcaption>
+                            </a>
                         </figure>
 
                         <figure>
-                            <img src="/img/sun.svg" alt="Retake quiz"> <!--Veranderen naar juiste afbeelding-->
-                            <figcaption>Retake quiz</figcaption>
+                            <a href="/quiz">   <!--BACKEND: quiz opnieuw doen en eerdere gegevens dus niet meer opgeslagen?-->
+                                <img src="/img/sun.svg" alt="Retake quiz"> <!--Veranderen naar juiste afbeelding-->
+                                <figcaption>Retake quiz</figcaption>
+                            </a>
                         </figure>
                     </div>
                 </section>
