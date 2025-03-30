@@ -66,15 +66,9 @@
             /* Progress bar */
             progress{
                 display: none;
-                /* position: fixed; */
 
-                margin-top: 3em;
-
-                width: 75%;
-                /* top: 9em;
-                left: 50%; */
-                /* transform: translateX(-50%);  */
-                height: 0.9em;
+                margin-top: 2em;
+                width: 80%;
             }
             
 
@@ -83,7 +77,6 @@
                 border-radius: 1em;
                 height: 0.9em; 
             }
-
 
 
             progress[value]::-webkit-progress-bar {
@@ -116,10 +109,10 @@
             .question{
                 display: none;
 
-                width: 80%;
+                width: 75%;
                 max-width: 600px;
                 margin-top: 2em;
-                margin-bottom: 1em;
+                margin-bottom: 2em;
 
                 padding: 0.5em;
 
@@ -138,7 +131,7 @@
 
                 border-top: 0.05em solid var(--color-lines);
                 border-bottom: 0.05em solid var(--color-lines);
-                width: 14em;
+                width: 13em;
                 padding: 0.5em 0;
             }
      
@@ -149,7 +142,8 @@
                 flex-direction: row;
                 justify-content: center;
 
-                margin: 2em 0;
+                margin-top: 2em;
+                margin-bottom: 1.5em;
             }
 
 
@@ -165,8 +159,7 @@
                 transition: all 0.3s ease-in-out;
             }
             
-            
-            /* Question 1 */
+
             div input[type="radio"]{
                 display: none;
             }
@@ -181,7 +174,8 @@
 
 
             /* Question 2 */
-            #question-2 div{
+            #question-2 div,
+            #question-4 div{
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.5em;
@@ -202,13 +196,6 @@
 
 
             /* Question 4*/
-            #question-4 div{
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5em;
-            }
-
-
             #question-4 div label{
                 font-size: 0.9em;
                 display: block;
@@ -222,17 +209,6 @@
             }
 
 
-            label{
-                display: inline-block;
-                cursor: pointer;
-                border: 2px solid var(--color-lines);
-                border-radius: 0.2em;
-                padding: 0.5em 1em;
-                margin: 0.5em;
-                transition: all 0.3s ease-in-out;
-            }
-
-
             input[type="checkbox"]:checked + label {
                 background: var(--color-footer-background);
                 border-color: var(--color-footer-background);
@@ -242,14 +218,21 @@
 
             /* Navigation buttons */
             .nav-buttons{
-                display: none;
-                width: 70%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
             }
-
 
             .nav-buttons button{
-                margin-left: 0.3em;
+                display: none;
+                margin: 0 auto;
             }
+
+
+            /* .nav-buttons button{
+                margin-left: 0.3em;
+            } */
 
 
             /* Error: choose anwser before next question */
@@ -363,7 +346,7 @@
                 </section>
                 
                 <div class="nav-buttons">
-                    <button onclick="prevQuestion()">Previous</button>
+                    <!-- <button onclick="prevQuestion()">Previous</button> -->
                     <button onclick="nextQuestion()">Next</button>
                 </div>
             </div>
@@ -380,8 +363,8 @@
             const questionSelection = document.querySelector('.questions');
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
-            const prevButton = document.querySelector(".nav-buttons button:first-child");
-            const nextButton = document.querySelector(".nav-buttons button:last-child");
+            // const prevButton = document.querySelector(".nav-buttons button:first-child");
+            const nextButton = document.querySelector(".nav-buttons button");
             // const quizSkip = document.querySelector('.skip'); 
 
             // Start quiz
@@ -416,15 +399,23 @@
 
                 updateProgress();
 
+                nextButton.style.display ="none";
+
+                const inputs = questions[index].querySelectorAll("input");
+                inputs.forEach(input => {
+                    input.addEventListener("change", function () {
+                        nextButton.style.display = "block"; 
+                    });
+                });
+
                 // First 'previous' button
                 // Last 'next button'
-                prevButton.style.display = index === 0 ? "none" : "inline-block";
-                nextButton.textContent = index === questions.length - 1 ? "Finish" : "Next"; 
-
                 if (index === questions.length - 1) {
-                    nextButton.addEventListener("click", function() {
-                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
-                    });
+                    nextButton.onclick = function () {
+                        window.location.href = "/results"; // BACKEND: refer to userID
+                    };
+                } else {
+                    nextButton.onclick = nextQuestion;
                 }
             }
 
@@ -446,6 +437,7 @@
                         window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
                     }
                 }
+            }
 
             //     // // Warning if no option is chosen
             //     // if (answered) {
@@ -458,19 +450,15 @@
             //     //     warningText.style.display = "block";
             //     // }
             // }
-            }
-
             
+            // function prevQuestion() {
+            //     if (currentQuestionIndex > 0) {
+            //         currentQuestionIndex--;
+            //         showQuestion(currentQuestionIndex);
+            //     }
+            // }
 
-
-            function prevQuestion() {
-                if (currentQuestionIndex > 0) {
-                    currentQuestionIndex--;
-                    showQuestion(currentQuestionIndex);
-                }
-            }
-
-            prevButton.addEventListener("click", prevQuestion);
+            // prevButton.addEventListener("click", prevQuestion);
             nextButton.addEventListener("click", nextQuestion);
 
             showQuestion(currentQuestionIndex);
