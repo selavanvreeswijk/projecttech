@@ -51,6 +51,9 @@
             left: 0;
 
         }
+        #sort-options{
+            width: calc(100% - .1em);
+        }
 
         .filter-button.active, .sort-btn.active{
             background: var(--color-logo);
@@ -87,7 +90,9 @@
 
         }
         legend{
-            margin-top: .5em;
+            margin: .5em 0 .2em;
+            padding-left: .6em;
+            text-transform: uppercase;
         }
 
         select{
@@ -96,6 +101,28 @@
             border: none;
             height: 2em;
 
+        }
+
+        div.sort-options label:nth-of-type(2){
+            padding: .5em .6em;
+            margin: .3em 0;
+            border-top: .05em solid var(--color-lines);
+            border-bottom: .05em solid var(--color-lines);
+        }
+        
+        div.sort-options{
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        label{
+            padding-left: .6em;
+        }
+
+        .filter-options input[type="radio"]{
+            display: inline-block;
+            aspect-ratio: 1;
+            height: 1em;
         }
 
     </style>
@@ -117,37 +144,37 @@
                     <legend class="legend-titel">Filter plants</legend>
                     <span>
                         <legend>Experience</legend>
-                        <label><input type="checkbox" class="filter-experience" value="sunlight"> Beginner</label>
-                        <label><input type="checkbox" class="filter-experience" value="experience"> Intermediate</label>
-                        <label><input type="checkbox" class="filter-experience" value="Water"> Expert</label>
+                        <label><input type="radio" class="filter-experience" name="experience" value="sunlight"> Beginner</label>
+                        <label><input type="radio" class="filter-experience" name="experience"  value="experience"> Intermediate</label>
+                        <label><input type="radio" class="filter-experience" name="experience" value="Water"> Expert</label>
                     </span>
 
                     <span>
                         <legend>Water</legend>
-                        <label><input type="checkbox" class="filter-water" value="sunlight"> Low water</label>
-                        <label><input type="checkbox" class="filter-water" value="experience"> Medium water</label>
-                        <label><input type="checkbox" class="filter-water" value="Water"> High water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="sunlight"> Low water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="experience"> Medium water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="Water"> High water</label>
                     </span>
 
                     <span>
                         <legend>Sunlight</legend>
-                        <label><input type="checkbox" class="filter-sunlight" value="a-lot-sun"> A lot of sun</label>
-                        <label><input type="checkbox" class="filter-sunlight" value="couple-hours-sun"> A couple of hours sun</label>
-                        <label><input type="checkbox" class="filter-sunlight" value="no-sun"> No sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="a-lot-sun"> A lot of sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="couple-hours-sun"> A couple of hours sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="no-sun"> No sun</label>
                     </span>
                    
                     <span>
                         <legend>Plant size</legend>
-                        <label><input type="checkbox" class="filter-plant-size" value="small"> Small</label>
-                        <label><input type="checkbox" class="filter-plant-size" value="medium"> Medium</label>
-                        <label><input type="checkbox" class="filter-plant-size" value="large"> Large</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="small"> Small</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="medium"> Medium</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="large"> Large</label>
                     </span>
 
                     <span>
                         <legend>Growth speed</legend>
-                        <label><input type="checkbox" class="filter-growth-speed" value="slow"> Slow</label>
-                        <label><input type="checkbox" class="filter-growth-speed" value="medium"> Medium</label>
-                        <label><input type="checkbox" class="filter-growth-speed" value="fast"> Fast</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="slow"> Slow</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="medium"> Medium</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="fast"> Fast</label>
                     </span>
                 </fieldset>
 
@@ -163,13 +190,22 @@
 
 
             <div id="sort-options" class="sort-options hidden"> 
-                <label for="sort-options" class="legend-titel sort-options" >Sort plants</label>
+                <input type="radio" id="popular" name="popular" value="popular">
+                <label for="popular">Popular</label>
+
+                <input type="radio" id="A-Z" name="sort" value="A-Z">
+                <label for="A-Z">A-Z</label>
+                
+                <input type="radio" id="Z-A" name="sort" value="Z-A">
+                <label for="Z-A">Z-A</label>
+              
+                <!-- <label for="sort-options" class="legend-titel sort-options" >Sort plants</label>
                 <select>
                     <option value="name-asc">Name (A-Z)</option>
                     <option value="name-desc">Name(Z-A)</option>
                     <option value="date-asc">Date (Old → New)</option>
                     <option value="date-desc">Date (New → Old)</option>
-                </select>
+                </select> -->
             </div>
 
            <form action="search" >

@@ -175,6 +175,7 @@ ul.grid-view article div {
     width: 1.66em;
     height: 1.66em;
     border-radius: .2em;
+    padding: 0;
 
     grid-column: 4 / 5;
 
@@ -198,6 +199,7 @@ ul.grid-view article div {
     width: 1.66em;
     height: 1.36em;
     gap: .2em;
+    padding: 0;
 }
 
 
