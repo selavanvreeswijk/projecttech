@@ -11,6 +11,7 @@
         <style>
             .background{
                 background: var(--color-logo);
+                /* background-image: radial-gradient(circle at 72% 83%, rgba(12, 12, 12,0.04) 0%, rgba(12, 12, 12,0.04) 50%,rgba(172, 172, 172,0.04) 50%, rgba(172, 172, 172,0.04) 100%),radial-gradient(circle at 57% 65%, rgba(11, 11, 11,0.04) 0%, rgba(11, 11, 11,0.04) 50%,rgba(222, 222, 222,0.04) 50%, rgba(222, 222, 222,0.04) 100%),radial-gradient(circle at 64% 31%, rgba(11, 11, 11,0.04) 0%, rgba(11, 11, 11,0.04) 50%,rgba(191, 191, 191,0.04) 50%, rgba(191, 191, 191,0.04) 100%),linear-gradient(130deg, rgb(5, 235, 123),rgb(47, 52, 6)); */
                 height: 100vh;
             }
 
@@ -31,7 +32,7 @@
             /* User icon */
             main img{
                 width: 3em;
-                margin: 1em 0;
+                margin: 0.5em;
             }
 
 
@@ -60,7 +61,7 @@
             
             .tasks h2{
                 border-bottom: 0.05em solid var(--color-lines);
-                width: 3.5em;
+                width: 6.5em;
                 padding: 0.2em 0;
                 margin-bottom: 0.5em;
             }
@@ -114,18 +115,16 @@
     <body class="background">
         <main>
             <section class="title">
-                <h1 class="h1-small">Profile</h1>
-
                 <img src="/img/gebruiker.svg" alt="Icon user">
     
-                <h2 class="h2-small">Welcome, <%= username %>!</h2>
+                <h1 class="h1-small">Welcome, <%= username %>!</h1>
             </section>
 
             <section class="options">
                 <h2 class="h2-small">What do you want to do today?</h2>
 
                 <section class="tasks">
-                    <h2 class="h2-small">Tasks</h2>
+                    <h2 class="h2-small">My activity</h2>
 
                     <div> <!--Alle afbeeldingen even groot zodat de tekst eronder netjes past-->
                         <figure>
