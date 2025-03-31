@@ -31,19 +31,12 @@ app.use(session({
   cookie: { maxAge: 1800000 }
 }));
 
-app.get('/profile', (req, res) => {
-  if (req.session.user) {
-    return res.redirect ('/dashboard');
-  } else {
-    return res.redirect('/log-in');
-  }
-});
 
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.log ('Logout failed:', err)
-      return res.redirect('/dashboard'); // Of toon een error
+      return res.redirect('/profile'); // Of toon een error
     }
   })
   return res.redirect ('/log-in')
@@ -103,7 +96,7 @@ app
   .get('/plant/:plantId', onDetail)
   .get('/log-in', onLogIn)
   .get('/register', onRegister)
-  .get('/dashboard', onDashboard)
+  .get('/profile', onDashboard)
   .get('/change-password', onChangePassword)
 
   .post('/log-in', onLoginPost)
@@ -273,7 +266,7 @@ async function onLoginPost(req, res) {
       _id: user._id,
       username: user.username 
     };
-    return res.redirect('/dashboard');
+    return res.redirect('/profile');
   }
   res.render('error', { 
     message: 'Invalid username or password',
