@@ -1,14 +1,173 @@
 <!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>Welkom, <%= username %>!</h1>
-    <p>Je bent ingelogd.</p>
-    <p>Hieronder jouw favorieten planten:</p>
-    <a href="/logout">Uitloggen</a>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile</title>
+        <link rel="stylesheet" href="/style.css">
+
+        <%- include('partials/header') %>    
+
+        <style>
+            .background{
+                background: var(--color-logo);
+                /* background-image: radial-gradient(circle at 72% 83%, rgba(12, 12, 12,0.04) 0%, rgba(12, 12, 12,0.04) 50%,rgba(172, 172, 172,0.04) 50%, rgba(172, 172, 172,0.04) 100%),radial-gradient(circle at 57% 65%, rgba(11, 11, 11,0.04) 0%, rgba(11, 11, 11,0.04) 50%,rgba(222, 222, 222,0.04) 50%, rgba(222, 222, 222,0.04) 100%),radial-gradient(circle at 64% 31%, rgba(11, 11, 11,0.04) 0%, rgba(11, 11, 11,0.04) 50%,rgba(191, 191, 191,0.04) 50%, rgba(191, 191, 191,0.04) 100%),linear-gradient(130deg, rgb(5, 235, 123),rgb(47, 52, 6)); */
+                height: 100vh;
+            }
+
+
+            .title{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background: var(--color-background);
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+                padding: 0.5em;
+                margin: 0.7em;
+            }
+
+
+            /* User icon */
+            main img{
+                width: 3em;
+                margin: 0.5em;
+            }
+
+
+            /* Options */
+            .options{
+                padding: 0.5em;
+                margin: 0.7em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+                background: var(--color-background);
+            }
+
+
+            .options section{
+                margin-top: 1em;
+            }
+
+            /* Tasks */
+            .tasks div{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            
+            .tasks h2{
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 6.5em;
+                padding: 0.2em 0;
+                margin-bottom: 0.5em;
+            }
+
+
+            figure{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+
+            figure img{
+                padding: 1em;
+                margin: 0.1em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+            }
+
+
+            figcaption{
+                font-size: 0.75em;
+                margin-top: 0.2em;
+            }
+
+
+            /* Profile */
+            .profile h2{
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 10em;
+                padding: 0.2em 0;
+                margin-bottom: 0.5em;
+            }
+
+
+            .profile div{
+                display: flex;
+                flex-direction: column;
+                text-decoration: underline;
+            }
+
+            
+            .profile div a{
+                padding-top: 0.1em;
+            }
+        </style>
+    </head>
+
+    <body class="background">
+        <main>
+            <section class="title">
+                <img src="/img/gebruiker.svg" alt="Icon user">
+    
+                <h1 class="h1-small">Welcome, <%= username %>!</h1>
+            </section>
+
+            <section class="options">
+                <h2 class="h2-small">What do you want to do today?</h2>
+
+                <section class="tasks">
+                    <h2 class="h2-small">My activity</h2>
+
+                    <div> <!--Alle afbeeldingen even groot zodat de tekst eronder netjes past-->
+                        <figure>
+                            <a href="/favorites"> <!--BACKEND: favorites van gebruiker-->
+                                <img src="/img/favorites.svg" alt="Favorites">
+                                <figcaption>See favorites</figcaption>
+                            </a>
+                        </figure>
+
+                        <figure>
+                            <a href="/results">  <!--BACKEND: results van gebruiker-->
+                                <img src="/img/sun.svg" alt="Results quiz"> <!--Veranderen naar juiste afbeelding-->
+                                <figcaption>See results</figcaption>
+                            </a>
+                        </figure>
+
+                        <figure>
+                            <a href="/quiz">   <!--BACKEND: quiz opnieuw doen en eerdere gegevens dus niet meer opgeslagen?-->
+                                <img src="/img/sun.svg" alt="Retake quiz"> <!--Veranderen naar juiste afbeelding-->
+                                <figcaption>Retake quiz</figcaption>
+                            </a>
+                        </figure>
+                    </div>
+                </section>
+
+                <section class="profile">
+                    <h2 class="h2-small">Profile settings</h2>
+
+                    <div>
+                        <a href="/change-password">Change password</a>
+        
+                        <a href="/logout">Log out</a>
+                    </div>
+                </section>
+            </section>
+        </main>
+
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
+
+        <script>
+
+        </script>
+    </body>
 </html>
