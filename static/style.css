@@ -234,5 +234,54 @@ ul.grid-view article div {
 
 
 
+/* Styling forms: log-in, register, change-password */
+.forms-body{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forms-container{
+    margin: 0.5em 1.5em;
+}
+
+
+.forms{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forms-h1{
+    border-bottom: 0.05em solid var(--color-lines);
+
+    width: 11.3em;
+    padding-bottom: 0.2em;
+    font-size: 1em;
+}
+
+
+.forms input{
+    margin-top: 0.3em;
+}
+
+
+.forms div{
+    margin-top: 1.5em;
+}
+
+
+.forms button,
+.forms a{
+    display: block;
+    margin: 0 auto;
+
+    margin-top: 2em;
+}
+
+
+.forms label{
+    margin-bottom: 0.5em;
+}
 
 
