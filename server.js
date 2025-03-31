@@ -133,7 +133,7 @@ async function onQuiz(req, res) {
 
 async function onFavorites(req, res) {
   if (!req.session.user) {
-    return res.redirect('/favorites');
+    return res.redirect('/log-in');
   }
 
   const userId = req.session.user._id;
