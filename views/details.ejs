@@ -325,23 +325,30 @@
         </footer>
 
         <script>
-            async function addToFavorites(plantId) {
-            
-                try {
-                    const response = await fetch('/add-favorite', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json'},
-                        body: JSON.stringify({plantId})
-                    });
 
-                    const result = await response.json();
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Something went wrong!');
+        async function addToFavorites(plantId) {
+        
+            try {
+                const response = await fetch('/add-favorite', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify({plantId})
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert(result.message);
+                } else {
+                    alert(result.message);
                 }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong!');
             }
 
-           
+        }
+
 
 
             // Animation drop down
