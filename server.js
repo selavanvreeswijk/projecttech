@@ -158,6 +158,7 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
+    console.log(cachedPlants);
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
@@ -297,6 +298,7 @@ async function checkAPI(url, options) {
     const response = await fetch(allUrl, options);
     const result = await response.json();
    // console.log(result); // uncomment voor debuggen
+
   } catch (error) {
     console.error(error);
   }
