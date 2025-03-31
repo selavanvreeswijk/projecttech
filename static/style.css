@@ -125,7 +125,7 @@ figcaption{
     margin: 0 1em 1em 1em;
 
     position: relative;
-    width: min(92%, 60em);
+    width: min(91.5%, 59.8em);
 }
 
 
@@ -220,6 +220,14 @@ ul.grid-view article div {
     background: var(--color-logo);
 }
 
+@media( width > 40em){
+    ul.grid-view{
+        grid-template-columns: 1fr 1fr 1fr;
+        /* grid-template-columns: calc((100% - var(--white-space)) / 3) 
+                               calc((100% - var(--white-space)) / 3)
+                               calc((100% - var(--white-space)) / 3);
+    } */}
+}
 
 
 
