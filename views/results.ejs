@@ -23,11 +23,10 @@
 
         <%- include ('partials/container') %>
 
-        <div id="list-container">
             <ul class="list-view list" id="list-view-plants">
 
                 <% plants.forEach(plant => { %>
-                   <li class= "plant-item item">
+                   <li>
 
                     <span class="plant-names">
                         <%- include('partials/cards', { plant: plant }) %>
@@ -38,8 +37,6 @@
    
            </ul>
 
-        </div>
-       
       
     </main>
 
@@ -80,7 +77,7 @@
             }
         }
 
-        function renderEmptyState() {
+        function renderEmptyState() { // kijken hoe dit op een andere manier kan!
             const listElement = document.querySelector('#list-view-plants');
             listElement.innerHTML = '<p>No plants founds</p>'
         }
