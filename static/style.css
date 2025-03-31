@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
 :root{
     --color-background: linear-gradient(#fdf9eb, #f4ecde);
     --color-footer-background: linear-gradient(#718d69, #4a5d23);
@@ -6,10 +12,213 @@
     --color-icons-footer: linear-gradient(#fefff1, #fdf9eb);
     --color-background-inputfield: linear-gradient(#fdf9eb, #fefff1);
     --color-logo: linear-gradient(#718d69, #4a5d23);
-    --color-grid-icon: #dac8ae;
+    --color-list-icon: #dac8ae;
+    --color-icons-not-filled: #fdf9eb;
+    --color-icons-filled:#4a5d23;
+
+    --font-Montserrat-light: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    --white-space: clamp(1em, 5vw, 1.5em)
 }
 
+@font-face{
+    font-family: 'Montserrat';
+    src: url('./fonts/static/Montserrat-Light.ttf');
+}
+
+
+h1, h2, h3, h4, p, a, label, figure, button{
+    font-family: var(--font-Montserrat-light);
+    color: var(--color-tekst);
+}
+
+
+h1, h2, h3, button{
+    text-transform: uppercase;
+}
+
+
+h1{
+    font-size: 1.5em;
+}
+
+
+.h1-small{
+    font-size: 1em;
+    text-align: center;
+}
+
+
+h2{
+    font-size: 1em;
+}
+
+
+.h2-small{
+    font-size: 0.9em;
+}
+
+
+h3{
+    font-size: .8em;
+}
+
+
+p{
+    font-size: 0.9em;
+}
+
+
+html, 
 body{
-    margin: 0; /*Hij gaf anders een margin aan de body*/
+    background: var(--color-background);
+    height: 100vh;
+    background-attachment: fixed; 
+    overflow-y: auto;
+}
+
+
+a, 
+figcaption{
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+
+/* styling for svg icons */
+.cls-1, .cls-2{
+    stroke: var(--color-lines);
+    fill: var(--color-icons-not-filled);
+}
+
+
+.cls-1.active, .cls-2.active{
+    stroke: var(--color-icons-not-filled);
+}
+
+.icons {
+    width: 1.5em;
+    align-self: center;
+    overflow: visible;
 
 }
+
+.hidden {
+    display: none !important;
+}
+
+/* styling voor cards.ejs, moet in globale css vanwege List.js */
+
+
+
+
+
+
+/* styling voor zowel favorieten als resultaten */
+
+.radio-container{
+    display: grid;
+    grid-template-columns: 1.66em 1.66em 1fr 1.66em 1.66em;
+    grid-auto-flow: column;
+
+    column-gap: 1em;
+    margin: 0 1em 1em 1em;
+
+    position: relative;
+}
+
+
+input[type="radio"]{
+    display: none; /* Verbergt de standaard radio button */
+}
+
+
+ul.list-view{
+    display: grid; 
+    grid-gap: var(--white-space);
+    margin: 0 1em;
+}
+
+
+ul.list-view li{
+    list-style-type: none;
+}
+
+
+/* grid-view template */
+ul.grid-view{
+    display: grid;
+    grid-gap: var(--white-space);
+    margin: 0 1em;
+    grid-template-columns: calc((100% - var(--white-space)) / 2) 
+                           calc((100% - var(--white-space)) / 2);
+
+
+}
+
+
+ul.grid-view li{
+    grid-template-columns: 1fr;
+    list-style-type: none;
+}
+
+
+ul.list-view article div {
+    height: 3em;
+}
+
+/* Grotere hoogte voor grid-view */
+ul.grid-view article div {
+    height: 4em;
+}
+
+/* styling radio buttons */
+.custom-radio-list{
+    width: 1.66em;
+    height: 1.66em;
+    border-radius: .2em;
+    padding: 0;
+
+    grid-column: 4 / 5;
+
+    background: var(--color-background-inputfield);
+    border: .07em solid var(--color-lines);
+
+}
+
+
+.custom-radio-list:has(input:checked){
+    background: var(--color-logo);
+}
+
+
+.custom-radio-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    grid-column: 5 / 6;
+
+    width: 1.66em;
+    height: 1.36em;
+    gap: .2em;
+    padding: 0;
+}
+
+
+.custom-radio-grid span{
+    height: .65em;
+
+    border-radius: .1em;
+    background: var(--color-background-inputfield);
+    border: .07em solid var(--color-lines);
+}
+
+
+.custom-radio-grid:has(input:checked) span{
+    background: var(--color-logo);
+}
+
+
+
+
+

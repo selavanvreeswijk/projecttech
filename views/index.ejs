@@ -1,34 +1,73 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlantMatch</title>
+    <title>Home</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 
-    
     <style>
         body{
-            background: var(--color-background);
-            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
         }
-    </style>
 
+
+        img{
+            width:min(40%, 20em);
+        }
+
+
+        a{
+            color: var(--color-tekst); 
+            text-decoration: none;
+            border-bottom: 0.05em solid var(--color-lines);
+            width: 30em;
+            padding: 0.2em 1.1em;
+        }
+
+
+        h1{
+            margin-bottom: 3em;
+            font-size: 1em;
+        }
+
+
+        img {
+            margin-bottom: 2em;
+        }
+
+        
+        p{
+            margin-bottom: 3em;
+        }
+
+
+        .index {
+            margin: 0 1em;
+        }
+
+
+        .index a{
+            text-transform: uppercase;
+        }
     </style>
 </head>
 
 <body>
-    <%- include('partials/header') %>
+    <main class="index">
+        <h1>Welcome to the PlantMatch!</h1>
 
-    <header>
-        <h1>Welkom op onze website!</h1>
-    </header>
+        <img src="/img/logo-groen.png" alt="Logo">
 
-    <main>
-        <p>Dit is de homepagina van onze website. Met welke plant match jij?</p>
+        <p>Are you ready to find your perfect match?</p>
+
+        <a href="/quiz">Start</a>
     </main>
-
-    <%- include('partials/footer') %> 
 </body>
 </html>
 

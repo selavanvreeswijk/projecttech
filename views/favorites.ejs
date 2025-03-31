@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <%- include('partials/header') %>    
+
+    <style>
+        h1{
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <h1 class="h1-small">Favorites</h1>
+
+        <%- include ('partials/container') %>
+
+        <% if (plants.length === 0) { %>
+            <!-- VUL IN MET VORMGEVING ALS ER GEEN FAVORIETEN ZIJN</p> -->
+        <% } else { %>
+            <ul class="list-view">
+
+                <% plants.forEach(plant => { %>
+                    <li>
+                        <%- include('partials/cards', { plant: plant }) %>
+                    </li>
+                <% }) %> 
+              
+            </ul>
+       <% } %>
+    
+    </main>
+
+    <footer>
+        <%- include('partials/footer') %> 
+    </footer>
+
+    <script src="/script.js" defer></script>  
+</body>
+</html>

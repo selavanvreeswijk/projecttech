@@ -19,9 +19,13 @@
   },
   "homepage": "https://github.com/selavanvreeswijk/projecttech#readme",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "mongodb": "^6.15.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

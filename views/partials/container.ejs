@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cards</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        .filter-button, .sort-btn{
+            font-family: var(--font-Montserrat-light);
+            border: .08em solid var(--color-lines);
+            border-radius: .2em;
+            background: var(--color-background-inputfield);
+            /* height: 2.2em; */
+
+            transition: .3s ease-in-out;
+
+        }       
+
+        .sort-options, .filter-options {
+            display: flex;
+            flex-direction: column; 
+            position: absolute;
+            width: max-content;
+
+            font-family: var(--font-Montserrat-light);
+            border: none;
+            border-radius: .7em;
+            background: var(--color-background-inputfield);
+            padding: .5em;
+            position: relative;
+        }
+
+
+        .sort-options{
+            height: auto;
+        }
+
+
+        .filter-options{
+            left: 0;
+            
+        }
+        #filter-options, #sort-options{
+            height: max-content;
+            width: 94.4%;
+            border: .08em solid var(--color-lines);
+            position: absolute;
+            top: 2.66em;
+            left: 0;
+
+        }
+        #sort-options{
+            width: calc(100% - .1em);
+        }
+
+        .filter-button.active, .sort-btn.active{
+            background: var(--color-logo);
+        }
+
+
+        form{
+            border: .08em solid var(--color-lines);
+            border-radius: .2em;
+            background: var(--color-background-inputfield);
+            height: 1.66em;
+
+        }
+
+        input.search{
+    
+    
+            border: none;
+            background: none;
+            height: 2em;
+            width: calc(100% - .3em);
+
+            align-self: center;
+            font-family: var(--font-Montserrat-light);
+            padding-left: .3em;
+        }
+        
+        span{
+            display: flex;
+            flex-direction: column;
+        }
+        .legend-titel{
+            text-transform: uppercase;
+
+        }
+        legend{
+            margin: .5em 0 .2em;
+            padding-left: .6em;
+            text-transform: uppercase;
+        }
+
+        select{
+            font-family: var(--font-Montserrat-light);
+            background: var(--color-background-inputfield);
+            border: none;
+            height: 2em;
+
+        }
+
+        div.sort-options span label:nth-of-type(2){
+            padding: .5em .6em;
+            margin: .3em 0;
+            border-top: .05em solid var(--color-lines);
+            border-bottom: .05em solid var(--color-lines);
+        }
+        
+        div.sort-options{
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        label{
+            padding-left: .6em;
+        }
+
+        .filter-options input[type="radio"]{
+            display: inline-block;
+            aspect-ratio: 1;
+            height: 1em;
+        }
+
+        div.sort-options input[type="radio"]:checked + div{
+            background: var(--color-logo);
+            color: var(--color-background-inputfield);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+    
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <div class="radio-container">
+
+            <button id="filter-btn" class="filter-button">
+                <svg class="icons"  viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="cls-1" d="M11 12L6 7V6L19 6L19 7L14 12V17L11 19V12Z" stroke="#121923" stroke-width="1.2" stroke-linecap="square"/>
+                    </svg>
+            </button>
+
+            <div id="filter-options" class="filter-options hidden">
+                <fieldset class="filter-options">
+                    <legend class="legend-titel">Filter plants</legend>
+                    <span>
+                        <legend>Experience</legend>
+                        <label><input type="radio" class="filter-experience" name="experience" value="sunlight"> Beginner</label>
+                        <label><input type="radio" class="filter-experience" name="experience"  value="experience"> Intermediate</label>
+                        <label><input type="radio" class="filter-experience" name="experience" value="Water"> Expert</label>
+                    </span>
+
+                    <span>
+                        <legend>Water</legend>
+                        <label><input type="radio" class="filter-water" name="water" value="sunlight"> Low water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="experience"> Medium water</label>
+                        <label><input type="radio" class="filter-water" name="water" value="Water"> High water</label>
+                    </span>
+
+                    <span>
+                        <legend>Sunlight</legend>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="a-lot-sun"> A lot of sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="couple-hours-sun"> A couple of hours sun</label>
+                        <label><input type="radio" class="filter-sunlight" name="sun" value="no-sun"> No sun</label>
+                    </span>
+                   
+                    <span>
+                        <legend>Plant size</legend>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="small"> Small</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="medium"> Medium</label>
+                        <label><input type="radio" class="filter-plant-size" name="size" value="large"> Large</label>
+                    </span>
+
+                    <span>
+                        <legend>Growth speed</legend>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="slow"> Slow</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="medium"> Medium</label>
+                        <label><input type="radio" class="filter-growth-speed" name="growth" value="fast"> Fast</label>
+                    </span>
+                </fieldset>
+
+            </div>
+
+            <button id="sort-btn" class="sort-btn">
+                <svg class="icons" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path class="cls-1" d="M4 7H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cls-1" d="M4 12L14 12" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="cls-1" d="M4 17H6" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+            </button>
+
+
+            <div id="sort-options" class="sort-options hidden"> 
+                <span>
+                    <input type="radio" id="popular" name="popular" value="popular">
+                    <label for="popular">Popular</label>
+                </span>
+
+                <span>
+                    <input type="radio" id="A-Z" name="sort" value="A-Z">
+                    <label for="A-Z">A-Z</label>
+                </span>
+
+                <span>
+                    <input type="radio" id="Z-A" name="sort" value="Z-A">
+                    <label for="Z-A">Z-A</label>
+                </span>     
+            </div>
+
+            <aside>
+                <!-- deze class (search) wordt gebruikt door de lib om te weten waar de zoekoppdracht wordt ingetypt -->
+                <input type="search" class="search" placeholder="Search plant">
+              </aside>
+
+           <!-- <form action="search" >
+                <input type="text" class="search" id="search-input" placeholder="Search plant">
+
+           </form> -->
+
+ 
+            <label for="view-list" class="custom-radio-list">
+                <input type="radio" name="view" value="list" id="view-list" checked>
+            </label>
+ 
+            <label for="view-grid" class="custom-radio-grid">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <input type="radio" name="view" value="grid" id="view-grid">
+            </label>
+           
+        </div>
+
+    </main>
+
+    
+
+    <script src="/script.js" defer></script>
+</body>
+</html>

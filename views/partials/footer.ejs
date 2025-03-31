@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,10 +15,10 @@
             left: 0;
             width: 100%;
 
-            text-align: center;
+            padding: .6em 0;
         }
 
-        ul{
+        nav ul{
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -28,7 +28,7 @@
             padding: 0;
         }
 
-        ul img{
+        nav ul img{
             width: 1.8em;
         }
     </style>
@@ -38,9 +38,31 @@
     <footer>
         <nav>
             <ul>               
-                <li><img src="/img/zoeken.svg" alt="Icoon zoeken"></li> <!-- Bron https://www.iconfinder.com/search?q=search --> 
-                <li><img src="/img/favorieten.svg" alt="Icoon favorieten"></li> <!-- Bron https://www.iconfinder.com/search?q=favorite -->
-                <li><img src="/img/gebruiker.svg" alt="Icoon inloggen"></li> <!-- Bron https://www.iconfinder.com/search?q=profile -->
+                <a href=""> <!--Nog de juiste link invoegen-->
+                    <svg class="icons" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 384" alt="icon zoeken">
+                        
+                        <path class="cls-1" d="m280.5,234c15-23.6,23.8-51.6,23.8-81.7C304.3,68.2,236.2,0,152.2,0S0,68.2,0,152.3s68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8,108.6,108.6,33.7-34.3-108.5-108.6,5-7.1Zm-43.1-166.8c22.7,22.7,35.2,52.9,35.2,85s-12.5,62.3-35.2,85-52.9,35.2-85,35.2-62.3-12.5-85-35.2-35.2-52.9-35.2-85,12.5-62.3,35.2-85,52.9-35.2,85-35.2c32.1,0,62.3,12.5,85,35.2Z"/>
+                    </svg>
+                    <!-- Source https://www.iconfinder.com/search?q=search  --> 
+                </a>
+
+                <a href="/favorites">
+                    <svg class="icons" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37" alt="icon favorites">
+                    
+                        <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                        <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
+                    </svg> 
+                    <!-- Source https://www.iconfinder.com/search?q=favorite -->
+                </a>
+
+                <a href="/profile">
+                    <svg class="icons" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 387.77 412.01" alt="icon user">
+                        
+                        <circle class="cls-1" cx="193.89" cy="96.94" r="96.94"/>
+                        <path class="cls-1" d="m387.77,363.54v24.24c0,13.39-10.85,24.24-24.24,24.24H24.24c-13.39,0-24.24-10.85-24.24-24.24v-24.24c0-80.31,65.1-145.41,145.41-145.41h96.94c80.31,0,145.41,65.1,145.41,145.41Z"/>
+                    </svg>
+                    <!-- Source https://www.iconfinder.com/search?q=profile -->
+                </a>
             </ul>   
         </nav>     
     </footer>

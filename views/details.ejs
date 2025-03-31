@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Details plant</title>
+        <link rel="stylesheet" href="/style.css">
+
+        <%- include('partials/header') %>    
+
+        <style>
+            /* Loading icon */
+            .loading{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin-top: 9em;
+            }
+
+            
+            .loading img{
+                width: 14em;
+                height: 14em;
+            }
+
+
+            .hidden{
+                display: none;
+            }
+
+
+            /* Arrow back to results + common name */
+            .nav-and-name{
+                display: grid;
+                grid-template-columns: 1.75rem 1fr 2.5rem;               
+                align-items: center;
+
+                padding-left: 0.5em;
+                margin-bottom: 0.3em;
+                color: var(--color-tekst);
+            }
+
+
+            h1{
+                width: 100%;
+                padding-bottom: 0.2em;
+            }
+
+
+            .nav-and-name button img{
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+            
+            .nav-and-name button{
+                all: unset;
+            }
+
+
+            /* Image plant + favorites button */
+            .picture{ 
+                position: relative;
+                display: inline-block;
+                width: fit-content;
+                /* max-width: 20em; */
+
+
+                align-self: center;
+                /* width: min(80%, 40em); */
+            }
+
+            
+            .picture img{
+                display: block;
+                width: fit-content;
+                /* max-width: 20em; */
+                /* width: min(80%, 20em); */
+                border-radius: 0.7em;   
+            } 
+
+
+            .favorite-btn{
+                position: absolute;
+                bottom: .5em;
+                right: .5em;
+
+                cursor: pointer;
+                width: 2em;
+                height: auto;
+
+                background: none;
+                border: none;
+            }
+
+            .favorite-btn .cls-2.clicked{
+                fill: url(#SvgGradient);
+                stroke: var(--color-icons-not-filled);
+                stroke-width: 1em;
+
+                transition: .5s ease;
+            }
+
+
+            /* Main categories */
+            .container{
+                padding: 0.5em;
+                margin-top: 0.7em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+
+                width: min(80%, 40em);
+                align-self: center;
+            }
+
+
+            .description{
+                display: flex;
+                flex-direction: column;
+                margin: 0 1em;
+            }
+
+
+            .firstCategories{
+                margin-bottom: 0.4em;
+            }
+
+
+            h2{
+                margin-bottom: 0.5em;
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 6.5em;
+                padding: 0.2em 0;
+            }
+
+
+            /* Icons categories */
+            .illustrations li{
+                display: flex;
+                flex-direction: row;
+
+                align-items: center;
+                padding-bottom: 0.5em;
+            }
+
+            
+            .illustrations li img{
+                margin-right: 0.55em;
+                padding-left: 0.25em;
+                width: 2em;
+                height: 2em;
+            }
+
+
+            /* Secondary categories */
+            .secondCategories{
+                padding: 0.1em;
+            }
+
+
+            .drop{
+                display: flex;
+                align-items: center; 
+                gap: 0.4em;
+            }
+
+            
+            .arrow img{
+                width: 1.1em;
+                height: 1.1em;
+                transition: transform 0.5s ease;
+            }
+
+
+            .content{
+                max-height: 0;
+                overflow: hidden;
+                transition: 0.4s ease-out;
+
+                padding-bottom: 0.25em;
+            }
+
+
+            .content.show{
+                max-height: 500px;
+            }
+
+
+            h3{
+                margin-bottom: 0.5em;
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 16em;
+                padding: 0.2em 0;
+            }
+
+
+            /* Share button */
+            #share-button{
+                background: var(--color-background-inputfield);
+
+                border: 0.09em solid var(--color-lines);
+                border-radius: 0.8em;
+
+                padding: 0.4em 0.8em;
+
+                display: block;
+                margin: 0 auto;
+                margin-top: 2em;
+                margin-bottom: 6em;
+            }
+
+            @media (width > 40em){
+                .description{
+                    flex-direction: row;
+                    gap: 2em;
+                }
+                .container{
+                    margin-top: 0;
+                }
+                article{
+                    display: grid;
+                    justify-content: center;
+                    align-self: start;
+                    row-gap: 4em;
+                }
+                #share-button{
+                    margin-top: 2em;
+                    margin-bottom: 2em;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="loading">
+            <img src="/img/loading.gif" alt="Loading gif"> <!--Source https://giphy.com/stickers/sticker-plant-grow-fnTxHzv7wCEPo18uDg-->
+        </div>
+
+        <main class="hidden">
+        
+        <article>
+            <section class="nav-and-name">
+                <button onclick="history.back()">
+                    <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Source https://www.iconfinder.com/search?q=arrow+left -->
+                </button>
+
+                <h1 class="h1-small"> <%= plants.commonName %></h1>
+            </section>
+
+            <div class="description">
+                <div class="picture">
+                    <img src="<%= plants.img %>" alt="Picture of plant">
+    
+                    <button class="favorite-btn" onclick="addToFavorites('<%= plants.id %>')">
+
+
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
+                                <defs>
+                                    <linearGradient id="SvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#718d69"/>
+                                        <stop offset="100%" stop-color="#4a5d23"/>
+                                    </linearGradient>
+                                </defs>
+                            
+                                <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                            </svg>
+                                        
+                    </button>
+                </div>
+
+                    <div class="container">
+                        <section class="firstCategories">
+                            <h2>Categories</h2>
+    
+                            <ul class="illustrations">
+                                <li>
+                                    <img src="/img/plant.svg" alt="Plant icon">
+                                    <p><%= plants.category %></p> <!--Source https://www.iconfinder.com/search?q=plant+sprout-->
+                                </li>
+                            
+                                <li>
+                                    <img class="light-icon" src="/img/sun.svg" alt="Sun icon">
+                                    <p class="light-text"><%= plants.idealLight %></p> <!--Source https://www.iconfinder.com/search?q=cloud & https://www.iconfinder.com/search?q=sun-->
+                                </li>                      
+        
+                                <li>
+                                    <img src="/img/gieter.svg" alt="Plant waterer icon">
+                                    <p><%= plants.watering %></p> <!--Source https://www.iconfinder.com/search?q=watering--> 
+                                </li>
+        
+                                <li>
+                                    <img src="/img/ruler.svg" alt="Ruler icon">
+                                    <p>± <%= plants.heightPurchase.CM %>cm</p> <!--Source https://www.iconfinder.com/search?q=ruler-->
+                                </li>
+                            </ul>
+                        </section>
+            
+                        <div class="secondCategories">
+                            <h3 class="drop">
+                                <span class="arrow">
+                                    <img src="/img/arrow-down.svg" alt="Drop-down"> <!--Source https://www.iconfinder.com/icons/211687/down_arrow_icon-->
+                                </span>
+                                See more categories
+                            </h3>
+
+                            <div class="content">
+                                <p>Min. temp: <%= plants.minTemp.C %>°C</p>
+                                <p>Max. temp: <%= plants.tempMax.C %>°C</p>
+                                <p class="use">Use: <%= plants.use %></p>
+                                <p>Plant growth: <%= plants.growth %></p>
+                                <p class="color-of-leaf">Color of leaf: <%= plants.colorOfLeaf %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="share-button">Share</button> 
+        </article>
+        </main>
+
+        <footer class="hidden">
+            <%- include('partials/footer') %> 
+        </footer>
+
+        <script>
+
+        async function addToFavorites(plantId) {
+        
+            try {
+                const response = await fetch('/add-favorite', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify({plantId})
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert(result.message);
+                } else {
+                    alert(result.message);
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong!');
+            }
+
+        }
+
+
+
+            // Animation drop down
+            document.addEventListener("DOMContentLoaded", function (){
+                const drop = document.querySelector(".drop");
+                const content = document.querySelector(".content");
+                const arrow = document.querySelector(".arrow img");
+
+                drop.addEventListener("click", function (){
+                    content.classList.toggle("show");
+                    
+                    if (content.classList.contains("show")) {
+                        arrow.style.transform = "rotate(180deg)";
+                    } else {
+                        arrow.style.transform = "rotate(0deg)"; 
+                    }
+                })
+            })
+
+
+            // Loading gif
+            window.addEventListener("load", function (){
+                const loading = document.querySelector(".loading")
+                const content = document.querySelectorAll("main, footer")
+
+                setTimeout(() => {
+                    loading.style.display = "none"
+
+                    content.forEach(section => {
+                        section.classList.remove("hidden")
+                    })
+                }, 2500)
+
+            })
+
+            // Icons change per light-element
+            document.addEventListener("DOMContentLoaded", function () {
+                const lightIcon = document.querySelector(".light-icon");
+                const lightTextElement = document.querySelector(".light-text");
+
+                if (!lightIcon || !lightTextElement) return;
+
+
+                const simplifiedLightText = lightTextElement.textContent.split(" (")[0].trim() // Source: https://www.w3schools.com/jsref/jsref_split.asp (MDN website didn't have good examples)
+                lightTextElement.textContent = simplifiedLightText; 
+
+
+                const icons = {
+                    "strong light": "/img/cloud-and-sun.png",
+                    "full sun": "/img/sun.svg"
+                }
+
+                const lightTextKey = simplifiedLightText.toLowerCase();
+                lightIcon.src = icons[lightTextKey] || "/img/cloud-and-sun.png"; 
+            })
+
+            // For category 'use' only the first element shown in the array
+            document.addEventListener("DOMContentLoaded", function (){
+                const useElement = document.querySelector('.use')
+                const simplifiedUse = useElement.textContent.split(",")[0]
+
+                useElement.textContent = `${simplifiedUse}`
+            })
+
+            // Add a space after first element of 'color leaf'
+            document.addEventListener("DOMContentLoaded", function (){
+                const colorLeafElement = document.querySelector('.color-of-leaf')
+
+                if (colorLeafElement) {
+                    colorLeafElement.textContent = colorLeafElement.textContent.replace(",", ", ")
+                }
+            })
+
+            // Sharing button
+            document.getElementById("share-button").addEventListener("click", function (){ // Source: chatGPT
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: "Check this plant!",
+                        url: window.location.href
+                    })
+                    .catch((error) => console.log("Error sharing", error));
+                } else {
+                    alert("Sharing is not supported on your device.");
+                }
+            })
+
+            document.querySelector('.favorite-btn'). addEventListener('click', function (){
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            })
+
+        </script>
+    </body>
+</html>
