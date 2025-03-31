@@ -252,12 +252,6 @@
                 margin-left: 0.3em;
             } */
 
-
-            /* Error: choose anwser before next question */
-            /* .warning{
-                display: none;
-                color: red;
-            } */
         </style>
     </head>
 
@@ -495,8 +489,6 @@
                         <input type="radio" id="no" name="plants" value="no" onclick="saveAnswer(1, this.value)">
                         <label for="no">No</label>
                     </div>
-
-                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
 
                 <section id="question-2" class="question">
@@ -512,8 +504,6 @@
                         <input type="radio" id="expert" name="level" value="expert" onclick="saveAnswer(2, this.value)">
                         <label for="expert">Expert</label>
                     </div>                    
-
-                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
             
                 <section id="question-3" class="question">
@@ -529,8 +519,6 @@
                         <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this.value)">
                         <label for="two-hours">2h</label>
                     </div>
-                    
-                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
             
                 <section id="question-4" class="question">
@@ -546,9 +534,6 @@
                         <input type="radio" id="high" name="sunlight" value="high" onclick="saveAnswer(4, this.value)">
                         <label for="high">A lot of sun</label>
                     </div>
-                    
-
-                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
     
                 <section id="question-5" class="question">                
@@ -564,8 +549,6 @@
                         <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this.value)">
                         <label for="large">L</label>
                     </div>                    
-
-                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
                 
                 <div class="nav-buttons">
@@ -662,17 +645,6 @@
                 }
             }
 
-            //     // // Warning if no option is chosen
-            //     // if (answered) {
-            //     //     warningText.style.display = "none"; 
-            //     //     currentQuestionIndex++;
-            //     //     if (currentQuestionIndex < questions.length) {
-            //     //         showQuestion(currentQuestionIndex);
-            //     //     }
-            //     // } else {
-            //     //     warningText.style.display = "block";
-            //     // }
-            // }
             
             // function prevQuestion() {
             //     if (currentQuestionIndex > 0) {
