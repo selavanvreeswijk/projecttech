@@ -236,13 +236,13 @@
 
 
             /* Navigation buttons */
-            .nav-buttons{
+            .nav-button{
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
-            .nav-buttons button{
+            .nav-button button{
                 display: none;
                 margin: 0 auto;
             }
@@ -551,8 +551,7 @@
                     </div>                    
                 </section>
                 
-                <div class="nav-buttons">
-                    <!-- <button onclick="prevQuestion()">Previous</button> -->
+                <div class="nav-button">
                     <button onclick="nextQuestion()">Next</button>
                 </div>
             </div>
@@ -565,12 +564,11 @@
         <script>
             const begin = document.querySelector('.begin');
             const beginButton = document.querySelector('.begin button');
-            const navButtons = document.querySelector('.nav-buttons');
+            const navButton = document.querySelector('.nav-button');
             const questionSelection = document.querySelector('.questions');
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
-            // const prevButton = document.querySelector(".nav-buttons button:first-child");
-            const nextButton = document.querySelector(".nav-buttons button");
+            const nextButton = document.querySelector(".nav-button button");
             // const quizSkip = document.querySelector('.skip'); 
 
             // Start quiz
@@ -580,7 +578,7 @@
 
             beginButton.addEventListener('click', function () {
                 begin.style.display = 'none';
-                navButtons.style.display = 'block';
+                navButton.style.display = 'block';
                 questionSelection.style.display = 'flex';
                 progressBar.style.display = 'block';
                 // quizSkip.style.display = 'block';
@@ -645,15 +643,6 @@
                 }
             }
 
-            
-            // function prevQuestion() {
-            //     if (currentQuestionIndex > 0) {
-            //         currentQuestionIndex--;
-            //         showQuestion(currentQuestionIndex);
-            //     }
-            // }
-
-            // prevButton.addEventListener("click", prevQuestion);
             nextButton.addEventListener("click", nextQuestion);
 
             showQuestion(currentQuestionIndex);
