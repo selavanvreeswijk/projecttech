@@ -125,6 +125,7 @@ figcaption{
     margin: 0 1em 1em 1em;
 
     position: relative;
+    width: min(92%, 60em);
 }
 
 
@@ -148,6 +149,7 @@ ul.list-view li{
 /* grid-view template */
 ul.grid-view{
     display: grid;
+    width: min(92%, 60em);
     grid-gap: var(--white-space);
     margin: 0 1em;
     grid-template-columns: calc((100% - var(--white-space)) / 2) 
