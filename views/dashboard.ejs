@@ -88,12 +88,25 @@
 
 
             figure svg{
-                padding: 1em;
-                margin: 0.1em;
-                height: 10vh;
+                padding: 1.2em;
+                height: 6vh;
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
+                gap: 0.2em;
+
+                fill: var(--color-lines);
+            }
+
+
+            .first-svg{
+                padding: 1.2em 1.4em;
+                fill: var(--color-logo); /* In chat vragen hoe je dat in de svg code zet */
+            }
+
+
+            .last-svg{
+                padding: 1.2em 1.55em;
             }
 
 
@@ -107,7 +120,7 @@
             .profile h3{
                 border-bottom: 0.05em solid var(--color-lines);
                 width: 10em;
-                
+
                 padding: 0.2em 0;
                 margin-bottom: 0.5em;
             }
@@ -144,8 +157,8 @@
                         <figure>
                             <a href="/favorites"> <!--BACKEND: favorites van gebruiker-->
                                 <?xml version="1.0" ?>
-                                <svg height="32px" id="icon" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                    <style type="text/css">.st0{fill:none;}</style><title/>
+                                <svg class="first-svg" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <style type="text/css">.st0{fill:none;}</style>
                                     <path d="M22.5,4c-2,0-3.9,0.8-5.3,2.2L16,7.4l-1.1-1.1C12,3.3,7.2,3.3,4.3,6.2c0,0-0.1,0.1-0.1,0.1c-3,3-3,7.8,0,10.8L16,29  l11.8-11.9c3-3,3-7.8,0-10.8C26.4,4.8,24.5,4,22.5,4z"/><rect class="st0" height="32" id="_Transparent_Rectangle_" width="32"/>
                                 </svg>
 
@@ -159,11 +172,8 @@
 
                                 <!-- Generator: Adobe Illustrator 27.8.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 
-                                <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 414 368.4" style="enable-background:new 0 0 414 368.4;" xml:space="preserve">
-                                    <style type="text/css">
-                                        .st0{fill:none;}
-                                    </style>
                                     <rect id="_Transparent_Rectangle_" x="191" y="168.2" class="st0" width="32" height="32"/>
                                     <path d="M392.7,21.2c0-0.1-0.1-0.1-0.1-0.2c-0.3-0.8-0.8-1.5-1.4-2.1c-0.1-0.1-0.2-0.1-0.3-0.2c-0.7-0.5-1.4-0.8-2.2-0.9
                                         c-0.1,0-0.1-0.1-0.2-0.1c-0.1,0-0.1,0-0.1,0c0,0-0.2-0.1-0.3-0.1l0,0c-0.8,0-1.6,0.2-2.3,0.6c-0.1,0.1-0.3,0.2-0.4,0.2
@@ -188,11 +198,10 @@
                                 <?xml version="1.0" standalone="no"?>
                                     <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
                                     "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-                                    width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000"
-                                    preserveAspectRatio="xMidYMid meet">
-                                        <g transform="translate(0.000000,345.000000) scale(0.100000,-0.100000)"
-                                        fill="#000000" stroke="none">
+                                    <svg class="last-svg" version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 298.000000 345.000000"
+                                        preserveAspectRatio="xMidYMid meet">
+                                            <g transform="translate(0.000000,345.000000) scale(0.100000,-0.100000)">
                                             <path d="M1525 3348 c-2 -7 -9 -31 -15 -54 -5 -23 -25 -61 -43 -85 -52 -69
                                             -83 -129 -106 -203 -26 -85 -26 -133 -1 -216 11 -36 20 -78 20 -93 0 -23 -8
                                             -14 -41 50 -66 124 -121 203 -187 269 -34 34 -69 78 -77 98 -23 53 -35 44 -35
