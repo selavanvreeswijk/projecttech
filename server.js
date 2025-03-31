@@ -265,11 +265,9 @@ async function onLoginPost(req, res) {
       _id: user._id,
       username: user.username 
     };
-    return res.redirect('/profile');
+    return res.json({success: true, redirect: "/profile"});
   }
-  res.render('error', { 
-    message: 'Invalid username or password',
-    redirect: '/log-in' });
+  res.status(401).json({success: false, message: "Invalid username or password"})
 }
 
 async function onRegisterPost(req, res) {
