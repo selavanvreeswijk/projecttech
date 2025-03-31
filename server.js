@@ -31,7 +31,6 @@ app.use(session({
   cookie: { maxAge: 1800000 }
 }));
 
-
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
     if (err) {
