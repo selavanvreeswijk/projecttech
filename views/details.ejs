@@ -61,19 +61,22 @@
             /* Image plant + favorites button */
             .picture{ 
                 position: relative;
+                display: inline-block;
+                width: fit-content;
+                /* max-width: 20em; */
 
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+
+                align-self: center;
+                /* width: min(80%, 40em); */
             }
 
             
             .picture img{
-                width: 90vw;
-                border-radius: 0.7em;
-
-                
+                display: block;
+                width: fit-content;
+                /* max-width: 20em; */
+                /* width: min(80%, 20em); */
+                border-radius: 0.7em;   
             } 
 
 
@@ -106,6 +109,9 @@
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
+
+                width: min(80%, 40em);
+                align-self: center;
             }
 
 
@@ -203,6 +209,26 @@
                 margin-top: 2em;
                 margin-bottom: 6em;
             }
+
+            @media (width > 40em){
+                .description{
+                    flex-direction: row;
+                    gap: 2em;
+                }
+                .container{
+                    margin-top: 0;
+                }
+                article{
+                    display: grid;
+                    justify-content: center;
+                    align-self: start;
+                    row-gap: 4em;
+                }
+                #share-button{
+                    margin-top: 2em;
+                    margin-bottom: 2em;
+                }
+            }
         </style>
     </head>
 
@@ -219,7 +245,7 @@
                     <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Source https://www.iconfinder.com/search?q=arrow+left -->
                 </button>
 
-                <h1 class="h1-small"><%= plants.commonName %></h1>
+                <h1 class="h1-small"> <%= plants.commonName %> </h1>
             </section>
 
             <div class="description">
