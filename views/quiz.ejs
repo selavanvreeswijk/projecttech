@@ -18,21 +18,26 @@
 
             /* Skip link */
             .skip{
-                display: none;
-                justify-content: row;
+                display: none; 
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+
+                position: absolute; 
+                right: 1.5em;
+                top: 7em;
+                gap: 0.2em;
             }
 
 
             .skip svg{
-                width: 3vw;
+                width: 5vw;
+                fill: var(--color-lines);
             }
 
 
             .skip a{
-                text-decoration: none;                
-                position: absolute; 
-                right: 1em;
-                top: 5.6em;
+                text-transform: uppercase;
             }
 
 
@@ -250,17 +255,17 @@
 
     <body>
         <main>
-            <h1 class="h1-small">Quiz</h1>
+            <section>
+                <h1 class="h1-small">Quiz</h1>
 
-            <div class="skip">
-                <a href="/results">Skip</a>
+                <div class="skip">
+                    <a href="/results">Skip</a>
 
-                <!-- <?xml version="1.0" ?>
-                <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
-                <svg height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
-                </svg> -->
-            </div>
+                    <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
+                    </svg> 
+                </div>
+            </section>
 
             <div class="begin">                
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
