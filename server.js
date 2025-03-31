@@ -297,7 +297,8 @@ async function checkAPI(url, options) {
   try {
     const response = await fetch(allUrl, options);
     const result = await response.json();
-    console.log(result); // uncomment voor debuggen
+   // console.log(result); // uncomment voor debuggen
+
   } catch (error) {
     console.error(error);
   }
