@@ -685,15 +685,13 @@
 
                 checkVisibility();
             
+                // Zichtbaarheid van .begin kan veranderen, hierom observeren we dat
+                const observer = new MutationObserver(checkVisibility);
+                observer.observe(beginDiv, { attributes: true, attributeFilter: ["style"] });
 
-
-                    // Als de zichtbaarheid van `.begin` kan veranderen, observeren we dat
-                    const observer = new MutationObserver(checkVisibility);
-                    observer.observe(beginDiv, { attributes: true, attributeFilter: ["style"] });
-
-                    // Optioneel: als de `.begin`-sectie met een knop of interactie verdwijnt
-                    document.addEventListener("click", checkVisibility);
-                });
+                // Omdat.begin div met een knop verdwijnt
+                document.addEventListener("click", checkVisibility);
+            });
         </script>
     </body>
 </html>

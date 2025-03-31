@@ -179,7 +179,7 @@ ul.grid-view article div {
     border-radius: .2em;
     padding: 0;
 
-    grid-column: 4 / 5;
+    grid-column: 5 / 6;
 
     background: var(--color-background-inputfield);
     border: .07em solid var(--color-lines);
@@ -196,7 +196,7 @@ ul.grid-view article div {
     display: grid;
     grid-template-columns: 1fr 1fr;
 
-    grid-column: 5 / 6;
+    grid-column: 4 / 5;
 
     width: 1.66em;
     height: 1.36em;
