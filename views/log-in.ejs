@@ -92,6 +92,19 @@
             padding: 0.3em 0.9em;
             margin-top: 1em;
         }
+
+        .error{
+            border: 2px solid red !important;
+            color: red !important;
+        }
+
+        .error-message{
+            display: none;
+
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
     </style>
     </head>
 
@@ -110,8 +123,10 @@
                         <label for="password"> Password</label>
                         <input type="password" name="password" required>
                     </div>
+
+                    <p class="error-message" id="error-msg">Invalid username or password, try again</p>
      
-                    <button type="submit">Log In</button> <!--BACKEND, inloggen-->
+                    <button type="submit">Log In</button>
                 </form>
             </div>
     
@@ -124,6 +139,35 @@
     <footer>
         <%- include('partials/footer') %> 
     </footer>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); 
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let errorMsg = document.getElementById("error-msg");
+
+            try {
+                let response = await fetch("http://localhost:9000/log-in", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                let data = await response.json();
+
+                if (response.ok) {
+                    alert("Login successful!"); 
+                    window.location.href = "/dashboard";
+                } else {
+                    errorMsg.style.display = "block";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+    </script>
 
     </body>
 </html>
