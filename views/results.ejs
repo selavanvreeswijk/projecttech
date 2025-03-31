@@ -50,8 +50,8 @@
 
     <script>
 
-        //variabele voor de planten
-        let plantsData = [];
+        let plantsData = <%- JSON.stringify(plants) %>
+        console.log(plantsData)
 
         document.addEventListener('DOMContentLoaded', async function() {
             console.log(" DOM geladen, fetchPlants wordt aangeroepen...");
@@ -65,18 +65,10 @@
             });
         });  
         
-        
 
         async function fetchPlants() {
             try {
-                const response = await fetch('/api/plants');  //vraagt data op via server
-                const plants = await response.json();
-
-                console.log('API response:', plants)
-
-                //slaat de planten op in de globale variabele
-                plantsData = plants;
-                //vult de lijst met planten
+                
                 renderPlantList(plantsData);
 
                 const listContainer = document.querySelector('#list-container');
