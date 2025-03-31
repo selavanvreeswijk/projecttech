@@ -60,6 +60,18 @@
             margin: 0 auto;
             margin-top: 2em;
         }
+
+        /* Error */
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .error-input {
+            border: 2px solid red !important;
+        }
     </style>
     </head>
 
@@ -68,10 +80,11 @@
             <div class="register">
                 <h2>Register</h2>
     
-                <form action="/register" method="POST">
+                <form id="register-form" action="/register" method="POST">
                     <div>
                         <label for="username">Username</label>
                         <input type="text" id="username" name="username" required>    
+                        <p class="error" id="username-error">This username is already taken</p>
                     </div>
          
                     <div>
@@ -82,16 +95,65 @@
                     <div>
                         <label for="conform-password"> Repeat password</label>
                         <input type="password" id="conform-password" name="confirmPassword" required>
+                        <p class="error" id="password-error">Passwords do not match</p>
                     </div>
      
-                    <button type="submit">Submit</button> <!--BACKEND, registreren-->
+                    <button type="submit">Submit</button> 
                 </form>
             </div>
         </div>
-    
     <footer>
         <%- include('partials/footer') %> 
     </footer>
+
+    <script>
+        document.getElementById("register-form").addEventListener("submit", async function(event) {
+            event.preventDefault(); // Voorkom standaard verzenden
+
+            let username = document.getElementById("username");
+            let password = document.getElementById("password");
+            let confirmPassword = document.getElementById("confirm-password");
+
+            let usernameError = document.getElementById("username-error");
+            let passwordError = document.getElementById("password-error");
+
+            let isValid = true; // Controleert of het formulier correct is
+
+            // Check of de gebruikersnaam al bestaat (simulatie met een API-call)
+            let response = await fetch("http://localhost:9000/check-username", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username.value })
+            });
+
+            let data = await response.json();
+
+            if (data.exists) {
+                usernameError.style.display = "block";
+                username.classList.add("error-input");
+                isValid = false;
+            } else {
+                usernameError.style.display = "none";
+                username.classList.remove("error-input");
+            }
+
+            // Check of wachtwoorden overeenkomen
+            if (password.value !== confirmPassword.value) {
+                passwordError.style.display = "block";
+                confirmPassword.classList.add("error-input");
+                isValid = false;
+            } else {
+                passwordError.style.display = "none";
+                confirmPassword.classList.remove("error-input");
+            }
+
+            // Als alles correct is, verzend formulier
+            if (isValid) {
+                alert("Registration successful!"); 
+                this.submit();
+            }
+        });
+    </script>
 
     </body>
 </html>
