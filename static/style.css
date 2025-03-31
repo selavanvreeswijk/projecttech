@@ -3,6 +3,7 @@
     padding: 0;
 }
 
+
 :root{
     --color-background: linear-gradient(#fdf9eb, #f4ecde);
     --color-footer-background: linear-gradient(#718d69, #4a5d23);
@@ -14,12 +15,12 @@
     --color-list-icon: #dac8ae;
     --color-icons-not-filled: #fdf9eb;
     --color-icons-filled:#4a5d23;
+    /* --color-alt-background: linear-gradient(#cfa57d, #8c5a3a); evt als andere kleurencombinatie */
 
     --font-Montserrat-light: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     --white-space: clamp(1em, 5vw, 1.5em)
 }
-
 
 @font-face{
     font-family: 'Montserrat';
@@ -27,7 +28,7 @@
 }
 
 
-h1, h2, h3, h4, p, a, label{
+h1, h2, h3, h4, p, a, label, figure{
     font-family: var(--font-Montserrat-light);
     color: var(--color-tekst);
 }
@@ -80,6 +81,7 @@ body{
 
 a{
     text-decoration: none;
+    font-size: 0.9em;
 }
 
 
@@ -104,6 +106,13 @@ a{
 .hidden {
     display: none !important;
 }
+
+/* styling voor cards.ejs, moet in globale css vanwege List.js */
+
+
+
+
+
 
 /* styling voor zowel favorieten als resultaten */
 
@@ -141,8 +150,10 @@ ul.grid-view{
     display: grid;
     grid-gap: var(--white-space);
     margin: 0 1em;
+    grid-template-columns: calc((100% - var(--white-space)) / 2) 
+                           calc((100% - var(--white-space)) / 2);
 
-    grid-template-columns:1fr 1fr;
+
 }
 
 
@@ -152,11 +163,21 @@ ul.grid-view li{
 }
 
 
+ul.list-view article div {
+    height: 3em;
+}
+
+/* Grotere hoogte voor grid-view */
+ul.grid-view article div {
+    height: 4em;
+}
+
 /* styling radio buttons */
 .custom-radio-list{
     width: 1.66em;
     height: 1.66em;
     border-radius: .2em;
+    padding: 0;
 
     grid-column: 4 / 5;
 
@@ -180,6 +201,7 @@ ul.grid-view li{
     width: 1.66em;
     height: 1.36em;
     gap: .2em;
+    padding: 0;
 }
 
 
@@ -197,61 +219,6 @@ ul.grid-view li{
 }
 
 
-.filter-button, .sort-btn{
-    font-family: var(--font-Montserrat-light);
-    border: .08em solid var(--color-lines);
-    border-radius: .2em;
-    background: var(--color-background-inputfield);
-    height: 2em;
-
-    transition: .3s ease-in-out;
-
-}
-
-.sort-options, .filter-options {
-    display: flex;
-    flex-direction: column; 
-    position: absolute;
-    width: max-content;
-
-    font-family: var(--font-Montserrat-light);
-    border: none;
-    border-radius: .7em;
-    background: var(--color-background-inputfield);
-    padding: .5em;
-    position: relative;
-}
 
 
-.sort-options{
-    left: 2.66em;
-    height: auto;
-}
 
-
-.filter-options{
-    left: 0;
-    
-}
-#filter-options, #sort-options{
-    height: max-content;
-    width: 94.4%;
-    border: .08em solid var(--color-lines);
-    position: absolute;
-    top: 2.66em;
-    left: 0;
-
-}
-
-
-select{
-  font-family: var(--font-Montserrat-light);
-    background: var(--color-background-inputfield);
-    border: none;
-
-}
-
-
-.filter-button.active, .sort-btn.active{
-    background: var(--color-logo);
-}

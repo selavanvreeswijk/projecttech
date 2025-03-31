@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
     <link rel="stylesheet" href="/style.css">
+   
 
     <%- include('partials/header') %>   
 
     <style>
         h1{
-            margin-bottom: 1em;
-        }
+             margin-bottom: 1em;
+            }
     </style>
 </head>
 
@@ -22,16 +23,24 @@
 
         <%- include ('partials/container') %>
 
+        <div id="list-container">
+            <ul class="list-view list" id="list-view-plants">
 
-        <ul class="list-view">
+                <% plants.forEach(plant => { %>
+                   <li class= "plant-item item">
 
-             <% plants.forEach(plant => { %>
-                <li>
-                    <%- include('partials/cards', { plant: plant }) %>
-                </li>
-            <% }) %> 
+                    <span class="plant-names search">
+                        <%= plant['Common name'] %>
+                        <%- include('partials/cards', { plant: plant }) %>
+                    </span>
+                     
+                   </li>
+               <% }) %> 
+   
+           </ul>
 
-        </ul>
+        </div>
+       
       
     </main>
 
@@ -39,6 +48,241 @@
         <%- include('partials/footer') %> 
     </footer>
 
+    <script>
+
+        //variabele voor de planten
+        let plantsData = [];
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log(" DOM geladen, fetchPlants wordt aangeroepen...");
+            //planten ophalen van de server
+            await fetchPlants();
+
+            //event listener voor zoekfunctionaliteit
+            document.getElementById('search-input').addEventListener('input', (event) =>{
+                const searchTerm = event.target.value;
+                filterPlants(searchTerm);
+            });
+        });  
+        
+        
+
+        async function fetchPlants() {
+            try {
+                const response = await fetch('/api/plants');  //vraagt data op via server
+                const plants = await response.json();
+
+                console.log('API response:', plants)
+
+                //slaat de planten op in de globale variabele
+                plantsData = plants;
+                //vult de lijst met planten
+                renderPlantList(plantsData);
+
+                const listContainer = document.querySelector('#list-container');
+                const plantListElement = document.querySelector('#list-view-plants');
+                const searchInput = document.querySelector('#search-input'); //zoekbalk buiten list-container
+                
+                setTimeout(() => {
+                   
+
+                    if (!listContainer) {
+                        console.error("List.js kan niet starten: #list-container niet gevonden.");
+                        return;
+                    }
+
+                    if (!plantListElement) {
+                        console.error("List.js kan niet starten: #list-view-plants niet gevonden.");
+                        return;
+                    }
+
+                    if (plantListElement && plantListElement.childNodes.length > 0) {
+                        console.log(" List.js wordt geïnitialiseerd...");
+
+                        let plantOptions = { 
+                            valueNames: ['plant-names'],
+                            searchClass: 'search' 
+                        };
+
+                        new List('list-container', plantOptions);
+                        console.log("List.js is geïnitialiseerd:", document.querySelector('.list'));
+                    } else {
+                        console.error("List.js kan niet starten: #list-view-plants is leeg of niet gevonden.");
+                    }
+                }, 1000) //1000ms vertraging om zeker te zijn dat de lijst gevuld is
+
+            } catch(error){
+                console.log('error fetching plants:', error);
+            }
+        }
+
+
+
+        function renderPlantList(plants){
+         // selecteert de lijst in html
+             const listElement = document.querySelector('#list-view-plants');
+
+             if(!listElement) {
+                console.log('kan #list-vew-plants niet vinden in de DOM');
+                return;
+             }
+             if(plants.length === 0){
+                renderEmptyState();
+                return;
+             }
+
+            // listElement.innerHTML = ''; //lijst eerst leegmaken, vervolgens worden alleen de nieuwe planten toegevoegd
+               // zet de planten in de lijst
+
+               plants.forEach((plant) => {
+                    const plantItem = document.createElement('li');
+                    plantItem.classList.add('plant-item')
+
+                    const plantName = document.createElement('span')
+                    plantName.classList.add('plant-names')
+                    // plantName.textContent = plant['Common name'];
+
+                    // Maak een article element aan voor de plant
+                    const article = document.createElement('article');
+
+                    // Maak de <a> link aan
+                    const link = document.createElement('a');
+                    link.href = `/plant/${plant.id}`;
+
+                    // Maak de afbeelding aan
+                    const img = document.createElement('img');
+                    img.src = plant.Img;
+                    img.alt = `Picture of ${plant['Common name']}`;
+
+                    // Maak de div aan voor de plantnaam en SVG
+                    const div = document.createElement('div');
+
+                    const h3 = document.createElement('h3');
+                    h3.classList.add('h3-cards');
+                    h3.textContent = plant['Common name'];
+
+                    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                    svg.setAttribute("class", "icons");
+                    svg.setAttribute("id", "icon-favorites-cards");
+                    svg.setAttribute("viewBox", "0 0 414.05 368.37");
+
+                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                    path.setAttribute("class", "cls-2");
+                    path.setAttribute("d", "m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z");
+
+                    // Voeg de path toe aan de svg
+                    svg.appendChild(path);
+
+                    // Voeg de elementen toe aan de div
+                    div.appendChild(h3);
+                    div.appendChild(svg);
+
+                    // Voeg de div en img toe aan de link
+                    link.appendChild(div);
+                    link.appendChild(img);
+
+                    // Voeg de link toe aan het article
+                    article.appendChild(link);
+                    article.appendChild(plantName);
+
+                    //voegt de plantnaam toe aan het lijstitem
+                    // plantItem.appendChild(plantName);
+
+                    //voegt het lijstitem toe aan de lijst
+
+                    listElement.appendChild(plantItem);
+                });
+                console.log('lijst gevuld met planten:', listElement.innerHTML)
+            }    
+
+            
+
+         //planten filteren op basis van de zoekterm
+         function filterPlants(searchTerm) {
+            const filteredPlants = plantsData.filter(plant =>{
+                const commonName = plant['Common name']; 
+
+                //controleer of CommonName een string is voordat toLowerCase wordt aangeroepen
+                if (typeof commonName === 'string'){
+                    return commonName.toLowerCase().includes(searchTerm.toLowerCase());
+                } else {
+                    //als commonName geen string is, retourneer false
+                    return false;
+                }     
+            }); 
+
+        if (filteredPlants.length > 0) {
+                renderPlantList(filteredPlants);
+        } else {
+                renderEmptyState();
+            }
+        }
+
+        function renderEmptyState() {
+            const listElement = document.querySelector('#list-view-plants');
+            listElement.innerHTML = '<p>No plants founds</p>'
+        }
+
+            //toLowerCase() maakt de functie hoofletterongevoelig
+            //includes() checkt of de plantnaam de zoekterm bevat
+            // renderPlantList(filteredPlants); //update de lijst met gefilterde planten
+       
+
+
+
+        const sortButton = document.getElementById('sort-btn');
+        const sortOptions = document.getElementById('sort-options');
+        const filterButton = document.getElementById('filter-btn');
+        const filterOptions = document.getElementById('filter-options');
+
+        const sortPaths = sortButton.querySelectorAll('svg path');
+        const filterIcon = filterButton.querySelector('svg path');
+
+
+        // Toggle voor sorteren
+        sortButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            sortOptions.classList.toggle('hidden');
+            sortButton.classList.toggle('active');
+            sortPaths.forEach(path => path.classList.toggle('active')); 
+
+            filterOptions.classList.add('hidden');
+            filterButton.classList.remove('active');
+            filterIcon.classList.remove('active');
+        });
+
+        // Toggle voor filteren
+        filterButton.addEventListener('click', function (event) {
+            event.stopPropagation();
+            filterOptions.classList.toggle('hidden');
+            filterButton.classList.toggle('active');
+            filterIcon.classList.toggle('active'); 
+
+            sortOptions.classList.add('hidden');
+            sortButton.classList.remove('active');
+            sortPaths.forEach(path => path.classList.remove('active'));
+        });
+
+        // Klik buiten een dropdown om deze te sluiten
+        document.addEventListener('click', function (event) {
+            if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)) {
+                sortOptions.classList.add('hidden');
+                sortButton.classList.remove('active');
+                sortPaths.forEach(path => path.classList.remove('active'));
+            }
+            if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)) {
+                filterOptions.classList.add('hidden');
+                filterButton.classList.remove('active');
+                filterIcon.classList.remove('active');
+            }
+        });
+
+    </script>
+
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
     <script src="/script.js" defer></script>
 </body>
 </html>

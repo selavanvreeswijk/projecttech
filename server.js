@@ -5,12 +5,21 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
+// const User = require("./models/User"); // voor change password
+// const router = express.Router(); // voor change password
 
 // Middleware
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('static')); // Voor afbeeldingen en bestaande project
+app.use(express.static('static', {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.css')){
+      res.setHeader('Content-Type', 'text/css');
+    }
+  }
+})); // Voor afbeeldingen en bestaande project
+//juist MIME-type forceren
 app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
 app.use(bodyParser.json());
 
@@ -54,6 +63,7 @@ client.connect()
 // API setup
 const apiKey = process.env.API_KEY;
 const allUrl = 'https://house-plants2.p.rapidapi.com/all';
+
 const options = {
   method: 'GET',
   headers: {
@@ -80,6 +90,11 @@ async function updatePlantsCache() {
 updatePlantsCache(); //alle planten worden meteen ingeladen en niet pas bij klikken op pagina
 setInterval(updatePlantsCache, 30 * 60 * 1000); // elke 30 min api vernieuwen
 
+// API-endpoint om de gecachede planten op te vragen
+app.get('/api/plants', (req, res) =>{
+  res.json(cachedPlants);
+});
+
 app
   .get('/', onHome)
   .get('/quiz', onQuiz)
@@ -89,6 +104,8 @@ app
   .get('/log-in', onLogIn)
   .get('/register', onRegister)
   .get('/dashboard', onDashboard)
+  .get('/change-password', onChangePassword)
+
   .post('/log-in', onLoginPost)
   .post('/register', onRegisterPost)
   .post('/save-answer', onSaveAnswer)
@@ -163,7 +180,7 @@ async function onDetail(req, res) {
     const detailPlant = {
       category: plants.Categories,
       img: plants.Img,
-      commonName: plants['Common name'],
+      commonName: typeof plants['Common name'] === 'string' ? plants['Common name'] : '',
       heightPurchase: plants['Height at purchase'],
       idealLight: plants['Light ideal'],
       id: plants.id,
@@ -187,6 +204,58 @@ async function onLogIn(req, res) {
 async function onRegister(req, res) {
   res.render('register');
 }
+
+async function onChangePassword(req, res){
+    res.render('change-password')
+}
+
+// Voor change password: kun je evt gebruiken maar werkte bij mij niet
+// router.post("/change-password", async (req, res) => {
+//   const { oldPassword, newPassword, confirmPassword } = req.body;
+//   const userId = req.session.userId; // Zorg ervoor dat de gebruiker is ingelogd
+
+//   if (!userId) {
+//       return res.status(401).send("Je moet ingelogd zijn om je wachtwoord te wijzigen.");
+//   }
+
+//   // Haal de gebruiker op uit de database
+//   const user = await User.findById(userId);
+//   if (!user) {
+//       return res.status(404).send("Gebruiker niet gevonden.");
+//   }
+
+//   // Controleer of het oude wachtwoord correct is
+//   const isMatch = await bcrypt.compare(oldPassword, user.password);
+//   if (!isMatch) {
+//       return res.status(400).send("Oud wachtwoord is onjuist.");
+//   }
+
+//   // Controleer of het nieuwe wachtwoord en de bevestiging overeenkomen
+//   if (newPassword !== confirmPassword) {
+//       return res.status(400).send("Nieuwe wachtwoorden komen niet overeen.");
+//   }
+
+//   // Versleutel het nieuwe wachtwoord
+//   const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+//   // Update het wachtwoord in de database
+//   user.password = hashedPassword;
+//   await user.save();
+
+//   res.send("Wachtwoord succesvol gewijzigd!");
+// });
+
+// module.exports = router;
+
+// const mongoose = require("mongoose");
+
+// const UserSchema = new mongoose.Schema({
+//     username: { type: String, required: true, unique: true },
+//     password: { type: String, required: true }
+// });
+
+// module.exports = mongoose.model("User", UserSchema);
+
 
 async function onDashboard(req, res) {
   if (!req.session.user) {

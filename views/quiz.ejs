@@ -22,8 +22,7 @@
                 border: 0.09em solid var(--color-lines);
                 border-radius: 0.8em;
 
-                width: 40%;
-                padding: 0.3em 0.9em;
+                padding: 0.3em 1.3em;
             }
 
 
@@ -41,20 +40,7 @@
 
 
             /* Begin */
-            .begin button{
-                margin-top: 2em;
-                color: var(--color-tekst);
-            }
-
-
-            .begin img{
-                width: 85vw;
-            }
-            
-
             .begin{
-                height: 65vh; 
-
                 display: flex;
                 flex-direction: column; 
                 align-items: center;
@@ -63,23 +49,32 @@
             }
 
 
-            /* Questions */
+            .begin img{
+                width: 60vw;
+                margin-top: 2em;
+                margin-bottom: 1.5em;
+            }
+
+
+            .begin button{
+                margin-top: 2em;
+                color: var(--color-tekst);
+            }
+
+
             /* Progress bar */
             progress{
                 display: none;
-                position: fixed;
 
-                width: 75%;
-                top: 9em;
-                left: 50%;
-                transform: translateX(-50%);
-                height: 0.9em;
+                margin-top: 2em;
+                width: 80%;
             }
             
 
-            progress[value]{
-                color: var(90deg, --color-footer-background) 0/var(--w);
-                background: var( --color-background-inputfield);
+            progress[value] {
+                background-color: var(--color-background-inputfield);
+                border-radius: 1em;
+                height: 0.9em; 
             }
 
 
@@ -102,7 +97,6 @@
             /* Big container */
             .questions{
                 display: none;
-                height: 70vh;
 
                 flex-direction: column;
                 align-items: center;
@@ -114,9 +108,15 @@
             .question{
                 display: none;
 
-                width: 80%;
+                width: 75%;
                 max-width: 600px;
-                margin: 1em 0;
+                margin-top: 2em;
+                margin-bottom: 2em;
+
+                padding: 0.5em;
+
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
             }
 
 
@@ -127,7 +127,11 @@
 
             h2{
                 margin: 1em;
-                margin-top: 6em;
+
+                border-top: 0.05em solid var(--color-lines);
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 13em;
+                padding: 0.5em 0;
             }
      
 
@@ -137,11 +141,12 @@
                 flex-direction: row;
                 justify-content: center;
 
-                margin: 5em 0;
+                margin-top: 2em;
+                margin-bottom: 1em;
             }
 
 
-            div label{
+            label{
                 display: inline-block;
                 text-align: center;
 
@@ -149,86 +154,106 @@
                 border-radius: 0.2em;
 
                 margin-left: 0.5em;
-                padding: 1.5em 1.5em;
+                padding: 1.5em;
                 transition: all 0.3s ease-in-out;
             }
             
-            
-            /* Question 1 */
-            div input[type="radio"]{
+
+            input[type="radio"]{
                 display: none;
             }
 
 
-            div input[type="radio"]:checked + label{
-                border-color: var(--color-accent);
-                background: var(--color-accent-light);
-                color: white;
+            input[type="radio"]:checked + label,
+            input[type="checkbox"]:checked + label {
+                background: var(--color-footer-background);
+                border-color: var(--color-footer-background);
+                color: white; 
             }
 
-
-            /* Question 2 */
-            #question-2 div{
+            #question-2 div,
+            #question-3 div,
+            #question-4 div,
+            #question-5 div{
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.5em;
             }
 
 
+            /* Question 2 */
             #question-2 div label{
                 font-size: 0.9em;
                 display: block;
                 flex: 1 1 20%;
+                padding: 1.3em;
             }
 
 
             /* Question 3 */
-            #question-3 div input{
-                padding: 0.5em 2em;
+            #question-3 div label {
+                font-size: 0.9em;
+                display: block;
+                flex: 0 1 10%;
+                padding: 1.3em;
+                text-align: center;
+            }
+
+
+            /* Question 4*/
+            #question-4 div label{
+                font-size: 0.9em;
+                display: block;
+                flex: 1 1 35%;
+                padding: 1.3em;
             }
 
 
             /* Question 5 */
+            #question-5 div label {
+                font-size: 0.9em;
+                display: block;
+                flex: 0 1 10%;
+                padding: 1.3em;
+                text-align: center;
+            }
+
+            
             input[type="checkbox"] {
                 display: none;
             }
 
 
-            label{
-                display: inline-block;
-                cursor: pointer;
-                border: 2px solid var(--color-lines);
-                border-radius: 0.2em;
-                padding: 0.5em 1em;
-                margin: 0.5em;
-                transition: all 0.3s ease-in-out;
-            }
-
-
             input[type="checkbox"]:checked + label {
-                background: var(--color-accent-light);
-                border-color: var(--color-accent);
-                color: white;
+                background: var(--color-footer-background);
+                border-color: var(--color-footer-background);
+                color: white; 
             }
 
 
             /* Navigation buttons */
             .nav-buttons{
-                display: none;
-                width: 70%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
-
 
             .nav-buttons button{
-                margin-left: 0.3em;
+                display: none;
+                margin: 0 auto;
             }
+
+
+            /* .nav-buttons button{
+                margin-left: 0.3em;
+            } */
 
 
             /* Error: choose anwser before next question */
-            .warning{
+            /* .warning{
                 display: none;
                 color: red;
-            }
+            } */
         </style>
     </head>
 
@@ -241,7 +266,7 @@
             </div> -->
 
             <div class="begin">
-                <img src="/img/quiz-image.png" alt="Woman with plant"> <!--Source https://www.freepik.com/vectors/planting-happiness-->
+                <img src="/img/plant.png" alt="A plant"> <!--Source https://www.vecteezy.com/png/24523254-potted-plant-black-outline-illustration-on-transparent-background-->
                 
                 <p>Got 30 seconds? Get matched to your perfect plant!</p>
              
@@ -262,7 +287,7 @@
                         <label for="no">No</label>
                     </div>
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
 
                 <section id="question-2" class="question">
@@ -279,24 +304,24 @@
                         <label for="expert">Expert</label>
                     </div>                    
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
             
                 <section id="question-3" class="question">
                     <h2>How much love would you like to invest per week?</h2>
                  
                     <div>
-                        <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this)">
+                        <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this.value)">
                         <label for="half-hour">0.5h</label>
                     
-                        <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this)">
+                        <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this.value)">
                         <label for="one-hour">1h</label>
                     
-                        <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this)">
+                        <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this.value)">
                         <label for="two-hours">2h</label>
                     </div>
                     
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
             
                 <section id="question-4" class="question">
@@ -314,28 +339,28 @@
                     </div>
                     
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
     
                 <section id="question-5" class="question">                
                     <h2>How big do you want your plant to be?</h2>
                 
                     <div>
-                        <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this)">
+                        <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this.value)">
                         <label for="small">S</label>
                     
-                        <input type="checkbox" id="medium" name="plants" value="medium" onclick="saveAnswer(5, this)">
-                        <label for="medium">M</label>
-                
-                        <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this)">
+                        <input type="checkbox" id="medium-size" name="plants" value="medium-size" onclick="saveAnswer(5, this.value)">
+                        <label for="medium-size">M</label> 
+                    
+                        <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this.value)">
                         <label for="large">L</label>
-                    </div>
+                    </div>                    
 
-                    <p class="warning">Please choose an anwser</p>
+                    <!-- <p class="warning">Please choose an anwser</p> -->
                 </section>
                 
                 <div class="nav-buttons">
-                    <button onclick="prevQuestion()">Previous</button>
+                    <!-- <button onclick="prevQuestion()">Previous</button> -->
                     <button onclick="nextQuestion()">Next</button>
                 </div>
             </div>
@@ -352,8 +377,8 @@
             const questionSelection = document.querySelector('.questions');
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
-            const prevButton = document.querySelector(".nav-buttons button:first-child");
-            const nextButton = document.querySelector(".nav-buttons button:last-child");
+            // const prevButton = document.querySelector(".nav-buttons button:first-child");
+            const nextButton = document.querySelector(".nav-buttons button");
             // const quizSkip = document.querySelector('.skip'); 
 
             // Start quiz
@@ -388,49 +413,66 @@
 
                 updateProgress();
 
-                // First 'previous' button
-                // Last 'next button'
-                prevButton.style.display = index === 0 ? "none" : "inline-block";
-                nextButton.textContent = index === questions.length - 1 ? "Finish" : "Next"; 
+                nextButton.style.display ="none";
 
-                if (index === questions.length - 1) {
-                    nextButton.addEventListener("click", function() {
-                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
+                const inputs = questions[index].querySelectorAll("input");
+                inputs.forEach(input => {
+                    input.addEventListener("change", function () {
+                        nextButton.style.display = "block"; 
                     });
+                });
+
+                // Last 'next button'
+                if (index === questions.length - 1) {
+                    nextButton.textContent = "Finish";
+                    nextButton.onclick = function () {
+                        window.location.href = "/results"; // BACKEND: refer to userID
+                    };
+                } else {
+                    nextButton.onclick = nextQuestion;
                 }
             }
 
             // Next question buttons
-            function nextQuestion() {
+            function nextQuestion(){
                 const currentQuestion = questions[currentQuestionIndex];
                 const inputs = currentQuestion.querySelectorAll("input, select");
-                const warningText = currentQuestion.querySelector(".warning");
 
                 let answered = Array.from(inputs).some(input => {
                     if (input.type === "radio" || input.type === "checkbox") return input.checked; 
                     return input.value.trim() !== "";
                 });
 
-                // Warning if no option is chosen
                 if (answered) {
-                    warningText.style.display = "none"; 
                     currentQuestionIndex++;
                     if (currentQuestionIndex < questions.length) {
                         showQuestion(currentQuestionIndex);
+                    } else {
+                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
                     }
-                } else {
-                    warningText.style.display = "block";
                 }
             }
 
-            function prevQuestion() {
-                if (currentQuestionIndex > 0) {
-                    currentQuestionIndex--;
-                    showQuestion(currentQuestionIndex);
-                }
-            }
+            //     // // Warning if no option is chosen
+            //     // if (answered) {
+            //     //     warningText.style.display = "none"; 
+            //     //     currentQuestionIndex++;
+            //     //     if (currentQuestionIndex < questions.length) {
+            //     //         showQuestion(currentQuestionIndex);
+            //     //     }
+            //     // } else {
+            //     //     warningText.style.display = "block";
+            //     // }
+            // }
+            
+            // function prevQuestion() {
+            //     if (currentQuestionIndex > 0) {
+            //         currentQuestionIndex--;
+            //         showQuestion(currentQuestionIndex);
+            //     }
+            // }
 
-            prevButton.addEventListener("click", prevQuestion);
+            // prevButton.addEventListener("click", prevQuestion);
             nextButton.addEventListener("click", nextQuestion);
 
             showQuestion(currentQuestionIndex);
