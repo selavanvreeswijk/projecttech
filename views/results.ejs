@@ -91,12 +91,12 @@
                     if (plantListElement && plantListElement.childNodes.length > 0) {
                         console.log(" List.js wordt geïnitialiseerd...");
 
-                        let plantOptions = { 
-                            valueNames: ['plant-names'],
-                            searchClass: 'search' 
+                        var options = { 
+                            valueNames: ['plant-names']
+                            // searchClass: 'search' 
                         };
 
-                        new List('list-container', plantOptions);
+                        var plantList = new List('list-container', options);
                         console.log("List.js is geïnitialiseerd:", document.querySelector('.list'));
                     } else {
                         console.error("List.js kan niet starten: #list-view-plants is leeg of niet gevonden.");
@@ -115,7 +115,7 @@
              const listElement = document.querySelector('#list-view-plants');
 
              if(!listElement) {
-                console.log('kan #list-vew-plants niet vinden in de DOM');
+                console.log('kan #list-view-plants niet vinden in de DOM');
                 return;
              }
              if(plants.length === 0){
