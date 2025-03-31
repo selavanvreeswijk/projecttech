@@ -48,11 +48,23 @@
 
     <script>
 
+
+
         //zoekfunctie
         let options = {
             valueNames: ['plant-names']
         }
         let plantList = new List('plantList', options);
+
+        // Sorteerknoppen activeren
+        document.getElementById('A-Z').addEventListener('change', function () {
+            plantList.sort('plant-names', { order: "asc" });
+        });
+
+        document.getElementById('Z-A').addEventListener('change', function () {
+            plantList.sort('plant-names', { order: "desc" });
+        });
+
         
             
 
