@@ -158,6 +158,7 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
+    console.log(cachedPlants);
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
@@ -173,7 +174,7 @@ async function onDetail(req, res) {
     const detailPlant = {
       category: plants.Categories,
       img: plants.Img,
-      commonName: typeof plants['Common name'] === 'string' ? plants['Common name'] : '',
+      commonName: plants['Common name'],
       heightPurchase: plants['Height at purchase'],
       idealLight: plants['Light ideal'],
       id: plants.id,
@@ -296,7 +297,7 @@ async function checkAPI(url, options) {
   try {
     const response = await fetch(allUrl, options);
     const result = await response.json();
-    // console.log(result); // uncomment voor debuggen
+    console.log(result); // uncomment voor debuggen
   } catch (error) {
     console.error(error);
   }

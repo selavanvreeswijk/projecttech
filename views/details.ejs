@@ -32,17 +32,18 @@
 
             /* Arrow back to results + common name */
             .nav-and-name{
-                display: flex;
-                flex-direction: row;
+                display: grid;
+                grid-template-columns: 1.75rem 1fr 2.5rem;               
                 align-items: center;
 
                 padding-left: 0.5em;
                 margin-bottom: 0.3em;
+                color: var(--color-tekst);
             }
 
 
             h1{
-                width: 80vw;
+                width: 100%;
                 padding-bottom: 0.2em;
             }
 
@@ -61,35 +62,44 @@
             /* Image plant + favorites button */
             .picture{ 
                 position: relative;
+                display: inline-block;
+                width: fit-content;
+                /* max-width: 20em; */
 
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+
+                align-self: center;
+                /* width: min(80%, 40em); */
             }
 
             
             .picture img{
-                width: 90vw;
-                border-radius: 0.7em;
+                display: block;
+                width: fit-content;
+                /* max-width: 20em; */
+                /* width: min(80%, 20em); */
+                border-radius: 0.7em;   
             } 
 
 
-            .favorite-button{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
+            .favorite-btn{
                 position: absolute;
+                bottom: .5em;
+                right: .5em;
 
-                bottom: 1.2em;
-                right: 1.2em; 
+                cursor: pointer;
+                width: 2em;
+                height: auto;
+
+                background: none;
+                border: none;
             }
 
+            .favorite-btn .cls-2.clicked{
+                fill: url(#SvgGradient);
+                stroke: var(--color-icons-not-filled);
+                stroke-width: 1em;
 
-            .favorite-button svg{
-                width: 2em; 
-                height: 2em;
+                transition: .5s ease;
             }
 
 
@@ -100,6 +110,9 @@
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
+
+                width: min(80%, 40em);
+                align-self: center;
             }
 
 
@@ -197,6 +210,26 @@
                 margin-top: 2em;
                 margin-bottom: 6em;
             }
+
+            @media (width > 40em){
+                .description{
+                    flex-direction: row;
+                    gap: 2em;
+                }
+                .container{
+                    margin-top: 0;
+                }
+                article{
+                    display: grid;
+                    justify-content: center;
+                    align-self: start;
+                    row-gap: 4em;
+                }
+                #share-button{
+                    margin-top: 2em;
+                    margin-bottom: 2em;
+                }
+            }
         </style>
     </head>
 
@@ -213,7 +246,7 @@
                     <img src="/img/arrow-left.svg" alt="Icon arrow left"> <!-- Source https://www.iconfinder.com/search?q=arrow+left -->
                 </button>
 
-                <h1 class="h1-small"><%= plants.commonName %></h1>
+                <h1 class="h1-small"> <%= plants.commonName %></h1>
             </section>
 
             <div class="description">
@@ -223,11 +256,17 @@
                     <button class="favorite-btn" onclick="addToFavorites('<%= plants.id %>')">
 
 
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
-                        
-                            <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
-                            <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
-                        </svg>            
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
+                                <defs>
+                                    <linearGradient id="SvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#718d69"/>
+                                        <stop offset="100%" stop-color="#4a5d23"/>
+                                    </linearGradient>
+                                </defs>
+                            
+                                <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                            </svg>
+                                        
                     </button>
                 </div>
 
@@ -307,7 +346,9 @@
                 console.error('Error:', error);
                 alert('Something went wrong!');
             }
+
         }
+
 
 
             // Animation drop down
@@ -394,6 +435,11 @@
                     alert("Sharing is not supported on your device.");
                 }
             })
+
+            document.querySelector('.favorite-btn'). addEventListener('click', function (){
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            })
+
         </script>
     </body>
 </html>
