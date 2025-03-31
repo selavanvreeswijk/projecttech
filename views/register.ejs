@@ -33,13 +33,6 @@
 
 
         input{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 90%;
-            padding: 0.9em;
             margin-top: 0.3em;
         }
 
@@ -79,18 +72,18 @@
                 <form id="register-form" action="/register" method="POST">
                     <div>
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>    
+                        <input class="form-input-styling" type="text" id="username" name="username" required>    
                         <p class="error" id="username-error">This username is already taken</p>
                     </div>
          
                     <div>
                         <label for="password"> Password</label>
-                        <input type="password" name="password" required>
+                        <input class="form-input-styling" type="password" name="password" required>
                     </div>
 
                     <div>
                         <label for="conform-password"> Repeat password</label>
-                        <input type="password" id="conform-password" name="confirmPassword" required>
+                        <input class="form-input-styling" type="password" id="conform-password" name="confirmPassword" required>
                         <p class="error" id="password-error">Passwords do not match</p>
                     </div>
      

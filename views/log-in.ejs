@@ -41,13 +41,6 @@
 
 
         input{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 90%;
-            padding: 0.9em;
             margin-top: 0.3em;
         }
 
@@ -104,12 +97,12 @@
                 <form action="/log-in" method="POST">
                     <div>
                         <label for="username">Username</label>
-                        <input type="text" name="username" required>
+                        <input class="form-input-styling" type="text" name="username" required>
                     </div>
          
                     <div>
                         <label for="password"> Password</label>
-                        <input type="password" name="password" required>
+                        <input class="form-input-styling" type="password" name="password" required>
                     </div>
 
                     <p class="error-message" id="error-msg">Invalid username or password, try again</p>
