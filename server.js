@@ -157,7 +157,6 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
-    console.log(cachedPlants);
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
