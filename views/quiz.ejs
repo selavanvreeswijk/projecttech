@@ -24,12 +24,16 @@
 
                 padding: 0.3em 1.3em;
             }
+           
 
 
             /* Skip link */
             .skip{
-                display: none;
-                justify-content: row;
+                display: grid !important;
+                grid-template-columns: 3em 1fr 3em;
+                width: min(75%, 37.5em);
+                align-self: center;
+                align-items: center;
             }
 
             .skip svg{
@@ -38,9 +42,19 @@
 
 
             .skip a{
-                position: absolute; 
+                /* position: absolute;  */
+                display: block;
                 right: 1em;
                 top: 5.6em;
+
+                grid-column: 3 / 4;
+            }
+
+
+
+
+            h1{
+                grid-column: 2 / 3;
             }
 
 
@@ -60,7 +74,7 @@
 
             .begin svg{
                 height: auto;
-                width: min(50%, 20em);
+                width: min(50%, 18em);
                 margin-top: 3em;
                 margin-bottom: 2em;
             }
@@ -81,7 +95,7 @@
                 display: none;
 
                 margin-top: 2em;
-                width: 80%;
+                width: min(78%, 38.75em);
             }
             
 
@@ -122,8 +136,7 @@
             .question{
                 display: none;
 
-                width: 75%;
-                max-width: 600px;
+                width: min(75%, 37.5em);
                 margin-top: 2em;
                 margin-bottom: 2em;
 
@@ -144,7 +157,6 @@
 
                 border-top: 0.05em solid var(--color-lines);
                 border-bottom: 0.05em solid var(--color-lines);
-                width: 13em;
                 padding: 0.5em 0;
             }
      
@@ -256,21 +268,22 @@
                 display: none;
                 margin: 0 auto;
             }
+
+
+            @media (width > 30em){
+                h2{
+                    padding: 1em 0;
+                }
+            }
         </style>
     </head>
 
     <body>
         <main>
-            <h1 class="h1-small">Quiz</h1>
-
             <div class="skip">
-                <a href="/results">Skip</a>
+                <h1 class="h1-small">Quiz</h1>
 
-                <!-- <?xml version="1.0" ?>
-                <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
-                <svg height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
-                </svg> -->
+                <a href="/results" id="skip-a">Skip</a>
             </div>
 
             <div class="begin">
@@ -657,6 +670,30 @@
             nextButton.addEventListener("click", nextQuestion);
 
             showQuestion(currentQuestionIndex);
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const skipLink = document.getElementById("skip-a");
+                const beginDiv = document.querySelector(".begin");
+
+                function checkVisibility() {
+                    if (beginDiv && window.getComputedStyle(beginDiv).display !== "none") {
+                        skipLink.style.visibility = "hidden";
+                    } else {
+                        skipLink.style.visibility = "visible";
+                    }
+                }
+
+                checkVisibility();
+            
+
+
+                    // Als de zichtbaarheid van `.begin` kan veranderen, observeren we dat
+                    const observer = new MutationObserver(checkVisibility);
+                    observer.observe(beginDiv, { attributes: true, attributeFilter: ["style"] });
+
+                    // Optioneel: als de `.begin`-sectie met een knop of interactie verdwijnt
+                    document.addEventListener("click", checkVisibility);
+                });
         </script>
     </body>
 </html>
