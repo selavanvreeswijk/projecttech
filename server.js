@@ -99,6 +99,7 @@ app
   .get('/change-password', onChangePassword)
 
   .post('/log-in', onLoginPost)
+  .post('/check-username', userCheck)
   .post('/register', onRegisterPost)
   .post('/save-answer', onSaveAnswer)
   .listen(process.env.PORT || 9000, () => {
@@ -157,7 +158,6 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
-    console.log(cachedPlants);
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
@@ -266,23 +266,35 @@ async function onLoginPost(req, res) {
       _id: user._id,
       username: user.username 
     };
-    return res.redirect('/profile');
+    return res.json({success: true, redirect: "/profile"});
   }
-  res.render('error', { 
-    message: 'Invalid username or password',
-    redirect: '/log-in' });
+  res.status(401).json({success: false, message: "Invalid username or password"})
+}
+
+async function userCheck(req, res) {
+  const { username } = req.body;
+  if(!username) {
+    return res.status(400).json({ success: false,  message: "Username is required"})
+  }
+
+  const existingUser = await db.collection("users").findOne({username});
+  res.json({ exists: !!existingUser })
 }
 
 async function onRegisterPost(req, res) {
   const { username, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    return res.render('error', { 
-        message: 'Password do not match!',
-        redirect: '/register' });
+    return res.status(400).json({success: false, message: 'Passwords do not match' });
   }
+
+  const existingUser = await db.collection("users").findOne({username});
+  if (existingUser){
+    return res.status(400).json({success: false })
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
   await db.collection('users').insertOne({ username, password: hashedPassword, favplant: [] });
-  res.redirect('/log-in');
+  res.json({success: true, redirect: '/log-in'});
 }
 
 function onSaveAnswer(req, res) {

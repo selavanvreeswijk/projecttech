@@ -42,8 +42,9 @@
                     </div>
 
                     <div>
-                        <label for="conform-password"> Repeat password</label>
-                        <input class="form-input-styling" type="password" id="conform-password" name="confirmPassword" required>
+
+                        <label for="confirm-password"> Repeat password</label>
+                        <input type="password" id="confirm-password" name="confirmPassword" required>
                         <p class="error" id="password-error">Passwords do not match</p>
                     </div>
      
@@ -60,49 +61,71 @@
         document.getElementById("register-form").addEventListener("submit", async function(event) {
             event.preventDefault(); // Voorkom standaard verzenden
 
-            let username = document.getElementById("username");
-            let password = document.getElementById("password");
-            let confirmPassword = document.getElementById("confirm-password");
+            let form = event.target;
+            let formData = new FormData(form);
 
             let usernameError = document.getElementById("username-error");
             let passwordError = document.getElementById("password-error");
 
             let isValid = true; // Controleert of het formulier correct is
 
-            // Check of de gebruikersnaam al bestaat (simulatie met een API-call)
-            let response = await fetch("http://localhost:9000/check-username", {
+            // reset errors
+            usernameError.style.display = "none";
+            passwordError.style.display = "none";
+            form.username.classList.remove("error-input");
+            form["confirmPassword"].classList.remove("error-input");
+
+            //controleer of gebruikersnaam al bestaat
+            try {
+                let response = await fetch("/check-username", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username: username.value })
+                body: JSON.stringify({ username: formData.get("username") })
             });
 
             let data = await response.json();
 
             if (data.exists) {
                 usernameError.style.display = "block";
-                username.classList.add("error-input");
+                formData.get("username").classList.add("error-input");
                 isValid = false;
-            } else {
-                usernameError.style.display = "none";
-                username.classList.remove("error-input");
+            }
+            } catch (error) {
+                console.error("Username check failed:", error);
             }
 
             // Check of wachtwoorden overeenkomen
-            if (password.value !== confirmPassword.value) {
+            if (formData.get("password") !== formData.get("confirmPassword")) {
                 passwordError.style.display = "block";
-                confirmPassword.classList.add("error-input");
+                form["confirmPassword"].classList.add("error-input");
                 isValid = false;
-            } else {
-                passwordError.style.display = "none";
-                confirmPassword.classList.remove("error-input");
-            }
+            } 
 
             // Als alles correct is, verzend formulier
             if (isValid) {
-                alert("Registration successful!"); 
-                this.submit();
+                try {
+                    let registerResponse = await fetch("/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        username: formData.get("username"), 
+                        password: formData.get("password"),
+                        confirmPassword: formData.get("confirmPassword")})
+                    });
+
+                    let registerData = await registerResponse.json();
+
+                    if(registerData.success) {
+                        window.location.href = "/log-in";
+                    } else {
+                        console.log("error, geen succes");
+                    }
+                } catch (error) {
+                console.error("Registration failed:", error);
+                };
             }
         });
+    
     </script>
 
     </body>
