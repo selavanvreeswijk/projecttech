@@ -55,7 +55,7 @@
                 <a class="btn-styling" href="/register">Register</a>
             </div>
         </div>
-    
+
     <footer>
         <%- include('partials/footer') %> 
     </footer>
@@ -64,10 +64,15 @@
         document.querySelector(".forms form").addEventListener("submit", async function(event) {
             event.preventDefault(); 
 
-            let form = event.target // Waar de 'submit event' plaatsvindt
-            let formData = new FormData(form) // Haalt ingevulde gegevens op
+            let form = event.target; 
+            let formData = new FormData(form); 
             let errorMsg = document.getElementById("error-msg");
+            let usernameInput = form.querySelector('input[name="username"]');
+            let passwordInput = form.querySelector('input[name="password"]');
 
+            usernameInput.classList.remove("error-input");
+            passwordInput.classList.remove("error-input");
+            errorMsg.style.display = "none";
 
             try {
                 let response = await fetch("log-in", {
@@ -82,14 +87,19 @@
                 let data = await response.json();
 
                 if (data.success) {
-                    console.log("success")
+                    console.log("success");
                     window.location.href = data.redirect;
                 } else {
-                    console.log("geen succes")
+                    console.log("geen succes");
                     errorMsg.style.display = "block";
+                    usernameInput.classList.add("error-input");
+                    passwordInput.classList.add("error-input");
                 }
             } catch (error) {
                 console.error("Error:", error);
+                errorMsg.style.display = "block";
+                usernameInput.classList.add("error-input");
+                passwordInput.classList.add("error-input");
             }
         });
     </script>

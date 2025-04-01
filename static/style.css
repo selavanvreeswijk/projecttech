@@ -359,7 +359,7 @@ ul.grid-view article div {
 }
 
 
-.error-input {
+.error-input{
     border: 2px solid var(--color-error-message-forms) !important;
     box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
 }
