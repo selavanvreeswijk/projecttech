@@ -15,11 +15,13 @@
     --color-list-icon: #dac8ae;
     --color-icons-not-filled: #fdf9eb;
     --color-icons-filled:#4a5d23;
+    --color-error-message-forms: #B71C1C;
 
     --font-Montserrat-light: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
-    --white-space: clamp(1em, 5vw, 1.5em)
+    --white-space: clamp(1em, 5vw, 1.5em);
 }
+
 
 @font-face{
     font-family: 'Montserrat';
@@ -33,39 +35,42 @@ h1, h2, h3, h4, p, a, label, figure, button{
 }
 
 
-h1, h2, h3, button{
+h1, h2, h3{
     text-transform: uppercase;
 }
 
 
 h1{
-    font-size: 1.5em;
-}
-
-
-.h1-small{
-    font-size: 1em;
-    text-align: center;
-}
-
-
-h2{
     font-size: 1em;
 }
 
 
-.h2-small{
-    font-size: 0.9em;
+h2{ /* Nog naar kijken! Op welke pagina's?*/
+    font-size: 1em;
 }
 
 
-h3{
-    font-size: .8em;
+.h2-small, a, p, label{
+    font-size: 0.9em;
+    text-decoration: none;
 }
 
 
-p{
-    font-size: 0.9em;
+figcaption, h3{
+    font-size: 0.8em;
+    text-decoration: none;
+}
+
+
+/* Styling buttons */
+.btn-styling{
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    border-bottom: 0.05em solid var(--color-lines);
+    padding: 0.2em 0.8em;
+    font-size: 0.9em;    
+    text-transform: uppercase;
 }
 
 
@@ -78,14 +83,7 @@ body{
 }
 
 
-a, 
-figcaption{
-    text-decoration: none;
-    font-size: 0.8em;
-}
-
-
-/* styling for svg icons */
+/* Styling for svg icons */
 .cls-1, .cls-2{
     stroke: var(--color-lines);
     fill: var(--color-icons-not-filled);
@@ -96,14 +94,14 @@ figcaption{
     stroke: var(--color-icons-not-filled);
 }
 
-.icons {
+.icons{
     width: 1.5em;
     align-self: center;
     overflow: visible;
 
 }
 
-.hidden {
+.hidden{
     display: none !important;
 }
 
@@ -272,22 +270,6 @@ ul.grid-view article div {
     transition: .5s ease;
 }
 
-/* #icon-favorites-cards{
-
-    stroke-width: 1em;
-    stroke: var(--color-lines);
-
-    width: 1.2em;
-}  */
-
-
-/* #icon-favorites-cards .cls-2.clicked{
-    fill: url(#SvgGradient);
-    stroke: var(--color-icons-not-filled);
-    stroke-width: 1em;
-
-    transition: .5s ease;
-} */
 
 
 @media( width > 40em){
@@ -301,4 +283,84 @@ ul.grid-view article div {
 
 
 
+/* Styling forms: log-in, register & change-password */
+.forms-body{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forms-container{
+    margin: 0.5em 1.5em;
+}
+
+
+.forms{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forms-h1{
+    border-bottom: 0.05em solid var(--color-lines);
+
+    width: 11.3em;
+    padding-bottom: 0.2em;
+    font-size: 1em;
+}
+
+
+.forms input{
+    background: var(--color-background-inputfield);
+
+    border: 0.09em solid var(--color-lines);
+    border-radius: 0.8em;
+
+    width: 90%;
+    padding: 0.8em;
+    margin-top: 0.3em;
+    outline: none;
+}
+
+
+.forms input:focus{
+    border-color: var(--color-lines); 
+    box-shadow: 0 0 8px rgba(74, 93, 35, 0.6);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.forms div{
+    margin-top: 1.5em;
+}
+
+
+.forms button,
+.forms a{
+    display: block;
+    margin: 0 auto;
+
+    margin-top: 2em;
+}
+
+
+.forms label{
+    margin-bottom: 0.5em;
+}
+
+
+
+/* Error message forms */
+.error{
+    color: var(--color-error-message-forms);
+    font-size: 0.8em;
+    display: none;
+    margin-top: 0.3em;
+}
+
+
+.error-input {
+    border: 2px solid var(--color-error-message-forms) !important;
+    box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
+}
 

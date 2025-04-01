@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
-// const User = require("./models/User"); // voor change password
-// const router = express.Router(); // voor change password
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -18,7 +16,9 @@ app.use(express.static('static', {
       res.setHeader('Content-Type', 'text/css');
     }
   }
-})); // Voor afbeeldingen en bestaande project
+})); 
+
+// Voor afbeeldingen en bestaande project
 //juist MIME-type forceren
 app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
 app.use(bodyParser.json());
@@ -30,7 +30,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 1800000 }
 }));
-
 
 app.get('/logout', (req, res) => {
   req.session.destroy((err) => {
@@ -100,6 +99,7 @@ app
   .get('/change-password', onChangePassword)
 
   .post('/log-in', onLoginPost)
+  .post('/check-username', userCheck)
   .post('/register', onRegisterPost)
   .post('/save-answer', onSaveAnswer)
   .listen(process.env.PORT || 9000, () => {
@@ -115,6 +115,8 @@ async function onHome(req, res) {
     console.error("Error with API:", error);
   }
 }
+
+
 
 async function onQuiz(req, res) {
   try {
@@ -158,7 +160,6 @@ async function onFavorites(req, res) {
 
 async function onResults(req, res) {
   try {
-    console.log(cachedPlants);
     res.render('results', { plants: cachedPlants });
   } catch (error) {
     console.error("Error with API:", error);
@@ -203,54 +204,6 @@ async function onChangePassword(req, res){
     res.render('change-password')
 }
 
-// Voor change password: kun je evt gebruiken maar werkte bij mij niet
-// router.post("/change-password", async (req, res) => {
-//   const { oldPassword, newPassword, confirmPassword } = req.body;
-//   const userId = req.session.userId; // Zorg ervoor dat de gebruiker is ingelogd
-
-//   if (!userId) {
-//       return res.status(401).send("Je moet ingelogd zijn om je wachtwoord te wijzigen.");
-//   }
-
-//   // Haal de gebruiker op uit de database
-//   const user = await User.findById(userId);
-//   if (!user) {
-//       return res.status(404).send("Gebruiker niet gevonden.");
-//   }
-
-//   // Controleer of het oude wachtwoord correct is
-//   const isMatch = await bcrypt.compare(oldPassword, user.password);
-//   if (!isMatch) {
-//       return res.status(400).send("Oud wachtwoord is onjuist.");
-//   }
-
-//   // Controleer of het nieuwe wachtwoord en de bevestiging overeenkomen
-//   if (newPassword !== confirmPassword) {
-//       return res.status(400).send("Nieuwe wachtwoorden komen niet overeen.");
-//   }
-
-//   // Versleutel het nieuwe wachtwoord
-//   const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-//   // Update het wachtwoord in de database
-//   user.password = hashedPassword;
-//   await user.save();
-
-//   res.send("Wachtwoord succesvol gewijzigd!");
-// });
-
-// module.exports = router;
-
-// const mongoose = require("mongoose");
-
-// const UserSchema = new mongoose.Schema({
-//     username: { type: String, required: true, unique: true },
-//     password: { type: String, required: true }
-// });
-
-// module.exports = mongoose.model("User", UserSchema);
-
-
 async function onDashboard(req, res) {
   if (!req.session.user) {
     return res.redirect('/log-in');
@@ -267,23 +220,35 @@ async function onLoginPost(req, res) {
       _id: user._id,
       username: user.username 
     };
-    return res.redirect('/profile');
+    return res.json({success: true, redirect: "/profile"});
   }
-  res.render('error', { 
-    message: 'Invalid username or password',
-    redirect: '/log-in' });
+  res.status(401).json({success: false})
+}
+
+async function userCheck(req, res) {
+  const { username } = req.body;
+  if(!username) {
+    return res.status(400).json({ success: false})
+  }
+
+  const existingUser = await db.collection("users").findOne({username});
+  res.json({ exists: !!existingUser })
 }
 
 async function onRegisterPost(req, res) {
   const { username, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    return res.render('error', { 
-        message: 'Password do not match!',
-        redirect: '/register' });
+    return res.status(400).json({success: false});
   }
+
+  const existingUser = await db.collection("users").findOne({username});
+  if (existingUser){
+    return res.status(400).json({success: false })
+  }
+
   const hashedPassword = await bcrypt.hash(password, 10);
   await db.collection('users').insertOne({ username, password: hashedPassword, favplant: [] });
-  res.redirect('/log-in');
+  res.json({success: true, redirect: '/log-in'});
 }
 
 function onSaveAnswer(req, res) {
@@ -339,3 +304,68 @@ app.post('/add-favorite', async (req, res) => {
     console.error("Error with adding to favorites:", error);
   }
 })
+
+app.get('/change-password', (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/log-in');
+  }
+  res.render('change-password');
+});
+
+
+app.post('/change-password', async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (!req.session.user) {
+    return res.redirect('/log-in');
+  }
+
+  const userId = req.session.user._id;
+
+  try {
+    const userObjectId = ObjectId.createFromHexString(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if (!user) {
+      return res.render('error', {
+        message: 'User not found.',
+        redirect: '/profile'
+      });
+    }
+
+    const isOldPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+    if (!isOldPasswordCorrect) {
+      return res.render('change-password', {
+        error: 'Incorrect old password.'
+      });
+    }
+
+    if (oldPassword === newPassword) {
+      return res.render('change-password', {
+        error: 'New password cannot be the same as the old password.'
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.render('change-password', {
+        error: 'Passwords do not match.'
+      });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await db.collection('users').updateOne(
+      { _id: userObjectId },
+      { $set: { password: hashedNewPassword } }
+    );
+
+    res.render('dashboard', { username: req.session.user.username, success: 'Password changed successfully!' });
+
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).render('error', {
+      message: 'Something went wrong.',
+      redirect: '/profile'
+    });
+  }
+});
+
