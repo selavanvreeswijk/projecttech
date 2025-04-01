@@ -14,19 +14,7 @@
                 flex-direction: column;
                 text-align: center;
             }
-
-
-
-            button{
-                background: var(--color-background-inputfield);
-
-                border: 0.09em solid var(--color-lines);
-                border-radius: 0.8em;
-
-                padding: 0.3em 1.3em;
-            }
-           
-
+        
 
             .skip{
                 display: grid !important;
@@ -36,26 +24,24 @@
                 align-items: center;
             }
 
+
             .skip a{
                 /* position: absolute;  */
-                display: block;
-                right: 1em;
-                top: 5.6em;
+                /* display: block;
+                right: 2em;
+                top: 5.6em; */
+                padding-left: 0.4em;
                 text-transform: uppercase;
+
+                font-size: 0.75em;
                 border-bottom: 0.05em solid var(--color-lines);
 
                 grid-column: 3 / 4;
             }
 
 
-
-
             h1{
                 grid-column: 2 / 3;
-
-                border-bottom: 0.05em solid var(--color-lines);
-                padding: 0.1em 0.2em;
-
             }
 
 
@@ -67,6 +53,7 @@
                 justify-content: center;
                 text-align: center; 
             }
+
 
             p{
                 margin: 0 1em;
@@ -299,13 +286,6 @@
                 margin: 0 auto;
             }
 
-
-
-            @media (width > 30em){
-                .popup h2{
-                    padding: 1em 0;
-                }
-            }
             
             /* Pop-up */
             .popup-background{
@@ -347,6 +327,13 @@
             }
 
 
+            @media (width > 30em){
+                .popup h2{
+                    padding: 1em 0;
+                }
+            }
+
+
             .popup p{
                 margin-bottom: 1.5em;
             }
@@ -368,17 +355,12 @@
     <body>
         <main>
             <div class="skip">
-                <h1 class="h1-small">Quiz</h1>
+                <h1>Quiz</h1>
 
                 <a href="/results" id="skip-a">Skip</a>
             </div>
 
-            <div class="begin">
-               
-
-
             <div class="begin">                
-
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                 width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000"
                 preserveAspectRatio="xMidYMid meet">
@@ -706,7 +688,7 @@
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
             const nextButton = document.querySelector(".nav-button button");
-            const quizSkip = document.querySelector('.skip'); 
+            const quizSkip = document.querySelector('.skip a'); 
             const popupBackground = document.querySelector('.popup-background');
             const continueQuizButton = document.querySelector('.popup-buttons button:first-of-type');
             const skipPlantsButton = document.querySelector('.popup-buttons button:last-of-type');
