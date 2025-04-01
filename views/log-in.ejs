@@ -9,69 +9,6 @@
     <%- include('partials/header') %>    
 
     <style>
-        body{
-            display: flex;
-            flex-direction: column;
-        }
-
-
-        .container{
-            margin: 0.5em 1.5em;
-        }
-
-
-        .log-in{
-            display: flex;
-            flex-direction: column;
-        }
-
-
-        h2{
-            border-bottom: 0.05em solid var(--color-lines);
-
-            width: 11.3em;
-            padding-bottom: 0.2em;
-        }
-
-        
-        label{
-            margin-top: 10em;
-            margin-bottom: 0.5em;
-        }
-
-
-        input{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 90%;
-            padding: 0.9em;
-            margin-top: 0.3em;
-        }
-
-
-        form div{
-            margin-top: 1.5em;
-        }
-
-
-        button{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 40%;
-            padding: 0.3em 0.9em;
-            display: block;
-            margin: 0 auto;
-            margin-top: 2em;
-        }
-
-        
-    
         .register{
             display: flex;
             flex-direction: column;
@@ -82,19 +19,14 @@
 
 
         .register a{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-            text-align: center;
-
-            width: 30%;
-            padding: 0.3em 0.9em;
             margin-top: 1em;
+            padding: 0.2em 0.8em;
+
+            font-size: 0.8em;
         }
 
 
-        /* Error */
+        /* Error: OOK IN ALGEMENE STYLING ZETTEN */ 
         .error{
             border: 2px solid red !important;
             color: red !important;
@@ -108,33 +40,34 @@
             margin-bottom: 10px;
         }
     </style>
-    </head>
+</head>
 
-    <body>
-        <div class="container">
-            <div class="log-in">
-                <h2>Login</h2>
+    <body class="forms-body">
+        <div class="forms-container">
+            <div class="forms">
+                <h1 class="forms-h1">Login</h1>
     
                 <form action="/log-in" method="POST">
                     <div>
                         <label for="username">Username</label>
-                        <input type="text" name="username" required>
+                        <input class="form-input-styling" type="text" name="username" required>
                     </div>
          
                     <div>
                         <label for="password"> Password</label>
-                        <input type="password" name="password" required>
+                        <input class="form-input-styling" type="password" name="password" required>
                     </div>
 
                     <p class="error-message" id="error-msg">Invalid username or password, try again</p>
      
-                    <button type="submit">Log In</button>
+                    <button class="btn-styling" type="submit">Log In</button>
                 </form>
             </div>
     
             <div class="register">
                 <p>Don't have an account?</p>
-                <a href="/register">Register</a>
+
+                <a class="btn-styling" href="/register">Register</a>
             </div>
         </div>
     

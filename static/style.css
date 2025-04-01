@@ -21,6 +21,7 @@
     --white-space: clamp(1em, 5vw, 1.5em)
 }
 
+
 @font-face{
     font-family: 'Montserrat';
     src: url('./fonts/static/Montserrat-Light.ttf');
@@ -33,7 +34,7 @@ h1, h2, h3, h4, p, a, label, figure, button{
 }
 
 
-h1, h2, h3, button{
+h1, h2, h3{
     text-transform: uppercase;
 }
 
@@ -45,7 +46,6 @@ h1{
 
 .h1-small{
     font-size: 1em;
-    text-align: center;
 }
 
 
@@ -54,18 +54,39 @@ h2{
 }
 
 
-.h2-small{
+.h2-small, a, p, label{
     font-size: 0.9em;
+    text-decoration: none;
 }
 
 
-h3{
-    font-size: .8em;
+figcaption, h3{
+    font-size: 0.8em;
+    text-decoration: none;
 }
 
 
-p{
-    font-size: 0.9em;
+/* Styling buttons */
+.btn-styling{
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    border-bottom: 0.05em solid var(--color-lines);
+    padding: 0.2em 0.8em;
+    font-size: 0.9em;    
+    text-transform: uppercase;
+}
+
+
+/* Styling inputfield */
+.form-input-styling{
+    background: var(--color-background-inputfield);
+
+    border: 0.09em solid var(--color-lines);
+    border-radius: 0.8em;
+
+    width: 90%;
+    padding: 0.8em;
 }
 
 
@@ -75,13 +96,6 @@ body{
     height: 100vh;
     background-attachment: fixed; 
     overflow-y: auto;
-}
-
-
-a, 
-figcaption{
-    text-decoration: none;
-    font-size: 0.8em;
 }
 
 
@@ -220,5 +234,54 @@ ul.grid-view article div {
 
 
 
+/* Styling forms: log-in, register, change-password */
+.forms-body{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forms-container{
+    margin: 0.5em 1.5em;
+}
+
+
+.forms{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.forms-h1{
+    border-bottom: 0.05em solid var(--color-lines);
+
+    width: 11.3em;
+    padding-bottom: 0.2em;
+    font-size: 1em;
+}
+
+
+.forms input{
+    margin-top: 0.3em;
+}
+
+
+.forms div{
+    margin-top: 1.5em;
+}
+
+
+.forms button,
+.forms a{
+    display: block;
+    margin: 0 auto;
+
+    margin-top: 2em;
+}
+
+
+.forms label{
+    margin-bottom: 0.5em;
+}
 
 
