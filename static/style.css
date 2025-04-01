@@ -45,7 +45,7 @@ h1{
 }
 
 
-h2{
+h2{ /* Nog naar kijken! Op welke pagina's?*/
     font-size: 1em;
 }
 
@@ -83,7 +83,7 @@ body{
 }
 
 
-/* styling for svg icons */
+/* Styling for svg icons */
 .cls-1, .cls-2{
     stroke: var(--color-lines);
     fill: var(--color-icons-not-filled);
@@ -218,7 +218,7 @@ ul.grid-view article div {
 
 
 
-/* Styling forms: log-in, register, change-password */
+/* Styling forms: log-in, register & change-password */
 .forms-body{
     display: flex;
     flex-direction: column;

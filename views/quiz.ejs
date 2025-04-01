@@ -17,27 +17,18 @@
 
 
             /* Skip link */
-            .skip{
-                display: none; 
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
+            section a{
+                display: none;
 
                 position: absolute; 
-                right: 1.5em;
-                top: 7em;
-                gap: 0.2em;
-            }
+                right: 2.8em;
+                top: 8.6em;
 
-
-            .skip svg{
-                width: 5vw;
-                fill: var(--color-lines);
-            }
-
-
-            .skip a{
                 text-transform: uppercase;
+                font-size: 0.75em;
+
+                border-bottom: 0.05em solid var(--color-lines);
+                padding: 0.1em 0.2em;
             }
 
 
@@ -269,13 +260,7 @@
             <section>
                 <h1>Quiz</h1>
 
-                <div class="skip">
-                    <a href="/results">Skip</a>
-
-                    <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
-                    </svg> 
-                </div>
+                <a href="/results">Skip</a>
             </section>
 
             <div class="begin">                
@@ -496,6 +481,7 @@
                 <p>Got 30 seconds? Get matched to your perfect plant!</p>
              
                 <button class="btn-styling">Begin</button>
+
             </div>
 
             <div class="questions">
@@ -593,7 +579,7 @@
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
             const nextButton = document.querySelector(".nav-button button");
-            const quizSkip = document.querySelector('.skip'); 
+            const quizSkip = document.querySelector('section a'); 
 
             // Start quiz
             // Source: help from chatGPT
