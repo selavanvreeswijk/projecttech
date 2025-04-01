@@ -268,13 +268,13 @@ async function onLoginPost(req, res) {
     };
     return res.json({success: true, redirect: "/profile"});
   }
-  res.status(401).json({success: false, message: "Invalid username or password"})
+  res.status(401).json({success: false})
 }
 
 async function userCheck(req, res) {
   const { username } = req.body;
   if(!username) {
-    return res.status(400).json({ success: false,  message: "Username is required"})
+    return res.status(400).json({ success: false})
   }
 
   const existingUser = await db.collection("users").findOne({username});
@@ -284,7 +284,7 @@ async function userCheck(req, res) {
 async function onRegisterPost(req, res) {
   const { username, password, confirmPassword } = req.body;
   if (password !== confirmPassword) {
-    return res.status(400).json({success: false, message: 'Passwords do not match' });
+    return res.status(400).json({success: false});
   }
 
   const existingUser = await db.collection("users").findOne({username});
