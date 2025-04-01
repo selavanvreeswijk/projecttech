@@ -222,9 +222,15 @@
                 <h2>Popular plants</h2>
                    
                 <div class="carrousel-scroll">
-                    <div class="plant-card">
-                        
-                    </div>
+                        <% if (relatedPlants.length > 0) { %>
+                            <% relatedPlants.forEach(plant => { %>
+                                <div class="plant-card"></div>
+                                    <%- include('partials/cards', { plant: plant }) %>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>No related plants found.</p>
+                        <% } %>  
                 </div>
             </section>
 
