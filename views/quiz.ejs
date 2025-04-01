@@ -734,7 +734,7 @@
                 if (index === questions.length - 1) {
                     nextButton.textContent = "Finish";
                     nextButton.onclick = function () {
-                        window.location.href = "/results"; // BACKEND: refer to userID
+                        window.location.href = "/results";
                     };
                 } else {
                     nextButton.onclick = nextQuestion;
@@ -757,7 +757,7 @@
                     if (currentQuestionIndex < questions.length) {
                         showQuestion(currentQuestionIndex);
                     } else {
-                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
+                        window.location.href = "/results"; 
                     }
                 }
             }

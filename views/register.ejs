@@ -54,13 +54,13 @@
 
             let isValid = true; // Controleert of het formulier correct is
 
-            // reset errors
+            // Reset errors
             usernameError.style.display = "none";
             passwordError.style.display = "none";
             form.username.classList.remove("error-input");
             form["confirmPassword"].classList.remove("error-input");
 
-            //controleer of gebruikersnaam al bestaat
+            // Controleer of gebruikersnaam al bestaat
             try {
                 let response = await fetch("/check-username", {
                 method: "POST",
