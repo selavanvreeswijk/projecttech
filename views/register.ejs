@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en ">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/style.css">
 
     <%- include('partials/header') %>  
-
     </head>
 
     <body class="forms-body">
@@ -52,15 +51,13 @@
             let usernameError = document.getElementById("username-error");
             let passwordError = document.getElementById("password-error");
 
-            let isValid = true; // Controleert of het formulier correct is
+            let isValid = true; 
 
-            // Reset errors
             usernameError.style.display = "none";
             passwordError.style.display = "none";
             form.username.classList.remove("error-input");
             form["confirmPassword"].classList.remove("error-input");
 
-            // Controleer of gebruikersnaam al bestaat
             try {
                 let response = await fetch("/check-username", {
                 method: "POST",
@@ -79,14 +76,12 @@
                 console.error("Username check failed:", error);
             }
 
-            // Check of wachtwoorden overeenkomen
             if (formData.get("password") !== formData.get("confirmPassword")) {
                 passwordError.style.display = "block";
                 form["confirmPassword"].classList.add("error-input");
                 isValid = false;
             } 
 
-            // Als alles correct is, verzend formulier
             if (isValid) {
                 try {
                     let registerResponse = await fetch("/register", {
