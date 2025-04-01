@@ -217,20 +217,95 @@
                     flex-direction: row;
                     gap: 2em;
                 }
+
                 .container{
                     margin-top: 0;
                 }
+
                 article{
                     display: grid;
                     justify-content: center;
                     align-self: start;
                     row-gap: 4em;
                 }
+
                 #share-button{
                     margin-top: 2em;
                     margin-bottom: 2em;
                 }
             }
+
+
+            /* Carrousel */
+            .test{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+
+             /* ----------------- Carrousel scroll styling van HOME --------------- */
+             /* .carrousel{
+                margin-bottom: 2.5em;
+            }
+
+
+            .carrousel h2{
+                border-bottom: 0.05em solid var(--color-lines);
+                width: 10.5em;
+                padding: 0.2em 0;
+                margin-top: 3.5em;
+                margin-bottom: 0.7em;
+            }
+
+
+            .carrousel-scroll{
+                display: flex;
+                overflow-x: auto; 
+                gap: 1em;
+                scroll-snap-type: x mandatory; 
+                -webkit-overflow-scrolling: touch; 
+                padding: 10px 0; 
+            }
+
+
+            .plant-card{
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                border-radius: .7em;
+                border: .08em solid var(--color-lines);
+                width: 10em; 
+                flex-shrink: 0; 
+                scroll-snap-align: start; 
+            }
+
+
+            .carrousel img{
+                width: 100%;
+                border-radius: .7em;
+            }
+
+
+            .carrousel h3{
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+            }
+
+
+
+            .carrousel a{
+                font-size: 0.75em;
+            }
+
+
+            .plant-card div{
+                padding: 0.5em;
+                margin-bottom: 0.4em;
+            } */
+
+            /* ----------------- Carrousel scroll container van HOME --------------- */
+
         </style>
     </head>
 
@@ -327,16 +402,21 @@
                     <button class="btn-styling" id="share-button">Share</button> 
             </article>
 
-            <h2>Other users also liked</h2>
-            <div class="related-plants">
-            <% if (relatedPlants.length > 0) { %>
-                <% relatedPlants.forEach(plant => { %>
-                    <%- include('partials/cards', { plant: plant }) %>
-                <% }); %>
-            <% } else { %>
-                <p>No related plants found.</p>
-            <% } %>
-            </div>
+            <section class="carrousel">
+                <h2>Other users also liked</h2>
+
+                <div class="carrousel-scroll">
+                    <% if (relatedPlants.length > 0) { %>
+
+                    <% relatedPlants.forEach(plant => { %>
+                        <%- include('partials/cards-detail', { plant: plant }) %>
+                    <% }); %>
+
+                    <% } else { %>
+                        <p>No related plants found.</p>
+                    <% } %>
+                </div>
+            </section>
         </main>
 
         <footer class="hidden">
