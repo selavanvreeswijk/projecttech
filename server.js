@@ -350,3 +350,68 @@ app.post('/add-favorite', async (req, res) => {
     console.error("Error with adding to favorites:", error);
   }
 })
+
+app.get('/change-password', (req, res) => {
+  if (!req.session.user) {
+    return res.redirect('/log-in');
+  }
+  res.render('change-password');
+});
+
+
+app.post('/change-password', async (req, res) => {
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (!req.session.user) {
+    return res.redirect('/log-in');
+  }
+
+  const userId = req.session.user._id;
+
+  try {
+    const userObjectId = ObjectId.createFromHexString(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if (!user) {
+      return res.render('error', {
+        message: 'User not found.',
+        redirect: '/profile'
+      });
+    }
+
+    const isOldPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
+    if (!isOldPasswordCorrect) {
+      return res.render('change-password', {
+        error: 'Incorrect old password.'
+      });
+    }
+
+    if (oldPassword === newPassword) {
+      return res.render('change-password', {
+        error: 'New password cannot be the same as the old password.'
+      });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.render('change-password', {
+        error: 'Passwords do not match.'
+      });
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    await db.collection('users').updateOne(
+      { _id: userObjectId },
+      { $set: { password: hashedNewPassword } }
+    );
+
+    res.render('dashboard', { username: req.session.user.username, success: 'Password changed successfully!' });
+
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).render('error', {
+      message: 'Something went wrong.',
+      redirect: '/profile'
+    });
+  }
+});
+
