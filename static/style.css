@@ -259,11 +259,12 @@ ul.grid-view article div {
 .favorite-btn #icon-favorites-cards .cls-2{
     stroke-width: 1em;
     stroke: var(--color-lines);
+    fill: var(--color-icons-not-filled);
     width: 1.2em;
 
 }
 
-.favorite-btn #icon-favorites-cards .cls-2 .clicked{
+.favorite-btn #icon-favorites-cards .cls-2.clicked{
     fill: url(#SvgGradient);
     stroke: var(--color-icons-not-filled);
     stroke-width: 1em;
