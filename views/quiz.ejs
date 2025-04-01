@@ -17,27 +17,18 @@
 
 
             /* Skip link */
-            .skip{
-                display: none; 
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
+            section a{
+                display: none;
 
                 position: absolute; 
-                right: 1.5em;
-                top: 7em;
-                gap: 0.2em;
-            }
+                right: 2.8em;
+                top: 8.6em;
 
-
-            .skip svg{
-                width: 5vw;
-                fill: var(--color-lines);
-            }
-
-
-            .skip a{
                 text-transform: uppercase;
+                font-size: 0.75em;
+
+                border-bottom: 0.05em solid var(--color-lines);
+                padding: 0.1em 0.2em;
             }
 
 
@@ -56,7 +47,21 @@
 
                 margin-top: 5em;
                 margin-bottom: 2em;
+                animation: scale 10s infinite ease-in-out;
             }
+
+
+            @keyframes scale{
+                0% {
+                    transform: scale(1); 
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }   
 
 
             .begin button{
@@ -261,21 +266,71 @@
                 display: none;
                 margin: 0 auto;
             }
+
+
+            /* Pop-up */
+            .popup-background{
+                display: none;
+                justify-content: center;
+                align-items: center;
+
+                position: fixed;
+                z-index: 1000;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+
+            .popup{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                background: var(--color-background);
+              
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+                padding: 1em;
+                margin: 1.9em;
+                text-align: center;
+            }
+
+
+            .popup h2{
+                margin-bottom: 1.5em;
+                width: 8em;
+            }
+
+
+            .popup p{
+                margin-bottom: 1.5em;
+            }
+
+
+            .popup-buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                width: 70%;
+                gap: 1.3em;
+                margin-bottom: 1.5em;
+            }
         </style>
     </head>
 
     <body>
         <main>
             <section>
-                <h1 class="h1-small">Quiz</h1>
+                <h1>Quiz</h1>
 
-                <div class="skip">
-                    <a href="/results">Skip</a>
-
-                    <svg viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
-                    </svg> 
-                </div>
+                <a href="/results">Skip</a>
             </section>
 
             <div class="begin">                
@@ -498,6 +553,19 @@
                 <button class="btn-styling">Begin</button>
             </div>
 
+            <div class="popup-background">
+                <div class="popup">
+                    <h2>Skip quiz?</h2>
+
+                    <p>Are you sure you want to skip this quiz? Answers will not be saved...</p>
+
+                    <div class="popup-buttons">
+                        <button class="btn-styling">Back</button>
+                        <button class="btn-styling">Skip</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="questions">
                 <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
 
@@ -593,10 +661,12 @@
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
             const nextButton = document.querySelector(".nav-button button");
-            const quizSkip = document.querySelector('.skip'); 
+            const quizSkip = document.querySelector('section a'); 
+            const popupBackground = document.querySelector('.popup-background');
+            const continueQuizButton = document.querySelector('.popup-buttons button:first-of-type');
+            const skipPlantsButton = document.querySelector('.popup-buttons button:last-of-type');
 
             // Start quiz
-            // Source: help from chatGPT
             let currentQuestionIndex = 0;
             let answers = {};
 
@@ -609,6 +679,30 @@
                 
                 showQuestion(currentQuestionIndex);
             });
+
+
+            // Pop-up skip quiz
+            quizSkip.addEventListener('click', function (event){
+                event.preventDefault();  
+
+                popupBackground.style.display = 'flex';
+
+                // Disable scrolling
+                document.body.style.overflow = 'hidden'; 
+                document.documentElement.style.overflow = 'hidden';  
+            });
+
+            continueQuizButton.addEventListener('click', function (){
+                popupBackground.style.display = 'none'; 
+
+                document.body.style.overflow = 'auto';  
+                document.documentElement.style.overflow = 'auto';  
+            });
+
+            skipPlantsButton.addEventListener('click', function (){
+                window.location.href = '/results';
+            });
+
 
             // Progress bar
             function updateProgress() {
@@ -640,12 +734,13 @@
                 if (index === questions.length - 1) {
                     nextButton.textContent = "Finish";
                     nextButton.onclick = function () {
-                        window.location.href = "/results"; // BACKEND: refer to userID
+                        window.location.href = "/results";
                     };
                 } else {
                     nextButton.onclick = nextQuestion;
                 }
             }
+
 
             // Next question buttons
             function nextQuestion(){
@@ -662,7 +757,7 @@
                     if (currentQuestionIndex < questions.length) {
                         showQuestion(currentQuestionIndex);
                     } else {
-                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
+                        window.location.href = "/results"; 
                     }
                 }
             }

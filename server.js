@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const { MongoClient, ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
-// const User = require("./models/User"); // voor change password
-// const router = express.Router(); // voor change password
 
 // Middleware
 app.set('view engine', 'ejs');
@@ -18,7 +16,9 @@ app.use(express.static('static', {
       res.setHeader('Content-Type', 'text/css');
     }
   }
-})); // Voor afbeeldingen en bestaande project
+})); 
+
+// Voor afbeeldingen en bestaande project
 //juist MIME-type forceren
 app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
 app.use(bodyParser.json());
@@ -116,6 +116,8 @@ async function onHome(req, res) {
   }
 }
 
+
+
 async function onQuiz(req, res) {
   try {
     res.render('quiz', { plants: cachedPlants });
@@ -201,54 +203,6 @@ async function onRegister(req, res) {
 async function onChangePassword(req, res){
     res.render('change-password')
 }
-
-// Voor change password: kun je evt gebruiken maar werkte bij mij niet
-// router.post("/change-password", async (req, res) => {
-//   const { oldPassword, newPassword, confirmPassword } = req.body;
-//   const userId = req.session.userId; // Zorg ervoor dat de gebruiker is ingelogd
-
-//   if (!userId) {
-//       return res.status(401).send("Je moet ingelogd zijn om je wachtwoord te wijzigen.");
-//   }
-
-//   // Haal de gebruiker op uit de database
-//   const user = await User.findById(userId);
-//   if (!user) {
-//       return res.status(404).send("Gebruiker niet gevonden.");
-//   }
-
-//   // Controleer of het oude wachtwoord correct is
-//   const isMatch = await bcrypt.compare(oldPassword, user.password);
-//   if (!isMatch) {
-//       return res.status(400).send("Oud wachtwoord is onjuist.");
-//   }
-
-//   // Controleer of het nieuwe wachtwoord en de bevestiging overeenkomen
-//   if (newPassword !== confirmPassword) {
-//       return res.status(400).send("Nieuwe wachtwoorden komen niet overeen.");
-//   }
-
-//   // Versleutel het nieuwe wachtwoord
-//   const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-//   // Update het wachtwoord in de database
-//   user.password = hashedPassword;
-//   await user.save();
-
-//   res.send("Wachtwoord succesvol gewijzigd!");
-// });
-
-// module.exports = router;
-
-// const mongoose = require("mongoose");
-
-// const UserSchema = new mongoose.Schema({
-//     username: { type: String, required: true, unique: true },
-//     password: { type: String, required: true }
-// });
-
-// module.exports = mongoose.model("User", UserSchema);
-
 
 async function onDashboard(req, res) {
   if (!req.session.user) {

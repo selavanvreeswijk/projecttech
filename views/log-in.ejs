@@ -24,21 +24,6 @@
 
             font-size: 0.8em;
         }
-
-
-        /* Error: OOK IN ALGEMENE STYLING ZETTEN */ 
-        .error{
-            border: 2px solid red !important;
-            color: red !important;
-        }
-
-        .error-message{
-            display: none;
-
-            color: red;
-            font-size: 14px;
-            margin-bottom: 10px;
-        }
     </style>
 </head>
 
@@ -50,15 +35,15 @@
                 <form action="/log-in" method="POST">
                     <div>
                         <label for="username">Username</label>
-                        <input class="form-input-styling" type="text" name="username" required>
+                        <input type="text" name="username" required>
                     </div>
          
                     <div>
                         <label for="password"> Password</label>
-                        <input class="form-input-styling" type="password" name="password" required>
+                        <input type="password" name="password" required>
                     </div>
 
-                    <p class="error-message" id="error-msg">Invalid username or password, try again</p>
+                    <p class="error" id="error-msg">Invalid username or password, try again</p>
      
                     <button class="btn-styling" type="submit">Log In</button>
                 </form>
@@ -79,8 +64,8 @@
         document.querySelector(".forms form").addEventListener("submit", async function(event) {
             event.preventDefault(); 
 
-            let form = event.target //waar de 'submit event' plaatsvindt
-            let formData = new FormData(form) //haalt ingevulde gegevens op
+            let form = event.target // Waar de 'submit event' plaatsvindt
+            let formData = new FormData(form) // Haalt ingevulde gegevens op
             let errorMsg = document.getElementById("error-msg");
 
 
