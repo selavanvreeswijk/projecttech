@@ -143,6 +143,13 @@
             }
         });
 
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            });
+        });
+
     </script>
 
 </body>

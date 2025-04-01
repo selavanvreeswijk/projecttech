@@ -241,6 +241,54 @@ ul.grid-view article div {
     background: var(--color-logo);
 }
 
+
+
+.favorite-btn #icon-favorites-cards{
+    /* position: absolute; */
+    bottom: .5em;
+    right: .5em;
+
+    cursor: pointer;
+    width: 2em;
+    height: auto;
+
+    background: none;
+    border: none;
+}
+
+.favorite-btn #icon-favorites-cards .cls-2{
+    stroke-width: 1em;
+    stroke: var(--color-lines);
+    width: 1.2em;
+
+}
+
+.favorite-btn #icon-favorites-cards .cls-2 .clicked{
+    fill: url(#SvgGradient);
+    stroke: var(--color-icons-not-filled);
+    stroke-width: 1em;
+
+    transition: .5s ease;
+}
+
+/* #icon-favorites-cards{
+
+    stroke-width: 1em;
+    stroke: var(--color-lines);
+
+    width: 1.2em;
+}  */
+
+
+/* #icon-favorites-cards .cls-2.clicked{
+    fill: url(#SvgGradient);
+    stroke: var(--color-icons-not-filled);
+    stroke-width: 1em;
+
+    transition: .5s ease;
+} */
+
+
 @media( width > 40em){
     ul.grid-view{
         grid-template-columns: 1fr 1fr 1fr;
