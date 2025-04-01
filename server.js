@@ -16,7 +16,9 @@ app.use(express.static('static', {
       res.setHeader('Content-Type', 'text/css');
     }
   }
-})); // Voor afbeeldingen en bestaande project
+})); 
+
+// Voor afbeeldingen en bestaande project
 //juist MIME-type forceren
 app.use(express.static('public')); // Voor extra statische bestanden zoals quiz
 app.use(bodyParser.json());
@@ -113,6 +115,8 @@ async function onHome(req, res) {
     console.error("Error with API:", error);
   }
 }
+
+
 
 async function onQuiz(req, res) {
   try {
