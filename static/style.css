@@ -125,7 +125,8 @@ figcaption{
     margin: 0 1em 1em 1em;
 
     position: relative;
-    width: min(91.5%, 59.8em);
+    width: 91vw;
+    max-width: 59.1em;
 }
 
 
