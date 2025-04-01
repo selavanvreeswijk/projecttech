@@ -47,7 +47,21 @@
 
                 margin-top: 5em;
                 margin-bottom: 2em;
+                animation: scale 10s infinite ease-in-out;
             }
+
+
+            @keyframes scale{
+                0% {
+                    transform: scale(1); 
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }   
 
 
             .begin button{
@@ -319,19 +333,6 @@
                 <a href="/results">Skip</a>
             </section>
 
-            <div class="popup-background">
-                <div class="popup">
-                    <h2>Skip quiz?</h2>
-
-                    <p>Are you sure you want to skip this quiz? Answers will not be saved...</p>
-
-                    <div class="popup-buttons">
-                        <button class="btn-styling">Back</button>
-                        <button class="btn-styling">Skip</button>
-                    </div>
-                </div>
-            </div>
-
             <div class="begin">                
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                 width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000"
@@ -552,6 +553,19 @@
                 <button class="btn-styling">Begin</button>
             </div>
 
+            <div class="popup-background">
+                <div class="popup">
+                    <h2>Skip quiz?</h2>
+
+                    <p>Are you sure you want to skip this quiz? Answers will not be saved...</p>
+
+                    <div class="popup-buttons">
+                        <button class="btn-styling">Back</button>
+                        <button class="btn-styling">Skip</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="questions">
                 <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
 
@@ -686,7 +700,7 @@
             });
 
             skipPlantsButton.addEventListener('click', function (){
-                window.location.href = '/results';  
+                window.location.href = '/results';
             });
 
 
