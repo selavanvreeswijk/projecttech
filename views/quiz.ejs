@@ -16,19 +16,46 @@
             }
 
 
-            /* Skip link */
-            section a{
-                display: none;
 
-                position: absolute; 
-                right: 2.8em;
-                top: 8.6em;
+            button{
+                background: var(--color-background-inputfield);
 
+                border: 0.09em solid var(--color-lines);
+                border-radius: 0.8em;
+
+                padding: 0.3em 1.3em;
+            }
+           
+
+
+            .skip{
+                display: grid !important;
+                grid-template-columns: 3em 1fr 3em;
+                width: min(75%, 37.5em);
+                align-self: center;
+                align-items: center;
+            }
+
+            .skip a{
+                /* position: absolute;  */
+                display: block;
+                right: 1em;
+                top: 5.6em;
                 text-transform: uppercase;
-                font-size: 0.75em;
+                border-bottom: 0.05em solid var(--color-lines);
+
+                grid-column: 3 / 4;
+            }
+
+
+
+
+            h1{
+                grid-column: 2 / 3;
 
                 border-bottom: 0.05em solid var(--color-lines);
                 padding: 0.1em 0.2em;
+
             }
 
 
@@ -41,11 +68,18 @@
                 text-align: center; 
             }
 
+            p{
+                margin: 0 1em;
+            }
+
 
             .begin svg{
-                height: 30vh;
 
+                height: auto;
+                width: min(50%, 18em);
+     
                 margin-top: 5em;
+
                 margin-bottom: 2em;
                 animation: scale 10s infinite ease-in-out;
             }
@@ -74,7 +108,7 @@
                 display: none;
 
                 margin-top: 2em;
-                width: 80%;
+                width: min(78%, 38.75em);
             }
             
 
@@ -120,8 +154,7 @@
             .question{
                 display: none;
 
-                width: 75%;
-                max-width: 600px;
+                width: min(75%, 37.5em);
                 margin-top: 2em;
                 margin-bottom: 2em;
 
@@ -142,7 +175,6 @@
 
                 border-top: 0.05em solid var(--color-lines);
                 border-bottom: 0.05em solid var(--color-lines);
-                width: 13em;
                 padding: 0.5em 0;
             }
      
@@ -268,6 +300,12 @@
             }
 
 
+
+            @media (width > 30em){
+                .popup h2{
+                    padding: 1em 0;
+                }
+
             /* Pop-up */
             .popup-background{
                 display: none;
@@ -321,19 +359,25 @@
                 width: 70%;
                 gap: 1.3em;
                 margin-bottom: 1.5em;
+
             }
         </style>
     </head>
 
     <body>
         <main>
-            <section>
-                <h1>Quiz</h1>
+            <div class="skip">
+                <h1 class="h1-small">Quiz</h1>
 
-                <a href="/results">Skip</a>
-            </section>
+                <a href="/results" id="skip-a">Skip</a>
+            </div>
+
+            <div class="begin">
+               
+
 
             <div class="begin">                
+
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
                 width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000"
                 preserveAspectRatio="xMidYMid meet">
@@ -661,7 +705,7 @@
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
             const nextButton = document.querySelector(".nav-button button");
-            const quizSkip = document.querySelector('section a'); 
+            const quizSkip = document.querySelector('.skip'); 
             const popupBackground = document.querySelector('.popup-background');
             const continueQuizButton = document.querySelector('.popup-buttons button:first-of-type');
             const skipPlantsButton = document.querySelector('.popup-buttons button:last-of-type');
@@ -765,6 +809,28 @@
             nextButton.addEventListener("click", nextQuestion);
 
             showQuestion(currentQuestionIndex);
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const skipLink = document.getElementById("skip-a");
+                const beginDiv = document.querySelector(".begin");
+
+                function checkVisibility() {
+                    if (beginDiv && window.getComputedStyle(beginDiv).display !== "none") {
+                        skipLink.style.visibility = "hidden";
+                    } else {
+                        skipLink.style.visibility = "visible";
+                    }
+                }
+
+                checkVisibility();
+            
+                // Zichtbaarheid van .begin kan veranderen, hierom observeren we dat
+                const observer = new MutationObserver(checkVisibility);
+                observer.observe(beginDiv, { attributes: true, attributeFilter: ["style"] });
+
+                // Omdat.begin div met een knop verdwijnt
+                document.addEventListener("click", checkVisibility);
+            });
         </script>
     </body>
 </html>

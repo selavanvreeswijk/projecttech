@@ -44,15 +44,15 @@
         }
         #filter-options, #sort-options{
             height: max-content;
-            width: 94.4%;
+            width: 100%;
             border: .08em solid var(--color-lines);
             position: absolute;
             top: 2.66em;
-            left: 0;
+            left: -.5em;
 
         }
         #sort-options{
-            width: calc(100% - .1em);
+            width: min(104%, 60.2em);
         }
 
         .filter-button.active, .sort-btn.active{
@@ -60,7 +60,7 @@
         }
 
 
-        form{
+        aside{
             border: .08em solid var(--color-lines);
             border-radius: .2em;
             background: var(--color-background-inputfield);
@@ -69,7 +69,6 @@
         }
 
         input.search{
-    
     
             border: none;
             background: none;
@@ -103,11 +102,13 @@
 
         }
 
-        div.sort-options span label:nth-of-type(2){
+        div.sort-options span:nth-of-type(2){
             padding: .5em .6em;
             margin: .3em 0;
             border-top: .05em solid var(--color-lines);
             border-bottom: .05em solid var(--color-lines);
+
+            width: min(90vw, 59em);
         }
         
         div.sort-options{
@@ -115,7 +116,7 @@
             padding-right: 0;
         }
 
-        label{
+        div.sort-options span{
             padding-left: .6em;
         }
 
@@ -130,6 +131,40 @@
             color: var(--color-background-inputfield);
             cursor: pointer;
             transition: background-color 0.3s ease;
+        }
+
+
+        @media (width > 40em){
+            .filter-options {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            grid-template-rows: 7% 1fr 1fr 1fr;
+
+            column-gap: 20vw;
+            row-gap: 1em;
+        }
+                .legend-titel{
+                grid-column: 1 / -1;
+            }
+            span{
+                width: 100%;
+            }
+            span:nth-of-type(1){
+                grid-row: 2 / 3;
+            }
+            span:nth-of-type(2){
+                grid-row: 3 / 4;
+            }
+            span:nth-of-type(3){
+                grid-row: 4 / 5;
+            }
+            span:nth-of-type(4), span:nth-of-type(5){
+                grid-column: 2 / 3;
+                grid-row: 2 / 3;
+            }
+            span:nth-of-type(5){
+                grid-row: 3 / 4;
+            }
         }
 
     
@@ -219,22 +254,18 @@
                 <input type="search" class="search" placeholder="Search plant">
               </aside>
 
-           <!-- <form action="search" >
-                <input type="text" class="search" id="search-input" placeholder="Search plant">
-
-           </form> -->
-
- 
-            <label for="view-list" class="custom-radio-list">
-                <input type="radio" name="view" value="list" id="view-list" checked>
-            </label>
  
             <label for="view-grid" class="custom-radio-grid">
                 <span></span>
                 <span></span>
                 <span></span>
                 <span></span>
-                <input type="radio" name="view" value="grid" id="view-grid">
+                <input type="radio" name="view" value="grid" id="view-grid" checked>
+            </label>
+
+
+            <label for="view-list" class="custom-radio-list">
+                <input type="radio" name="view" value="list" id="view-list" >
             </label>
            
         </div>
