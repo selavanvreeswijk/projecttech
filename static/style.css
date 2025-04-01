@@ -225,18 +225,6 @@ ul.grid-view article div {
 
 /* Styling forms: log-in, register, change-password */
 
-/* Styling inputfield */
-/* .form-input-styling{
-    background: var(--color-background-inputfield);
-
-    border: 0.09em solid var(--color-lines);
-    border-radius: 0.8em;
-
-    width: 90%;
-    padding: 0.8em;
-} */
-
-
 .forms-body{
     display: flex;
     flex-direction: column;
