@@ -222,58 +222,19 @@
                 <h2>Popular plants</h2>
                    
                 <div class="carrousel-scroll">
-                    <div class="plant-card">
-                        <a href="/views/details.ejs">
-                            <img src="/img/plant-test.webp" alt="Plant common name">
-
-                            <div>
-                                <h3>Plant common name</h3>
-
-                                <span class="btn-styling">View details</span>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="plant-card">
-                        <a href="/views/details.ejs">
-                            <img src="/img/plant-test.webp" alt="Plant common name">
-                                
-                            <div>
-                                <h3>Plant common name</h3>
-                                <span class="btn-styling">View details</span>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="plant-card">
-                        <a href="/views/details.ejs">
-                            <img src="/img/plant-test.webp" alt="Plant common name">
-                            <div>
-                                <h3>Plant common name</h3>
-                                <span class="btn-styling">View details</span>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="plant-card">
-                        <a href="/views/details.ejs">
-                            <img src="/img/plant-test.webp" alt="Plant common name">
-                            <div>
-                                <h3>Plant common name</h3>
-                                <span class="btn-styling">View details</span>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="plant-card">
-                        <a href="/views/details.ejs">
-                            <img src="/img/plant-test.webp" alt="Plant common name">
-                            <div>
-                                <h3>Plant common name</h3>
-                                <span class="btn-styling">View details</span>
-                            </div>
-                        </a>
-                    </div>
+                    <% popularPlants.forEach(plant => { %>
+                        <div class="plant-card">
+                            <a href="/plant/<%=plant.id%>">
+                                <img src="<%= plant.Img %>" alt="Picture of a plant">
+    
+                                <div>
+                                    <h3><%= plant['Common name'] %> e</h3>
+    
+                                    <span class="btn-styling">View details</span>
+                                </div>
+                            </a>
+                        </div>
+                    <% }); %>
                 </div>
             </section>
 

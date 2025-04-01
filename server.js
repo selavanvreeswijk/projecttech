@@ -106,11 +106,30 @@ app
     console.log(`Server is runnning on http://localhost:${process.env.PORT || 9000}`);
   });
 
+async function getPopularPlants(limit = 5) {
+  try {
+    const popularPlants = await db.collection('users').aggregate([
+      {$unwind: "$favplant"},
+      {$group: { _id: "$favplant", count: {$sum: 1}}},
+      {$sort: {count: -1}},
+      {$limit: limit}
+    ]).toArray()
 
+    return popularPlants;
+  } catch (error) {
+    console.error("Error retrieving popular plants", error);
+    return []
+  }
+}
 
 async function onHome(req, res) {
   try {
-    res.render('index', { plants: cachedPlants });
+  const popularPlantIds = await getPopularPlants(5)
+
+  const popularPlants = popularPlantIds.map(item => cachedPlants.find(p => p.id === item._id)).filter(Boolean)
+
+  res.render('index', { plants: cachedPlants, popularPlants });
+
   } catch (error) {
     console.error("Error with API:", error);
   }
