@@ -103,8 +103,11 @@
 
 
             .carrousel img{
-                width: 100%;
-                border-radius: .7em;
+                border-top-left-radius: .7em;
+                border-top-right-radius: .7em;
+                width: 11.2em;
+                height: 13em;
+                object-fit: cover;
             }
 
 
@@ -114,7 +117,7 @@
             }
 
 
-            .carrousel a{
+            .carrousel span{
                 font-size: 0.75em;
             }
 
@@ -220,7 +223,7 @@
 
             <section class="carrousel">
                 <h2>Popular plants</h2>
-                   
+
                 <div class="carrousel-scroll">
                     <% popularPlants.forEach(plant => { %>
                         <div class="plant-card">
@@ -228,7 +231,7 @@
                                 <img src="<%= plant.Img %>" alt="Picture of a plant">
     
                                 <div>
-                                    <h3><%= plant['Common name'] %> e</h3>
+                                    <h3><%= plant['Common name'] %></h3>
     
                                     <span class="btn-styling">View details</span>
                                 </div>
