@@ -237,17 +237,11 @@
 
 
             /* Carrousel */
-            .test{
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-            }
-
 
              /* ----------------- Carrousel scroll styling van HOME --------------- */
              /* .carrousel{
                 margin-bottom: 2.5em;
-            }
+            } */
 
 
             .carrousel h2{
@@ -256,7 +250,7 @@
                 padding: 0.2em 0;
                 margin-top: 3.5em;
                 margin-bottom: 0.7em;
-            }
+            } 
 
 
             .carrousel-scroll{
@@ -402,6 +396,7 @@
                     <button class="btn-styling" id="share-button">Share</button> 
             </article>
 
+            <!--Code luna-->
             <section class="carrousel">
                 <h2>Other users also liked</h2>
 
@@ -415,6 +410,27 @@
                     <% } else { %>
                         <p>No related plants found.</p>
                     <% } %>
+                </div>
+            </section>
+
+            <!--Code van home-->
+            <section class="carrousel">
+                <h2>Other users also liked</h2>
+                   
+                <div class="carrousel-scroll">
+                    <% userPlants.forEach(plant => { %>
+                        <div class="plant-card">
+                            <a href="/plant/<%=plant.id%>">
+                                <img src="<%= plant.Img %>" alt="Picture of a plant">
+    
+                                <div>
+                                    <h3><%= plant['Common name'] %> e</h3>
+    
+                                    <span class="btn-styling">View details</span>
+                                </div>
+                            </a>
+                        </div>
+                    <% }); %>
                 </div>
             </section>
         </main>
