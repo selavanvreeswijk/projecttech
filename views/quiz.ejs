@@ -252,6 +252,62 @@
                 display: none;
                 margin: 0 auto;
             }
+
+
+            /* Pop-up */
+            .popup-background{
+                display: none;
+                justify-content: center;
+                align-items: center;
+
+                position: fixed;
+                z-index: 1000;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+
+            .popup{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                background: var(--color-background);
+              
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+                padding: 1em;
+                margin: 1.9em;
+                text-align: center;
+            }
+
+
+            .popup h2{
+                margin-bottom: 1.5em;
+                width: 8em;
+            }
+
+
+            .popup p{
+                margin-bottom: 1.5em;
+            }
+
+
+            .popup-buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                width: 70%;
+                gap: 1.3em;
+                margin-bottom: 1.5em;
+            }
         </style>
     </head>
 
@@ -262,6 +318,19 @@
 
                 <a href="/results">Skip</a>
             </section>
+
+            <div class="popup-background">
+                <div class="popup">
+                    <h2>Skip quiz?</h2>
+
+                    <p>Are you sure you want to skip this quiz? Answers will not be saved...</p>
+
+                    <div class="popup-buttons">
+                        <button class="btn-styling">Back</button>
+                        <button class="btn-styling">Skip</button>
+                    </div>
+                </div>
+            </div>
 
             <div class="begin">                
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
@@ -481,7 +550,6 @@
                 <p>Got 30 seconds? Get matched to your perfect plant!</p>
              
                 <button class="btn-styling">Begin</button>
-
             </div>
 
             <div class="questions">
@@ -580,9 +648,11 @@
             const questions = document.querySelectorAll(".question");
             const nextButton = document.querySelector(".nav-button button");
             const quizSkip = document.querySelector('section a'); 
+            const popupBackground = document.querySelector('.popup-background');
+            const continueQuizButton = document.querySelector('.popup-buttons button:first-of-type');
+            const skipPlantsButton = document.querySelector('.popup-buttons button:last-of-type');
 
             // Start quiz
-            // Source: help from chatGPT
             let currentQuestionIndex = 0;
             let answers = {};
 
@@ -595,6 +665,30 @@
                 
                 showQuestion(currentQuestionIndex);
             });
+
+
+            // Pop-up skip quiz
+            quizSkip.addEventListener('click', function (event){
+                event.preventDefault();  
+
+                popupBackground.style.display = 'flex';
+
+                // Disable scrolling
+                document.body.style.overflow = 'hidden'; 
+                document.documentElement.style.overflow = 'hidden';  
+            });
+
+            continueQuizButton.addEventListener('click', function (){
+                popupBackground.style.display = 'none'; 
+
+                document.body.style.overflow = 'auto';  
+                document.documentElement.style.overflow = 'auto';  
+            });
+
+            skipPlantsButton.addEventListener('click', function (){
+                window.location.href = '/results';  
+            });
+
 
             // Progress bar
             function updateProgress() {
@@ -632,6 +726,7 @@
                     nextButton.onclick = nextQuestion;
                 }
             }
+
 
             // Next question buttons
             function nextQuestion(){
