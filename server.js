@@ -164,6 +164,25 @@ async function onResults(req, res) {
   }
 }
 
+async function getRelatedPlants(plantId) {
+  try{
+    const relatedPlants = await db.collection('users').aggregate([
+      {$match: {favplant: plantId }}, //zoekt gebruikers die deze plant in fav hebben
+      {$unwind: "$favplant" }, //slaat alle id's apart op, dus niet als array
+      {$match: { favplant: {$ne: plantId} }}, //plant van detailpagina wordt niet opgenomen
+      {$group: {_id: "$favplant", count: {$sum: 1}  }}, //zoekt de planten die het meest zijn geliked
+      {$sort: { count: -1 }}, //zet deze planten opvolgorde
+      {$limit: 5 } //max 5 planten worden gebruikt
+    ]).toArray();
+    console.log("functie" + relatedPlants)
+
+    return relatedPlants.filter(p => p._id) //alleen planten worden teruggegeven die werkelijk een id hebben
+} catch (error) {
+  console.error("Error retrieving related plants:", error);
+  return [];
+}
+}
+
 async function onDetail(req, res) {
   const plantId = req.params.plantId;
   const detailUrl = `https://house-plants2.p.rapidapi.com/id/${plantId}`;
@@ -184,7 +203,11 @@ async function onDetail(req, res) {
       colorOfLeaf: plants['Color of leaf'],
       minTemp: plants['Temperature min'],
     };
-    res.render('details', { plants: detailPlant });
+      const relatedPlantIds = await getRelatedPlants(plantId); //zoek andere planten die gebruikers ook leuk vinden
+      const relatedPlants = relatedPlantIds.map(related => cachedPlants.find(p => p.id === related._id)).filter(Boolean)
+
+    console.log(relatedPlants)
+    res.render('details', { plants: detailPlant, relatedPlants });
   } catch (error) {
     console.error("Error with API", error);
   }

@@ -326,6 +326,17 @@
 
                     <button class="btn-styling" id="share-button">Share</button> 
             </article>
+
+            <h2>Other users also liked</h2>
+            <div class="related-plants">
+            <% if (relatedPlants.length > 0) { %>
+                <% relatedPlants.forEach(plant => { %>
+                    <%- include('partials/cards', { plant: plant }) %>
+                <% }); %>
+            <% } else { %>
+                <p>No related plants found.</p>
+            <% } %>
+            </div>
         </main>
 
         <footer class="hidden">
