@@ -396,7 +396,6 @@
                     <button class="btn-styling" id="share-button">Share</button> 
             </article>
 
-            <!--Code luna-->
             <section class="carrousel">
                 <h2>Other users also liked</h2>
 
@@ -404,7 +403,7 @@
                     <% if (relatedPlants.length > 0) { %>
 
                     <% relatedPlants.forEach(plant => { %>
-                        <%- include('partials/cards-detail', { plant: plant }) %>
+                        <%- include('partials/cards', { plant: plant }) %>
                     <% }); %>
 
                     <% } else { %>
@@ -413,26 +412,7 @@
                 </div>
             </section>
 
-            <!--Code van home-->
-            <section class="carrousel">
-                <h2>Other users also liked</h2>
-                   
-                <div class="carrousel-scroll">
-                    <% userPlants.forEach(plant => { %>
-                        <div class="plant-card">
-                            <a href="/plant/<%=plant.id%>">
-                                <img src="<%= plant.Img %>" alt="Picture of a plant">
-    
-                                <div>
-                                    <h3><%= plant['Common name'] %> e</h3>
-    
-                                    <span class="btn-styling">View details</span>
-                                </div>
-                            </a>
-                        </div>
-                    <% }); %>
-                </div>
-            </section>
+            
         </main>
 
         <footer class="hidden">
