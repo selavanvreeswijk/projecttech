@@ -52,7 +52,7 @@
 
         }
         #sort-options{
-            width: min(104%, 60.2em);
+            width: min(102.5%, 60.2em);
         }
 
         .filter-button.active, .sort-btn.active{
@@ -108,7 +108,21 @@
             border-top: .05em solid var(--color-lines);
             border-bottom: .05em solid var(--color-lines);
 
-            width: min(90vw, 59em);
+            width: calc(100% - 1.2em);
+
+        }
+
+        div.sort-options span{
+            width: 100%;
+        }
+
+        div.sort-options span:active {
+            background: var(--color-logo);
+            label{
+                color: var(--color-icons-not-filled);
+
+            }
+            
         }
         
         div.sort-options{
@@ -116,9 +130,9 @@
             padding-right: 0;
         }
 
-        div.sort-options span{
+        /* div.sort-options span{
             padding-left: .6em;
-        }
+        } */
 
         .filter-options input[type="radio"]{
             display: inline-block;
@@ -233,17 +247,17 @@
 
             <div id="sort-options" class="sort-options hidden"> 
 
-                <span>
+                <span id="sort-span">
                     <input type="radio" id="popular" name="popular" value="popular">
                     <label for="popular">Popular</label>
                 </span>
 
-                <span>
+                <span id="sort-span">
                     <input type="radio" id="A-Z" name="sort" value="A-Z">
                     <label for="A-Z">A-Z</label>
                 </span>
 
-                <span>
+                <span id="sort-span">
                     <input type="radio" id="Z-A" name="sort" value="Z-A">
                     <label for="Z-A">Z-A</label>
                 </span>     
@@ -275,5 +289,7 @@
     
 
     <script src="/script.js" defer></script>
+
+
 </body>
 </html>

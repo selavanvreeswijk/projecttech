@@ -29,6 +29,10 @@ function showInList() {
 }
 
 
+document.getElementById("sort-span").addEventListener("click", function() {
+    this.style.backgroundColor = "red"; // Verandert de kleur permanent
+  });
+
 
 
 
