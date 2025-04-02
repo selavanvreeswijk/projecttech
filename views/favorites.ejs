@@ -80,8 +80,12 @@
        }
 
 
-       a{
+       .btn-styling{
         margin-top: 3em;
+       }
+
+       ul.list-view{
+        width: min(80%, 25em);
        }
        /* p{
             align-self: center;
@@ -126,11 +130,13 @@
             
             <!-- VUL IN MET VORMGEVING ALS ER GEEN FAVORIETEN ZIJN</p> -->
         <% } else { %>
-            <ul class="grid-view">
+            <ul class="grid-view list" id="list-view-plants">
 
                 <% plants.forEach(plant => { %>
                     <li>
-                        <%- include('partials/cards', { plant: plant }) %>
+                        <span class="plant-names">
+                             <%- include('partials/cards', { plant: plant }) %>
+                        </span>
                     </li>
                 <% }) %> 
               
