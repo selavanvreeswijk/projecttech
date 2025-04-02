@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Results</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/style.css" />
   <%- include('partials/header') %>
   <style>
     h1 {
       margin-bottom: 1em;
+    }
+
+    #plantList {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1em;
+      text-align: center;
     }
   </style>
 </head>
@@ -18,18 +26,18 @@
     <%- include('partials/container') %>
 
     <ul class="list-view list" id="plant-list">
-        <% plants.forEach(plant => { 
-          const commonNameRaw = plant['Common name'];
-          const commonName = Array.isArray(commonNameRaw) ? commonNameRaw[0] : commonNameRaw;
-          const displayName = commonName || 'No name';
-        %>
-          <li class="plant-item" data-name="<%= displayName %>">
-            <span class="plant-names name">
-              <%- include('partials/cards', { plant: { ...plant, 'Common name': displayName } }) %>
-            </span>
-          </li>
-        <% }) %>
-      </ul>
+      <% plants.forEach(plant => { 
+        const commonNameRaw = plant['Common name'];
+        const commonName = Array.isArray(commonNameRaw) ? commonNameRaw[0] : commonNameRaw;
+        const displayName = commonName || 'No name';
+      %>
+        <li class="plant-item" data-name="<%= displayName %>">
+          <span class="plant-names name">
+            <%- include('partials/cards', { plant: { ...plant, 'Common name': displayName } }) %>
+          </span>
+        </li>
+      <% }) %>
+    </ul>
   </main>
 
   <footer>
@@ -42,13 +50,11 @@
       const filterInputs = document.querySelectorAll('#filter-options input[type="radio"]');
       const urlParams = new URLSearchParams(window.location.search);
 
-      // Zet juiste radio-button automatisch aan op basis van URL
       for (const [key, value] of urlParams.entries()) {
         const input = document.querySelector(`input[name="${key}"][value="${value}"]`);
         if (input) input.checked = true;
       }
 
-      // Automatisch toepassen van filters bij verandering
       filterInputs.forEach(input => {
         input.addEventListener('change', () => {
           const form = document.getElementById('filter-form');
@@ -56,7 +62,6 @@
         });
       });
 
-      // Zet filter UI open als er filters actief zijn
       const hasFilters =
         urlParams.has("sun") || urlParams.has("water") || urlParams.has("size") || urlParams.has("growth");
 
@@ -72,7 +77,6 @@
         }
       }
 
-      // Dropdown toggle gedrag
       const sortButton = document.getElementById('sort-btn');
       const sortOptions = document.getElementById('sort-options');
       const filterButton = document.getElementById('filter-btn');
@@ -116,13 +120,13 @@
         }
       });
 
-      // ✅ Zoekfunctionaliteit met List.js
+      // List.js zoekfunctionaliteit
       const listOptions = {
         valueNames: ['name']
       };
       const plantListInstance = new List('plantList', listOptions);
 
-      // ✅ Sorteerfunctionaliteit
+      // Sorteerfunctionaliteit
       const sortAZ = document.getElementById('A-Z');
       const sortZA = document.getElementById('Z-A');
 

@@ -23,13 +23,12 @@
                 justify-content: center;
                 align-items: center;
 
-                border: 0.08em solid var(--color-lines);
-                border-radius: 0.7em;
+                border-top: 0.08em solid var(--color-lines);
                 
                 margin-top: 0.5em;
-                margin-bottom: 1.5em;
-                padding: 1.5em;
-                width: 75%;
+                margin-bottom: 1em;
+                padding: 1em;
+                width: min(53%, 40em);
             }
 
 
@@ -38,16 +37,19 @@
                 width: 3em;
                 margin: 0.8em;
                 margin-bottom: 1.2em;
-
-                fill: var(--color-lines);
             }
 
 
             /* Options */
             .options{
+                justify-items: center;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+
                 padding: 0.8em;
                 margin: 0 0.1em;
-                width: 82%;
+                width: min(78%, 41.2em);
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
@@ -65,10 +67,27 @@
 
 
             /* Tasks */
+            .tasks{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                width: min(80%, 25em);
+
+            }
+
+
             .tasks div{
                 display: flex;
                 flex-direction: row;
-                justify-content: space-between;
+                /* grid-template-columns: 33% 33% 33%; */
+                /* column-gap: min(20%, 2.5em); */
+                align-content: center;
+                justify-content: space-evenly;
+
+                width: 80vw;
+                max-width: 30em;
+                gap: 0.25em;
             }
 
             
@@ -77,8 +96,9 @@
                 width: 6.5em;
 
                 padding: 0.2em 0;
-                margin-bottom: 0.7em;
+                margin-bottom: 2em;
             }
+
 
 
             figure{
@@ -95,7 +115,6 @@
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
-                gap: 0.2em;
             }
 
 
@@ -121,7 +140,8 @@
                 width: 10em;
 
                 padding: 0.2em 0;
-                margin-bottom: 0.5em;
+                margin: 1em 0 2em;
+                text-align: center;
             }
 
 
@@ -133,7 +153,8 @@
 
             
             .profile div a{
-                padding-bottom: 0.25em;
+                padding-bottom: 0.3em;
+                text-align: center;
             }
         </style>
     </head>
@@ -143,17 +164,21 @@
             <section class="title">
                 <svg class="icons" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 387.77 412.01" alt="icon user">
                     <defs>
-                        <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#718d69; stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#4a5d23; stop-opacity:1" />
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite" />
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite" />
+                            </stop>
                         </linearGradient>
-                    </defs>
+                    </defs> 
 
-                    <circle cx="193.89" cy="96.94" r="96.94" fill="url(#icon-gradient)"/>
-                    <path d="m387.77,363.54v24.24c0,13.39-10.85,24.24-24.24,24.24H24.24c-13.39,0-24.24-10.85-24.24-24.24v-24.24c0-80.31,65.1-145.41,145.41-145.41h96.94c80.31,0,145.41,65.1,145.41,145.41Z" fill="url(#icon-gradient)"/>
+                    <circle cx="193.89" cy="96.94" r="96.94" fill="url(#grad)"/>
+                    <path fill="url(#grad)" d="m387.77,363.54v24.24c0,13.39-10.85,24.24-24.24,24.24H24.24c-13.39,0-24.24-10.85-24.24-24.24v-24.24c0-80.31,65.1-145.41,145.41-145.41h96.94c80.31,0,145.41,65.1,145.41,145.41Z" fill="url(#icon-gradient)"/>
                 </svg>
             
-                <h1 class="h1-small">Welcome, <%= username %>!</h1>
+                <h1>Welcome, <%= username %>!</h1>
             </section>            
 
             <section class="options">
@@ -164,7 +189,7 @@
 
                     <div>
                         <figure>
-                            <a href="/favorites"> <!--BACKEND: favorites van gebruiker-->
+                            <a href="/favorites"> 
                                 <?xml version="1.0" ?>
                                 <svg class="first-svg" style="enable-background:new 0 0 32 32;" version="1.1" viewBox="0 0 32 32" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <style type="text/css">.st0{fill:none;}</style>
@@ -174,7 +199,7 @@
                                             <stop offset="100%" style="stop-color:#4a5d23;stop-opacity:1" />
                                         </linearGradient>
                                     </defs>
-                                    <!-- Gebruik stroke in plaats van fill en verwijder het fill-attribuut -->
+
                                     <path d="M22.5,4c-2,0-3.9,0.8-5.3,2.2L16,7.4l-1.1-1.1C12,3.3,7.2,3.3,4.3,6.2c0,0-0.1,0.1-0.1,0.1c-3,3-3,7.8,0,10.8L16,29l11.8-11.9c3-3,3-7.8,0-10.8C26.4,4.8,24.5,4,22.5,4z" stroke="url(#logo-gradient)" stroke-width="1" fill="none"/>
                                     <rect class="st0" height="32" id="_Transparent_Rectangle_" width="32"/>
                                 </svg>
@@ -184,11 +209,7 @@
                         </figure>                                            
 
                         <figure>
-                            <a href="/results"> <!--BACKEND: resultaten van gebruiker-->
-                                <?xml version="1.0" encoding="utf-8"?>
-                                
-                                <!-- Generator: Adobe Illustrator 27.8.1, SVG Export Plug-In . SVG Version: 6.00 Build 0) -->
-                        
+                            <a href="/results"> 
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                     viewBox="0 0 414 368.4" style="enable-background:new 0 0 414 368.4;" xml:space="preserve">
                                     
@@ -219,7 +240,7 @@
                         </figure>
                         
                         <figure>
-                            <a href="/quiz"> <!--BACKEND: quiz opnieuw doen van gebruiker-->
+                            <a href="/quiz"> 
                                 <?xml version="1.0" standalone="no"?>
                                 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
                                 "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
@@ -228,7 +249,6 @@
                                     viewBox="0 0 298.000000 345.000000"
                                     preserveAspectRatio="xMidYMid meet">
                                     
-                                    <!-- Gradient Definities -->
                                     <defs>
                                         <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                                             <stop offset="0%" style="stop-color:#718d69; stop-opacity:1" />

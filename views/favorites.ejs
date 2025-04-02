@@ -11,6 +11,27 @@
     <style>
         h1{
             margin-bottom: 1em;
+            text-align: center;
+        }
+
+        .custom-radio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column: 4 / 5;
+            width: 1.66em;
+            height: 1.36em;
+            gap: .2em;
+            padding: 0;
+        }
+
+        .custom-radio-list {
+            width: 1.66em;
+            height: 1.66em;
+            border-radius: .2em;
+            padding: 0;
+            grid-column: 5 / 6;
+            background: var(--color-background-inputfield);
+            border: .07em solid var(--color-lines);
         }
     </style>
 </head>
@@ -18,9 +39,24 @@
 <body>
     <main>
 
-        <h1 class="h1-small">Favorites</h1>
+        <h1>Favorites</h1>
 
-        <%- include ('partials/container') %>
+        <div class="radio-container">
+            <label for="view-grid" class="custom-radio-grid">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <input type="radio" name="view" value="grid" id="view-grid" checked>
+            </label>
+
+
+            <label for="view-list" class="custom-radio-list">
+                <input type="radio" name="view" value="list" id="view-list" >
+            </label>
+        </div>
+
+        <!-- <%- include ('partials/container') %> -->
 
         <% if (plants.length === 0) { %>
             <!-- VUL IN MET VORMGEVING ALS ER GEEN FAVORIETEN ZIJN</p> -->
@@ -41,6 +77,39 @@
     <footer>
         <%- include('partials/footer') %> 
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const favButton = document.querySelectorAll('.favorite-btn')
+            
+            favButton.forEach(button => {
+                const plantId = button.dataset.plantId
+                checkIfFavorite(plantId, button);
+            })
+        })
+
+        async function checkIfFavorite(plantId, button) {
+            try {
+                const response = await fetch(`/is-favorite/${plantId}`);
+                const result = await response.json();
+
+                if(result.isFavorite) {
+                    console.log("is favoriet!")
+                    button.querySelector('.cls-2').classList.add('clicked')
+                }
+            } catch (error){
+                        console.error('Error checking favorite status:', error);
+            }
+        }
+
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            });
+        });
+
+    </script>
 
     <script src="/script.js" defer></script>  
 </body>
