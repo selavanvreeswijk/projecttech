@@ -165,7 +165,7 @@
 
         <div class="popup-background">
             <div class="popup">
-                <h2>Add to favorite</h2>
+                <h2>Add to favorites</h2>
 
                 <p>To save this to your favorites, you need to log in first.</p>
 
@@ -330,33 +330,7 @@
         });
 
 
-    const addToFavorites = document.querySelector('.favorite-btn'); 
-    const popupBackground = document.querySelector('.popup-background');
-    const logInToaddButton = document.querySelector('.popup-buttons button:last-of-type');
-    const skipLogInButton = document.querySelector('.popup-buttons button:first-of-type');
-
-
-         // Pop-up log in to add to favorites
-         addToFavorites.addEventListener('click', function (event){
-                event.preventDefault();  
-
-                popupBackground.style.display = 'flex';
-
-                // Disable scrolling
-                document.body.style.overflow = 'hidden'; 
-                document.documentElement.style.overflow = 'hidden';  
-            });
-
-            logInToaddButton.addEventListener('click', function (){
-                popupBackground.style.display = 'none'; 
-
-                document.body.style.overflow = 'auto';  
-                document.documentElement.style.overflow = 'auto';  
-            });
-
-            skipLogInButton.addEventListener('click', function (){
-                window.location.href = '/results';
-            });
+  
 
 
     </script>

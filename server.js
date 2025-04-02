@@ -404,3 +404,11 @@ app.post('/change-password', async (req, res) => {
   }
 });
 
+// app.get('/check-login', (req, res) =>{
+//   if(req.session.user){
+//     res.json({ loggedIn: true});
+//   } else {
+//     res.json({ loggedIn: false});
+//   }
+// });
+

@@ -28,8 +28,44 @@ function showInList() {
     console.log('classlist list has been added');
 }
 
+// Pop-up log in to add to favorites
+const addToFavorites = document.querySelector('.favorite-btn'); 
+const popupBackground = document.querySelector('.popup-background');
+const logInToaddButton = document.querySelector('.popup-buttons button:last-of-type');
+const skipLogInButton = document.querySelector('.popup-buttons button:first-of-type');
 
 
+     
+     addToFavorites.addEventListener('click', async function (event){
+            event.preventDefault();  
+
+            const response = await fetch('/check-login');
+            const data = await response.json();
+
+            if (!data.loggedIn){
+                popupBackground.style.display = 'flex';
+
+                 // Disable scrolling
+            document.body.style.overflow = 'hidden'; 
+            document.documentElement.style.overflow = 'hidden';  
+
+            } else{
+                //fetch request om plant aan favs toe te voegen
+            }
+ 
+           
+        });
+
+        logInToaddButton.addEventListener('click', function (){
+            popupBackground.style.display = 'none'; 
+
+            document.body.style.overflow = 'auto';  
+            document.documentElement.style.overflow = 'auto';  
+        });
+
+        skipLogInButton.addEventListener('click', function (){
+            window.location.href = '/results';
+        });
 
 
 
