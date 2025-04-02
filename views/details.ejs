@@ -259,7 +259,7 @@
                     <div class="picture">
                         <img src="<%= plants.img %>" alt="Picture of plant">
         
-                        <button class="favorite-btn" onclick="addToFavorites('<%= plants.id %>')">
+                        <button class="favorite-btn" onclick="addToFavorites('<%= plants.id %>')" data-plant-id='<%= plants.id %>'>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
                                     <defs>
                                         <linearGradient id="SvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -332,6 +332,25 @@
         </footer>
 
         <script>
+           document.addEventListener("DOMContentLoaded", function() {
+            const plantId = document.querySelector('.favorite-btn').dataset.plantId; //de fav button draagt plantId, die opvragen
+            checkIfFavorite(plantId);
+           })
+
+            async function checkIfFavorite(plantId) {
+                try {
+                    const response = await fetch(`/is-favorite/${plantId}`);
+                    const result = await response.json();
+
+                    if(result.isFavorite) {
+                        console.log("is favoriet!")
+                        document.querySelector('.favorite-btn .cls-2').classList.add('clicked')
+                    }
+                } catch (error){
+                    console.error('Error checking favorite status:', error);
+                }
+            }
+
             // Add plant to favorites
             async function addToFavorites(plantId) {
             
