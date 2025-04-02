@@ -220,7 +220,10 @@ async function onRegister(req, res) {
 }
 
 async function onChangePassword(req, res){
-    res.render('change-password')
+    if (!req.session.user) {
+      return res.redirect('/log-in');
+    }
+    res.render('change-password');
 }
 
 async function onDashboard(req, res) {
@@ -312,14 +315,6 @@ app.post('/add-favorite', async (req, res) => {
   }
 })
 
-app.get('/change-password', (req, res) => {
-  if (!req.session.user) {
-    return res.redirect('/log-in');
-  }
-  res.render('change-password');
-});
-
-
 app.post('/change-password', async (req, res) => {
   const { oldPassword, newPassword, confirmPassword } = req.body;
 
@@ -342,21 +337,13 @@ app.post('/change-password', async (req, res) => {
 
     const isOldPasswordCorrect = await bcrypt.compare(oldPassword, user.password);
     if (!isOldPasswordCorrect) {
-      return res.render('change-password', {
-        error: 'Incorrect old password.'
-      });
+      return res.status(400).json({ success: false, error: "Incorrect old password."});
     }
-
     if (oldPassword === newPassword) {
-      return res.render('change-password', {
-        error: 'New password cannot be the same as the old password.'
-      });
+      return res.status(400).json({ success: false, error: "New password cannot be the same as the old password."});
     }
-
     if (newPassword !== confirmPassword) {
-      return res.render('change-password', {
-        error: 'Passwords do not match.'
-      });
+      return res.status(400).json({success: false, error: "Passwords do not match."});
     }
 
     const hashedNewPassword = await bcrypt.hash(newPassword, 10);
@@ -365,14 +352,11 @@ app.post('/change-password', async (req, res) => {
       { $set: { password: hashedNewPassword } }
     );
 
-    res.render('dashboard', { username: req.session.user.username, success: 'Password changed successfully!' });
+    return res.json({ success: true, message: "Password changed successfully!" });
 
   } catch (error) {
     console.error('Error changing password:', error);
-    res.status(500).render('error', {
-      message: 'Something went wrong.',
-      redirect: '/profile'
-    });
+    res.status(500).render({ success: false, error: 'Something went wrong.'});
   }
 });
 
