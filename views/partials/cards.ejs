@@ -178,24 +178,6 @@
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const plantId = document.querySelector('.favorite-btn').dataset.plantId; //de fav button draagt plantId, die opvragen
-        checkIfFavorite(plantId);
-    })
-
-    async function checkIfFavorite(plantId) {
-        try {
-            const response = await fetch(`/is-favorite/${plantId}`);
-            const result = await response.json();
-
-            if(result.isFavorite) {
-                console.log("is favoriet!")
-                document.querySelector('.favorite-btn .cls-2').classList.add('clicked')
-            }
-        } catch (error){
-                    console.error('Error checking favorite status:', error);
-        }
-    }
 
     async function addToFavorites(event, plantId) {
         event.preventDefault();
