@@ -23,13 +23,12 @@
                 justify-content: center;
                 align-items: center;
 
-                border: 0.08em solid var(--color-lines);
-                border-radius: 0.7em;
+                border-top: 0.08em solid var(--color-lines);
                 
                 margin-top: 0.5em;
-                margin-bottom: 1.5em;
-                padding: 1.5em;
-                width: min(75%, 40em);
+                margin-bottom: 1em;
+                padding: 1em;
+                width: min(53%, 40em);
             }
 
 
@@ -38,8 +37,6 @@
                 width: 3em;
                 margin: 0.8em;
                 margin-bottom: 1.2em;
-
-                fill: var(--color-lines);
             }
 
 
@@ -74,6 +71,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+
                 width: min(80%, 25em);
 
             }
@@ -89,6 +87,7 @@
 
                 width: 80vw;
                 max-width: 30em;
+                gap: 0.25em;
             }
 
             
@@ -99,6 +98,7 @@
                 padding: 0.2em 0;
                 margin-bottom: 2em;
             }
+
 
 
             figure{
@@ -115,7 +115,6 @@
 
                 border: 0.08em solid var(--color-lines);
                 border-radius: 0.7em;
-                gap: 0.2em;
             }
 
 
@@ -165,14 +164,18 @@
             <section class="title">
                 <svg class="icons" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 387.77 412.01" alt="icon user">
                     <defs>
-                        <linearGradient id="icon-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#718d69; stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#4a5d23; stop-opacity:1" />
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite" />
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite" />
+                            </stop>
                         </linearGradient>
-                    </defs>
+                    </defs> 
 
-                    <circle cx="193.89" cy="96.94" r="96.94" fill="url(#icon-gradient)"/>
-                    <path d="m387.77,363.54v24.24c0,13.39-10.85,24.24-24.24,24.24H24.24c-13.39,0-24.24-10.85-24.24-24.24v-24.24c0-80.31,65.1-145.41,145.41-145.41h96.94c80.31,0,145.41,65.1,145.41,145.41Z" fill="url(#icon-gradient)"/>
+                    <circle cx="193.89" cy="96.94" r="96.94" fill="url(#grad)"/>
+                    <path fill="url(#grad)" d="m387.77,363.54v24.24c0,13.39-10.85,24.24-24.24,24.24H24.24c-13.39,0-24.24-10.85-24.24-24.24v-24.24c0-80.31,65.1-145.41,145.41-145.41h96.94c80.31,0,145.41,65.1,145.41,145.41Z" fill="url(#icon-gradient)"/>
                 </svg>
             
                 <h1>Welcome, <%= username %>!</h1>
