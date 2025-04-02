@@ -242,7 +242,6 @@ ul.grid-view article div {
 
 
 .favorite-btn #icon-favorites-cards{
-    /* position: absolute; */
     bottom: .5em;
     right: .5em;
 
@@ -289,6 +288,10 @@ ul.grid-view article div {
     flex-direction: column;
 }
 
+form{
+    width: min(90%, 30rem);
+}
+
 
 .forms-container{
     margin: 0.5em 1.5em;
@@ -298,13 +301,14 @@ ul.grid-view article div {
 .forms{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 
 .forms-h1{
     border-bottom: 0.05em solid var(--color-lines);
 
-    width: 11.3em;
+    width: min(90%, 30rem);
     padding-bottom: 0.2em;
     font-size: 1em;
 }
@@ -315,8 +319,7 @@ ul.grid-view article div {
 
     border: 0.09em solid var(--color-lines);
     border-radius: 0.8em;
-
-    width: 90%;
+    width: 95%;
     padding: 0.8em;
     margin-top: 0.3em;
     outline: none;
@@ -332,6 +335,7 @@ ul.grid-view article div {
 
 .forms div{
     margin-top: 1.5em;
+    width: min(100%, 40rem);
 }
 
 
