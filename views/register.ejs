@@ -7,45 +7,6 @@
     <link rel="stylesheet" href="/style.css">
 
     <%- include('partials/header') %>  
-
-    <style>
-           /* Succes-message */
-           .succes-message{
-                display: none;
-            }
-
-
-            .succes-message{
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 65vh;
-                margin: 0;
-                text-align: center;
-            }
-
-
-            .succes-message h2{
-                border-bottom: 0.05em solid var(--color-lines);
-
-                width: min(65%, 30rem);
-                padding-bottom: 0.2em;
-                margin-bottom: 1em;
-            }
-
-
-            .succes-message p{
-                padding: 0 2em;
-            }
-
-
-            .succes-message svg{
-                width: 2.5em;
-                margin-top: 1em;
-                margin-bottom: 1.5em;
-            }
-    </style>
-
     </head>
 
     <body class="forms-body">
@@ -103,91 +64,89 @@
         </div>
     
 
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
 
-    <script>
-        document.getElementById("register-form").addEventListener("submit", async function(event) {
-            event.preventDefault(); 
+        <script>
+            document.getElementById("register-form").addEventListener("submit", async function(event) {
+                event.preventDefault(); 
 
-            let form = event.target;
-            let formData = new FormData(form);
+                let form = event.target;
+                let formData = new FormData(form);
 
-            let usernameError = document.getElementById("username-error");
-            let passwordError = document.getElementById("password-error");
-            let successMessage = document.getElementById("success-message");
-            let countdownElement = document.getElementById("countdown");
-            let formsContainer = document.querySelector(".forms-container");
+                let usernameError = document.getElementById("username-error");
+                let passwordError = document.getElementById("password-error");
+                let successMessage = document.getElementById("success-message");
+                let countdownElement = document.getElementById("countdown");
+                let formsContainer = document.querySelector(".forms-container");
 
-            let isValid = true; 
+                let isValid = true; 
 
-            usernameError.style.display = "none";
-            passwordError.style.display = "none";
-            form.username.classList.remove("error-input");
-            form["confirmPassword"].classList.remove("error-input");
+                usernameError.style.display = "none";
+                passwordError.style.display = "none";
+                form.username.classList.remove("error-input");
+                form["confirmPassword"].classList.remove("error-input");
 
-            try {
-                let response = await fetch("/check-username", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username: formData.get("username") })
-            });
-
-            let data = await response.json();
-
-            if (data.exists) {
-                usernameError.style.display = "block";
-                formData.get("username").classList.add("error-input");
-                isValid = false;
-            }
-            } catch (error) {
-                console.error("Username check failed:", error);
-            }
-
-            if (formData.get("password") !== formData.get("confirmPassword")) {
-                passwordError.style.display = "block";
-                form["confirmPassword"].classList.add("error-input");
-                isValid = false;
-            } 
-
-            if (isValid) {
                 try {
-                    let registerResponse = await fetch("/register", {
+                    let response = await fetch("/check-username", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        username: formData.get("username"), 
-                        password: formData.get("password"),
-                        confirmPassword: formData.get("confirmPassword")})
-                    });
+                    body: JSON.stringify({ username: formData.get("username") })
+                });
 
-                    let registerData = await registerResponse.json();
+                let data = await response.json();
 
-                    if(registerData.success) {
-                        formsContainer.style.display = "none";
-                        successMessage.style.display = "flex";
-
-                        let secondsLeft = 3;
-                        let countdownInterval = setInterval(() => {
-                            secondsLeft--;
-                            countdownElement.textContent = secondsLeft;
-
-                            if (secondsLeft <= 0) {
-                                clearInterval(countdownInterval);
-                                window.location.href = "/log-in";
-                            }
-                        }, 1000);
-                    } else {
-                        console.log("error, geen succes");
-                    }
+                if (data.exists) {
+                    usernameError.style.display = "block";
+                    formData.get("username").classList.add("error-input");
+                    isValid = false;
+                }
                 } catch (error) {
-                console.error("Registration failed:", error);
-                };
-            }
-        });
-    
-    </script>
+                    console.error("Username check failed:", error);
+                }
 
+                if (formData.get("password") !== formData.get("confirmPassword")) {
+                    passwordError.style.display = "block";
+                    form["confirmPassword"].classList.add("error-input");
+                    isValid = false;
+                } 
+
+                if (isValid) {
+                    try {
+                        let registerResponse = await fetch("/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            username: formData.get("username"), 
+                            password: formData.get("password"),
+                            confirmPassword: formData.get("confirmPassword")})
+                        });
+
+                        let registerData = await registerResponse.json();
+
+                        if(registerData.success) {
+                            formsContainer.style.display = "none";
+                            successMessage.style.display = "flex";
+
+                            let secondsLeft = 3;
+                            let countdownInterval = setInterval(() => {
+                                secondsLeft--;
+                                countdownElement.textContent = secondsLeft;
+
+                                if (secondsLeft <= 0) {
+                                    clearInterval(countdownInterval);
+                                    window.location.href = "/log-in";
+                                }
+                            }, 1000);
+                        } else {
+                            console.log("error, geen succes");
+                        }
+                    } catch (error) {
+                    console.error("Registration failed:", error);
+                    };
+                }
+            });
+        </script>
     </body>
 </html>
