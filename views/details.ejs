@@ -401,9 +401,18 @@
 
                 <div class="carrousel-scroll">
                     <% if (relatedPlants.length > 0) { %>
-
-                    <% relatedPlants.forEach(plant => { %>
-                        <%- include('partials/cards', { plant: plant }) %>
+                        <% relatedPlants.forEach(plant => { %>
+                            <div class="plant-card">
+                                <a href="/plant/<%=plant.id%>">
+                                    <img src="<%= plant.Img %>" alt="Picture of a plant">
+        
+                                    <div>
+                                        <h3><%= plant['Common name'] %></h3>
+        
+                                        <span class="btn-styling">Add to favorites</span>
+                                    </div>
+                                </a>
+                            </div>
                     <% }); %>
 
                     <% } else { %>
@@ -411,8 +420,6 @@
                     <% } %>
                 </div>
             </section>
-
-            
         </main>
 
         <footer class="hidden">
