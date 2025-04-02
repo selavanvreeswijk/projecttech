@@ -77,6 +77,39 @@
     <footer>
         <%- include('partials/footer') %> 
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const favButton = document.querySelectorAll('.favorite-btn')
+            
+            favButton.forEach(button => {
+                const plantId = button.dataset.plantId
+                checkIfFavorite(plantId, button);
+            })
+        })
+
+        async function checkIfFavorite(plantId, button) {
+            try {
+                const response = await fetch(`/is-favorite/${plantId}`);
+                const result = await response.json();
+
+                if(result.isFavorite) {
+                    console.log("is favoriet!")
+                    button.querySelector('.cls-2').classList.add('clicked')
+                }
+            } catch (error){
+                        console.error('Error checking favorite status:', error);
+            }
+        }
+
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            });
+        });
+
+    </script>
 
     <script src="/script.js" defer></script>  
 </body>

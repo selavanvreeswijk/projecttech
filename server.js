@@ -279,6 +279,27 @@ function onSaveAnswer(req, res) {
   res.json({ success: true });
 }
 
+app.get('/is-favorite/:plantId', async (req, res) => {
+  if (!req.session.user) {
+    return res.json({ isFavorite: false });
+  }
+  const userId = req.session.user._id;
+  const { plantId } = req.params;
+
+  try {
+    const userObjectId = ObjectId.createFromHexString(userId);
+    const user = await db.collection('users').findOne({ _id: userObjectId });
+
+    if (user && user.favplant.includes(plantId)) {
+      return res.json({ isFavorite: true});
+    }
+    res.json({ isFavorite: false})
+  } catch (error) {
+    console.error("Error checking favorite:", error);
+    res.json({ isFavorite: false });
+  };
+})
+
 //add to fav
 app.post('/add-favorite', async (req, res) => {
   if (!req.session.user) { // checken of gebruiker is ingelogd

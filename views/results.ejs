@@ -187,7 +187,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const favButton = document.querySelectorAll('.favorite-btn')
+            
+            favButton.forEach(button => {
+                const plantId = button.dataset.plantId
+                checkIfFavorite(plantId, button);
+            })
+        })
 
+        async function checkIfFavorite(plantId, button) {
+            try {
+                const response = await fetch(`/is-favorite/${plantId}`);
+                const result = await response.json();
+
+                if(result.isFavorite) {
+                    console.log("is favoriet!")
+                    button.querySelector('.cls-2').classList.add('clicked')
+                }
+            } catch (error){
+                        console.error('Error checking favorite status:', error);
+            }
+        }
 
 
         //zoekfunctie
@@ -198,11 +219,11 @@
 
         // Sorteerknoppen activeren
         document.getElementById('A-Z').addEventListener('change', function () {
-            plantList.sort('plant-names', { order: "asc" });
+            plantList.sort('plant-names', { order: "desc" });
         });
 
         document.getElementById('Z-A').addEventListener('change', function () {
-            plantList.sort('plant-names', { order: "desc" });
+            plantList.sort('plant-names', { order: "asc" });
         });
 
         
@@ -295,7 +316,8 @@
             });
         });
 
-    </script>
 
+    </script>
+    <script src="/script.js" defer></script>  
 </body>
 </html>
