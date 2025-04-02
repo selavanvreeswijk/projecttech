@@ -126,7 +126,6 @@
             document.querySelector(".forms form").addEventListener("submit", async function(event) {
                 event.preventDefault(); 
     
-                // Waarom hier let en geen const??
                 let form = event.target; 
                 let formData = new FormData(form); 
                 let errorMsg = document.getElementById("error-msg");
