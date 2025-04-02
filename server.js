@@ -276,18 +276,6 @@ function onSaveAnswer(req, res) {
   res.json({ success: true });
 }
 
-// Optional API check
-async function checkAPI(url, options) {
-  try {
-    const response = await fetch(allUrl, options);
-    const result = await response.json();
-   // console.log(result); // uncomment voor debuggen
-
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 //add to fav
 app.post('/add-favorite', async (req, res) => {
   if (!req.session.user) { // checken of gebruiker is ingelogd
