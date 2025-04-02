@@ -1,142 +1,147 @@
 <!DOCTYPE html>
-<html lang="en ">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
-    <link rel="stylesheet" href="/style.css">
-   
-
-    <%- include('partials/header') %>   
-
-    <style>
-        h1{
-             margin-bottom: 1em;
-            }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results</title>
+  <link rel="stylesheet" href="/style.css">
+  <%- include('partials/header') %>
+  <style>
+    h1 {
+      margin-bottom: 1em;
+    }
+  </style>
 </head>
-
 <body>
-    <main id="plantList">
+  <main id="plantList">
+    <h1 class="h1-small">Results</h1>
+    <%- include('partials/container') %>
 
-        <h1 class="h1-small">Results</h1>
+    <ul class="list-view list" id="plant-list">
+        <% plants.forEach(plant => { 
+          const commonNameRaw = plant['Common name'];
+          const commonName = Array.isArray(commonNameRaw) ? commonNameRaw[0] : commonNameRaw;
+          const displayName = commonName || 'No name';
+        %>
+          <li class="plant-item" data-name="<%= displayName %>">
+            <span class="plant-names name">
+              <%- include('partials/cards', { plant: { ...plant, 'Common name': displayName } }) %>
+            </span>
+          </li>
+        <% }) %>
+      </ul>
+  </main>
 
-        <%- include ('partials/container') %>
+  <footer>
+    <%- include('partials/footer') %>
+  </footer>
 
-            <ul class="list-view list" id="list-view-plants">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterInputs = document.querySelectorAll('#filter-options input[type="radio"]');
+      const urlParams = new URLSearchParams(window.location.search);
 
-                <% plants.forEach(plant => { %>
-                   <li>
+      // Zet juiste radio-button automatisch aan op basis van URL
+      for (const [key, value] of urlParams.entries()) {
+        const input = document.querySelector(`input[name="${key}"][value="${value}"]`);
+        if (input) input.checked = true;
+      }
 
-                    <span class="plant-names">
-                        <%- include('partials/cards', { plant: plant }) %>
-                    </span>
-                     
-                   </li>
-               <% }) %> 
-   
-           </ul>
+      // Automatisch toepassen van filters bij verandering
+      filterInputs.forEach(input => {
+        input.addEventListener('change', () => {
+          const form = document.getElementById('filter-form');
+          if (form) form.submit();
+        });
+      });
 
-      
-    </main>
+      // Zet filter UI open als er filters actief zijn
+      const hasFilters =
+        urlParams.has("sun") || urlParams.has("water") || urlParams.has("size") || urlParams.has("growth");
 
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+      if (hasFilters) {
+        const filterOptions = document.getElementById("filter-options");
+        const filterBtn = document.getElementById("filter-btn");
+        const filterIcon = filterBtn?.querySelector("svg path");
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
-
-    <script>
-
-        //zoekfunctie
-        let options = {
-            valueNames: ['plant-names']
+        if (filterOptions && filterBtn) {
+          filterOptions.classList.remove("hidden");
+          filterBtn.classList.add("active");
+          filterIcon?.classList.add("active");
         }
-        let plantList = new List('plantList', options);
-        
-            
+      }
 
-         //planten filteren op basis van de zoekterm
-         function filterPlants(searchTerm) {
-            const filteredPlants = plantsData.filter(plant =>{
-                const commonName = plant['Common name']; 
+      // Dropdown toggle gedrag
+      const sortButton = document.getElementById('sort-btn');
+      const sortOptions = document.getElementById('sort-options');
+      const filterButton = document.getElementById('filter-btn');
+      const filterOptions = document.getElementById('filter-options');
 
-                //controleer of CommonName een string is voordat toLowerCase wordt aangeroepen
-                if (typeof commonName === 'string'){
-                    return commonName.toLowerCase().includes(searchTerm.toLowerCase());
-                } else {
-                    //als commonName geen string is, retourneer false
-                    return false;
-                }     
-            }); 
+      const sortPaths = sortButton?.querySelectorAll('svg path') || [];
+      const filterIcon = filterButton?.querySelector('svg path');
 
-        if (filteredPlants.length > 0) {
-                renderPlantList(filteredPlants);
-        } else {
-                renderEmptyState();
-            }
+      sortButton?.addEventListener('click', function (event) {
+        event.stopPropagation();
+        sortOptions.classList.toggle('hidden');
+        sortButton.classList.toggle('active');
+        sortPaths.forEach(path => path.classList.toggle('active'));
+
+        filterOptions.classList.add('hidden');
+        filterButton.classList.remove('active');
+        filterIcon?.classList.remove('active');
+      });
+
+      filterButton?.addEventListener('click', function (event) {
+        event.stopPropagation();
+        filterOptions.classList.toggle('hidden');
+        filterButton.classList.toggle('active');
+        filterIcon?.classList.toggle('active');
+
+        sortOptions.classList.add('hidden');
+        sortButton.classList.remove('active');
+        sortPaths.forEach(path => path.classList.remove('active'));
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)) {
+          sortOptions.classList.add('hidden');
+          sortButton.classList.remove('active');
+          sortPaths.forEach(path => path.classList.remove('active'));
         }
-
-        function renderEmptyState() { // kijken hoe dit op een andere manier kan!
-            const listElement = document.querySelector('#list-view-plants');
-            listElement.innerHTML = '<p>No plants founds</p>'
+        if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)) {
+          filterOptions.classList.add('hidden');
+          filterButton.classList.remove('active');
+          filterIcon?.classList.remove('active');
         }
+      });
 
-            //toLowerCase() maakt de functie hoofletterongevoelig
-            //includes() checkt of de plantnaam de zoekterm bevat
-            // renderPlantList(filteredPlants); //update de lijst met gefilterde planten
-       
+      // ✅ Zoekfunctionaliteit met List.js
+      const listOptions = {
+        valueNames: ['name']
+      };
+      const plantListInstance = new List('plantList', listOptions);
 
+      // ✅ Sorteerfunctionaliteit
+      const sortAZ = document.getElementById('A-Z');
+      const sortZA = document.getElementById('Z-A');
 
+      function sortPlants(order = 'asc') {
+        const items = [...document.querySelectorAll('.plant-item')];
 
-        const sortButton = document.getElementById('sort-btn');
-        const sortOptions = document.getElementById('sort-options');
-        const filterButton = document.getElementById('filter-btn');
-        const filterOptions = document.getElementById('filter-options');
-
-        const sortPaths = sortButton.querySelectorAll('svg path');
-        const filterIcon = filterButton.querySelector('svg path');
-
-
-        // Toggle voor sorteren
-        sortButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-            sortOptions.classList.toggle('hidden');
-            sortButton.classList.toggle('active');
-            sortPaths.forEach(path => path.classList.toggle('active')); 
-
-            filterOptions.classList.add('hidden');
-            filterButton.classList.remove('active');
-            filterIcon.classList.remove('active');
+        items.sort((a, b) => {
+          const nameA = a.dataset.name.toLowerCase();
+          const nameB = b.dataset.name.toLowerCase();
+          return order === 'asc' ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
         });
 
-        // Toggle voor filteren
-        filterButton.addEventListener('click', function (event) {
-            event.stopPropagation();
-            filterOptions.classList.toggle('hidden');
-            filterButton.classList.toggle('active');
-            filterIcon.classList.toggle('active'); 
+        const plantList = document.getElementById('plant-list');
+        items.forEach(item => plantList.appendChild(item));
+      }
 
-            sortOptions.classList.add('hidden');
-            sortButton.classList.remove('active');
-            sortPaths.forEach(path => path.classList.remove('active'));
-        });
-
-        // Klik buiten een dropdown om deze te sluiten
-        document.addEventListener('click', function (event) {
-            if (!sortButton.contains(event.target) && !sortOptions.contains(event.target)) {
-                sortOptions.classList.add('hidden');
-                sortButton.classList.remove('active');
-                sortPaths.forEach(path => path.classList.remove('active'));
-            }
-            if (!filterButton.contains(event.target) && !filterOptions.contains(event.target)) {
-                filterOptions.classList.add('hidden');
-                filterButton.classList.remove('active');
-                filterIcon.classList.remove('active');
-            }
-        });
-
-    </script>
-
+      sortAZ?.addEventListener('change', () => sortPlants('asc'));
+      sortZA?.addEventListener('change', () => sortPlants('desc'));
+    });
+  </script>
 </body>
 </html>

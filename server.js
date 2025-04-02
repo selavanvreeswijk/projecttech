@@ -92,7 +92,6 @@ app
   .get('/', onHome)
   .get('/quiz', onQuiz)
   .get('/favorites', onFavorites)
-  .get('/results', onResults)
   .get('/plant/:plantId', onDetail)
   .get('/log-in', onLogIn)
   .get('/register', onRegister)
@@ -339,3 +338,65 @@ app.post('/add-favorite', async (req, res) => {
     console.error("Error with adding to favorites:", error);
   }
 })
+
+// filtersysteem server kant
+app.get('/results', (req, res) => {
+  const { sun, water, size, growth } = req.query;
+
+  // normaliseer waarden (voor veilige vergelijking)
+  const normalize = value => value?.toLowerCase().trim();
+
+  const filteredPlants = cachedPlants.filter(plant => {
+    const sunValue = normalize(sun);
+    const waterValue = normalize(water);
+    const sizeValue = normalize(size);
+    const growthValue = normalize(growth);
+
+    // Licht
+    if (sunValue) {
+      const light = plant['Light ideal']?.toLowerCase() || '';
+      if (
+        (sunValue === 'no-sun' && !light.includes('shade')) ||
+        (sunValue === 'couple-hours-sun' && !light.includes('strong light')) ||
+        (sunValue === 'a-lot-sun' && !light.includes('full sun'))
+      ) return false;
+    }
+
+    // Water
+    if (waterValue) {
+      const watering = plant['Watering'] || '';
+      if (
+        (waterValue === 'low' && !watering.includes('Keep moist between watering & Can dry between watering')) ||
+        (waterValue === 'medium' && !watering.includes('Keep moist between watering & Water when soil is half dry')) ||
+        (waterValue === 'high' && !watering.includes('Keep moist between watering & Must not dry between watering'))
+      ) return false;
+    }
+
+    // Grootte
+    if (sizeValue) {
+      const height = plant['Height potential']?.CM;
+
+      if (!height) return false; // skip als er geen hoogte is
+    
+      if (
+        (sizeValue === 'small' && height > 40) ||
+        (sizeValue === 'medium' && (height <= 40 || height >= 100)) ||
+        (sizeValue === 'large' && height < 100)
+      ) return false;
+    }
+
+    // Groei
+    if (growthValue) {
+      const growth = plant['Growth'] || '';
+      if (
+        (growthValue === 'slow' && !growth.includes('Slow')) ||
+        (growthValue === 'medium' && !growth.includes('Regular')) ||
+        (growthValue === 'fast' && !growth.includes('Fast'))
+      ) return false;
+    }
+
+    return true;
+  });
+
+  res.render('results', { plants: filteredPlants });
+});
