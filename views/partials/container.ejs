@@ -28,7 +28,7 @@
             border: none;
             border-radius: .7em;
             background: var(--color-background-inputfield);
-            padding: .5em;
+            /* padding: .5em; */
             position: relative;
         }
 
@@ -103,8 +103,9 @@
         }
 
         div.sort-options span:nth-of-type(2){
-            padding: .5em .6em;
-            margin: .3em 0;
+            padding-right: .6em;
+            padding-left: .6em;
+            /* margin: .3em 0; */
             border-top: .05em solid var(--color-lines);
             border-bottom: .05em solid var(--color-lines);
 
@@ -114,16 +115,17 @@
 
         div.sort-options span{
             width: 100%;
+            padding: .5em 0;
         }
 
-        div.sort-options span:active {
+        /* div.sort-options span:active {
             background: var(--color-logo);
             label{
                 color: var(--color-icons-not-filled);
 
             }
             
-        }
+        } */
         
         div.sort-options{
             padding-left: 0;
@@ -247,19 +249,19 @@
 
             <div id="sort-options" class="sort-options hidden"> 
 
-                <span id="sort-span">
+                <span class="sort-span">
                     <input type="radio" id="popular" name="popular" value="popular">
-                    <label for="popular">Popular</label>
+                    <label for="popular" class="sort-label">Popular</label>
                 </span>
 
-                <span id="sort-span">
+                <span class="sort-span">
                     <input type="radio" id="A-Z" name="sort" value="A-Z">
-                    <label for="A-Z">A-Z</label>
+                    <label for="A-Z" class="sort-label">A-Z</label>
                 </span>
 
-                <span id="sort-span">
+                <span class="sort-span">
                     <input type="radio" id="Z-A" name="sort" value="Z-A">
-                    <label for="Z-A">Z-A</label>
+                    <label for="Z-A" class="sort-label">Z-A</label>
                 </span>     
             </div>
 
