@@ -7,6 +7,45 @@
     <link rel="stylesheet" href="/style.css">
 
     <%- include('partials/header') %>  
+
+    <style>
+           /* Succes-message */
+           .succes-message{
+                display: none;
+            }
+
+
+            .succes-message{
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 65vh;
+                margin: 0;
+                text-align: center;
+            }
+
+
+            .succes-message h2{
+                border-bottom: 0.05em solid var(--color-lines);
+
+                width: min(65%, 30rem);
+                padding-bottom: 0.2em;
+                margin-bottom: 1em;
+            }
+
+
+            .succes-message p{
+                padding: 0 2em;
+            }
+
+
+            .succes-message svg{
+                width: 2.5em;
+                margin-top: 1em;
+                margin-bottom: 1.5em;
+            }
+    </style>
+
     </head>
 
     <body class="forms-body">
@@ -37,6 +76,33 @@
             </div>
         </div>
 
+        <div class="succes-message" id="success-message">
+            <h2>Succesfully registered. Welcome!</h2>
+
+            <svg viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#718d69">
+                            <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
+                        </stop>
+                        <stop offset="100%" stop-color="#4a5d23">
+                            <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
+                        </stop>
+                    </linearGradient>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <g transform="translate(-423.000000, -47.000000)">
+                        <g transform="translate(423.000000, 47.500000)">
+                            <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            
+            <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
+        </div>
+    
+
     <footer>
         <%- include('partials/footer') %> 
     </footer>
@@ -50,6 +116,9 @@
 
             let usernameError = document.getElementById("username-error");
             let passwordError = document.getElementById("password-error");
+            let successMessage = document.getElementById("success-message");
+            let countdownElement = document.getElementById("countdown");
+            let formsContainer = document.querySelector(".forms-container");
 
             let isValid = true; 
 
@@ -96,7 +165,19 @@
                     let registerData = await registerResponse.json();
 
                     if(registerData.success) {
-                        window.location.href = "/log-in";
+                        formsContainer.style.display = "none";
+                        successMessage.style.display = "flex";
+
+                        let secondsLeft = 3;
+                        let countdownInterval = setInterval(() => {
+                            secondsLeft--;
+                            countdownElement.textContent = secondsLeft;
+
+                            if (secondsLeft <= 0) {
+                                clearInterval(countdownInterval);
+                                window.location.href = "/log-in";
+                            }
+                        }, 1000);
                     } else {
                         console.log("error, geen succes");
                     }
