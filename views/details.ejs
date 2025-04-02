@@ -87,7 +87,6 @@
                 bottom: .5em;
                 right: .5em;
 
-                cursor: pointer;
                 width: 2em;
                 height: auto;
 
@@ -237,8 +236,6 @@
 
 
             /* Carrousel */
-
-            /* ----------------- Carrousel scroll styling van HOME --------------- */
             .carrousel{
                 margin-bottom: 4em;
                 margin-left: 1em;
@@ -251,7 +248,6 @@
                 width: 14em;
 
                 padding: 0.2em 0;
-                margin-top: 3.5em;
                 margin-bottom: 0.7em;
             }
 
@@ -267,6 +263,7 @@
 
 
             .plant-card{
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 text-align: center;
@@ -304,8 +301,28 @@
                 padding: 0.5em;
                 margin-bottom: 0.4em;
             }
-            /* ----------------- Carrousel scroll container van HOME --------------- */
 
+
+            .favorite-btn-carrousel{
+                position: absolute;
+                bottom: 5.8em;
+                right: .5em;
+
+                width: 2em;
+                height: auto;
+
+                background: none;
+                border: none;
+            }
+
+
+            .favorite-btn-carrousel .cls-2.clicked{
+                fill: url(#SvgGradient);
+                stroke: var(--color-icons-not-filled);
+                stroke-width: 1em;
+
+                transition: .5s ease;
+            }
         </style>
     </head>
 
@@ -410,6 +427,19 @@
                             <div class="plant-card">
                                 <a href="/plant/<%=plant.id%>">
                                     <img src="<%= plant.Img %>" alt="Picture of a plant">
+
+                                    <button class="favorite-btn-carrousel" onclick="addToFavorites('<%= plants.id %>')" data-plant-id='<%= plants.id %>'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
+                                            <defs>
+                                                <linearGradient id="SvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                    <stop offset="0%" stop-color="#718d69"/>
+                                                    <stop offset="100%" stop-color="#4a5d23"/>
+                                                </linearGradient>
+                                            </defs>
+                                        
+                                            <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
+                                        </svg>        
+                                    </button>
         
                                     <div>
                                         <h3><%= plant['Common name'] %></h3>
