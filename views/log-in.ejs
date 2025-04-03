@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en ">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,63 +28,70 @@
     </head>
 
     <body class="forms-body">
-        <div class="forms-container">
-            <div class="forms">
-                <h1 class="forms-h1">Login</h1>
+        <main>
+            <section class="forms-container">
+                <div class="forms">
+                    <h1 class="forms-h1">Login</h1>
+        
+                    <form action="/log-in" method="POST">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+             
+                        <div>
+                            <label for="password"> Password</label>
+                            <input type="password" name="password" required>
+                        </div>
     
-                <form action="/log-in" method="POST">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" name="username" required>
-                    </div>
+                        <p class="error" id="error-msg">Invalid username or password, try again</p>
          
-                    <div>
-                        <label for="password"> Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-
-                    <p class="error" id="error-msg">Invalid username or password, try again</p>
-     
-                    <button class="btn-styling" type="submit">Log In</button>
-                </form>
-            </div>
+                        <button class="btn-styling" type="submit">Log In</button>
+                    </form>
+                </div>
+        
+                <div class="register">
+                    <p>Don't have an account?</p>
     
-            <div class="register">
-                <p>Don't have an account?</p>
-
-                <a class="btn-styling" href="/register">Register</a>
-            </div>
-        </div>
-
-        <div class="succes-message" id="success-message">
-            <h2>Log-in succesfull!</h2>
-
-            <svg viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#718d69">
-                            <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
-                        </stop>
-                        <stop offset="100%" stop-color="#4a5d23">
-                            <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
-                        </stop>
-                    </linearGradient>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                    <g transform="translate(-423.000000, -47.000000)">
-                        <g transform="translate(423.000000, 47.500000)">
-                            <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                    <a class="btn-styling" href="/register">Register</a>
+                </div>
+            </section>
+           
+            <section class="succes-message" id="success-message">
+                <h2>Log-in succesfull!</h2>
+    
+                <svg viewBox="0 0 18 15">
+                    <defs>
+                        <!--Source https://designmodo.com/animate-svg-gradients/#introduction-to-animating-svg-gradients-->
+                        <!--Source https://codepen.io/NickNoordijk/pen/VLvxLE-->
+                        
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
+    
+                    <g fill="none" fill-rule="evenodd">
+                        <g transform="translate(-423.000000, -47.000000)">
+                            <g transform="translate(423.000000, 47.500000)">
+                                <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                            </g>
                         </g>
                     </g>
-                </g>
-            </svg>
-            
-            <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
-        </div>
+                </svg>
+                
+                <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
+            </section>
+        </main>
 
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
+
         <script>
             document.querySelector(".forms form").addEventListener("submit", async function(event) {
                 event.preventDefault(); 
@@ -115,6 +122,7 @@
                     let data = await response.json();
     
                     // Success message
+                    // Source https://www.w3schools.com/howto/howto_js_countdown.asp
                     if (data.success) {
                         formsContainer.style.display = "none";
                         successMessage.style.display = "flex";
