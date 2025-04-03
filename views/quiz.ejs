@@ -18,8 +18,10 @@
 
             .skip{
                 display: grid !important;
+
                 grid-template-columns: 3em 1fr 3em;
                 width: min(75%, 37.5em);
+
                 align-self: center;
                 align-items: center;
             }
@@ -47,8 +49,8 @@
             .begin{
                 display: flex;
                 flex-direction: column; 
+
                 align-items: center;
-                justify-content: center;
                 text-align: center; 
             }
 
@@ -59,13 +61,12 @@
 
 
             .begin svg{
-
                 height: auto;
                 width: min(50%, 18em);
      
                 margin-top: 5em;
-
                 margin-bottom: 2em;
+
                 animation: scale 10s infinite ease-in-out;
             }
 
@@ -156,10 +157,10 @@
 
 
             h2{
-                margin: 1em;
-
                 border-top: 0.05em solid var(--color-lines);
                 border-bottom: 0.05em solid var(--color-lines);
+
+                margin: 1em;
                 padding: 0.5em 0;
             }
      
@@ -184,6 +185,7 @@
 
                 margin-left: 0.5em;
                 padding: 1.5em;
+
                 transition: all 0.3s ease-in-out;
             }
             
@@ -207,45 +209,45 @@
             #question-5 div{
                 display: flex;
                 flex-wrap: wrap;
+
                 gap: 0.5em;
+            }
+
+
+            #question-2 div label,
+            #question-3 div label,
+            #question-4 div label,
+            #question-5 div label{
+                display: block;
+                font-size: 0.9em;
+                text-align: center;
+
+                padding: 1.3em;
             }
 
 
             /* Question 2 */
             #question-2 div label{
-                font-size: 0.9em;
-                display: block;
                 flex: 1 1 20%;
-                padding: 1.3em;
             }
 
 
             /* Question 3 */
-            #question-3 div label {
-                font-size: 0.9em;
-                display: block;
+            #question-3 div label{
                 flex: 0 1 10%;
-                padding: 1.3em;
                 text-align: center;
             }
 
 
             /* Question 4*/
             #question-4 div label{
-                font-size: 0.9em;
-                display: block;
                 flex: 1 1 35%;
-                padding: 1.3em;
             }
 
 
             /* Question 5 */
             #question-5 div label {
-                font-size: 0.9em;
-                display: block;
                 flex: 0 1 10%;
-                padding: 1.3em;
-                text-align: center;
             }
 
 
@@ -268,17 +270,12 @@
             input[type="checkbox"]:checked + label {
                 background: var(--color-footer-background);
                 border-color: var(--color-footer-background);
+
                 color: white; 
             }
 
 
-            /* Navigation buttons */
-            .nav-button{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
+            /* Navigation button */
             .nav-button button{
                 display: none;
                 margin: 0 auto;
@@ -288,7 +285,6 @@
             /* Pop-up */
             .popup-background{
                 display: none;
-                justify-content: center;
                 align-items: center;
 
                 position: fixed;
@@ -345,7 +341,6 @@
                 width: 70%;
                 gap: 1.3em;
                 margin-bottom: 1.5em;
-
             }
         </style>
     </head>
@@ -359,9 +354,9 @@
             </div>
 
             <div class="begin">                
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-                width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000"
-                preserveAspectRatio="xMidYMid meet">
+                <svg version="1.0" width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000" preserveAspectRatio="xMidYMid meet">
+                    <!--Source https://designmodo.com/animate-svg-gradients/#introduction-to-animating-svg-gradients-->
+                    <!--Source https://codepen.io/NickNoordijk/pen/VLvxLE-->
 
                     <defs>
                         <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -569,16 +564,16 @@
                         <path fill="url(#grad)" d="M1051 1466 c-54 -11 -83 -36 -41 -36 33 0 110 21 110 31 0 15 -15 16
                         -69 5z"/>
                     </g>
+
+                    <!--Source icon https://www.vecteezy.com/png/24523254-potted-plant-black-outline-illustration-on-transparent-background-->
                 </svg>
 
-                <!--Source https://www.vecteezy.com/png/24523254-potted-plant-black-outline-illustration-on-transparent-background-->
-                
                 <p>Got 30 seconds? Get matched to your perfect plant!</p>
              
                 <button class="btn-styling">Begin</button>
             </div>
 
-            <div class="popup-background">
+            <section class="popup-background">
                 <div class="popup">
                     <h2>Skip quiz?</h2>
 
@@ -589,7 +584,7 @@
                         <button class="btn-styling">Skip</button>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <div class="questions">
                 <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
@@ -695,38 +690,40 @@
             let currentQuestionIndex = 0;
             let answers = {};
 
-            beginButton.addEventListener('click', function () {
+            beginButton.addEventListener('click', () => {
                 begin.style.display = 'none';
                 navButton.style.display = 'block';
                 questionSelection.style.display = 'flex';
                 progressBar.style.display = 'block';
                 quizSkip.style.display = 'block';
-                
+
                 showQuestion(currentQuestionIndex);
             });
 
 
             // Pop-up skip quiz
-            quizSkip.addEventListener('click', function (event){
-                event.preventDefault();  
+            quizSkip.addEventListener('click', (event) => {
+                event.preventDefault();
 
                 popupBackground.style.display = 'flex';
 
-                // Disable scrolling
-                document.body.style.overflow = 'hidden'; 
-                document.documentElement.style.overflow = 'hidden';  
+                // Disable scrolling with pop-up
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
             });
 
-            continueQuizButton.addEventListener('click', function (){
-                popupBackground.style.display = 'none'; 
 
-                document.body.style.overflow = 'auto';  
-                document.documentElement.style.overflow = 'auto';  
+            continueQuizButton.addEventListener('click', () => {
+                popupBackground.style.display = 'none';
+
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
             });
 
-            skipPlantsButton.addEventListener('click', function (){
+            skipPlantsButton.addEventListener('click', () => {
                 window.location.href = '/results';
             });
+
 
 
             // Progress bar
@@ -791,18 +788,18 @@
 
             showQuestion(currentQuestionIndex);
 
-            document.addEventListener("DOMContentLoaded", function () {
+            document.addEventListener("DOMContentLoaded", () => {
                 const skipLink = document.getElementById("skip-a");
                 const beginDiv = document.querySelector(".begin");
 
-                function checkVisibility() {
+                const checkVisibility = () => {
                     if (beginDiv && window.getComputedStyle(beginDiv).display !== "none") {
                         skipLink.style.visibility = "hidden";
                     } else {
                         skipLink.style.visibility = "visible";
                     }
-                }
-
+                };
+      
                 checkVisibility();
             
                 // Zichtbaarheid van .begin kan veranderen, hierom observeren we dat

@@ -14,7 +14,14 @@
             text-align: center;
         }
 
-        .custom-radio-grid {
+        main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-radio-grid-fave {
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-column: 4 / 5;
@@ -24,7 +31,7 @@
             padding: 0;
         }
 
-        .custom-radio-list {
+        .custom-radio-list-fave {
             width: 1.66em;
             height: 1.66em;
             border-radius: .2em;
@@ -33,6 +40,70 @@
             background: var(--color-background-inputfield);
             border: .07em solid var(--color-lines);
         }
+
+        .custom-radio-grid-fave span{
+            height: .65em;
+
+            border-radius: .1em;
+            background: var(--color-background-inputfield);
+            border: .07em solid var(--color-lines);
+        }
+
+        .custom-radio-grid-fave:has(input:checked){
+            span{
+                background: var(--color-logo);
+
+            }
+            
+        }
+
+        .custom-radio-list-fave:has(input:checked){
+                background: var(--color-logo);
+            
+        }
+
+        
+        .radio-container-fave{
+            display: grid;
+            grid-template-columns: 1.66em 1.66em 1fr 1.66em 1.66em;
+            grid-auto-flow: column;
+
+            column-gap: 1em;
+            margin: 0 1em 1em 1em;
+
+            position: relative;
+            width: 91vw;
+            max-width: 59.1em;
+        }
+
+       #faves-not-yet{
+            width: min(90%, 40em);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            margin-top: 5em;
+
+       }
+
+
+       .btn-styling{
+        margin-top: 3em;
+       }
+
+       ul.list-view{
+        width: min(80%, 25em);
+       }
+       /* p{
+            align-self: center;
+       } */
+
+
+        /* input.search{
+            display: none;
+        } */
     </style>
 </head>
 
@@ -41,8 +112,8 @@
 
         <h1>Favorites</h1>
 
-        <div class="radio-container">
-            <label for="view-grid" class="custom-radio-grid">
+        <div class="radio-container-fave">
+            <label for="view-grid" class="custom-radio-grid-fave">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -51,21 +122,30 @@
             </label>
 
 
-            <label for="view-list" class="custom-radio-list">
+            <label for="view-list" class="custom-radio-list-fave">
                 <input type="radio" name="view" value="list" id="view-list" >
             </label>
         </div>
 
-        <!-- <%- include ('partials/container') %> -->
+        
 
         <% if (plants.length === 0) { %>
+            <div id="faves-not-yet">
+                <p>You don't have any favorites yet, browse to find your perfect plant</p>
+                <a class="btn-styling" href="/results">Browse</a>
+
+            </div>
+
+            
             <!-- VUL IN MET VORMGEVING ALS ER GEEN FAVORIETEN ZIJN</p> -->
         <% } else { %>
-            <ul class="list-view">
+            <ul class="grid-view list" id="list-view-plants">
 
                 <% plants.forEach(plant => { %>
                     <li>
-                        <%- include('partials/cards', { plant: plant }) %>
+                        <span class="plant-names">
+                             <%- include('partials/cards', { plant: plant }) %>
+                        </span>
                     </li>
                 <% }) %> 
               
