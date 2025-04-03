@@ -40,12 +40,7 @@ h1, h2, h3{
 }
 
 
-h1{
-    font-size: 1em;
-}
-
-
-h2{ /* Nog naar kijken! Op welke pagina's?*/
+h1, h2{
     font-size: 1em;
 }
 
@@ -105,14 +100,11 @@ body{
     display: none !important;
 }
 
-/* styling voor cards.ejs, moet in globale css vanwege List.js */
+/* Styling voor cards.ejs */
 
 
 
-
-
-
-/* styling voor zowel favorieten als resultaten */
+/* Styling Favorites & Results */
 
 .radio-container{
     display: grid;
@@ -129,7 +121,7 @@ body{
 
 
 input[type="radio"]{
-    display: none; /* Verbergt de standaard radio button */
+    display: none;
 }
 
 
@@ -145,7 +137,7 @@ ul.list-view li{
 }
 
 
-/* grid-view template */
+/* Grid-view template */
 ul.grid-view{
     display: grid;
     width: min(92%, 60em);
@@ -166,12 +158,13 @@ ul.list-view article div {
     height: 3em;
 }
 
-/* Grotere hoogte voor grid-view */
+
 ul.grid-view article div {
     height: 5em;
 }
 
-/* styling radio buttons */
+
+/* Styling radio buttons */
 .custom-radio-list{
     width: 1.66em;
     height: 1.66em;
@@ -203,20 +196,24 @@ ul.grid-view article div {
     padding: 0;
 }
 
+
 .custom-radio-grid span:first-of-type{
     grid-row: 1 / 2;
     grid-column: 1 / 2;
 }
+
 
 .custom-radio-grid span:nth-of-type(2){
     grid-row: 1 / 2;
     grid-column: 2 / 3;
 }
 
+
 .custom-radio-grid span:nth-of-type(3){
     grid-row: 2 / 3;
     grid-column: 1 / 2;
 }
+
 
 .custom-radio-grid span:nth-of-type(4){
     grid-row: 2 / 3;
@@ -236,7 +233,6 @@ ul.grid-view article div {
 .custom-radio-grid:has(input:checked) span{
     background: var(--color-logo);
 }
-
 
 
 .favorite-btn #icon-favorites-cards{
@@ -268,7 +264,6 @@ ul.grid-view article div {
 }
 
 
-
 @media( width > 40em){
     ul.grid-view{
         grid-template-columns: 1fr 1fr 1fr;
@@ -277,7 +272,6 @@ ul.grid-view article div {
                                calc((100% - var(--white-space)) / 3);
     } */}
 }
-
 
 
 /* Styling forms: log-in, register & change-password */
