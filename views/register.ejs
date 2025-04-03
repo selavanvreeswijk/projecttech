@@ -33,6 +33,7 @@
                             <p class="error" id="password-error">Passwords do not match</p>
                         </div>
          
+
                         <button class="btn-styling" type="submit">Create account</button> 
                     </form>
                 </div>
@@ -69,6 +70,7 @@
             </section>    
         </main>
     
+
         <footer>
             <%- include('partials/footer') %> 
         </footer>
@@ -131,8 +133,11 @@
                         let registerData = await registerResponse.json();
 
                         if(registerData.success) {
+
+
                             // Success message
                             // Source https://www.w3schools.com/howto/howto_js_countdown.asp
+
                             formsContainer.style.display = "none";
                             successMessage.style.display = "flex";
 

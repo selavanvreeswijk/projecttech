@@ -47,9 +47,20 @@
             }
 
 
+            
+            /* Popular plants carrousel */
+            .carrousel{
+                margin-bottom: 2.5em;
+                overflow: hidden;
+            }
+
+
+
             p{
                 margin-right: 1em;
                 margin-bottom: 3em;
+
+
 
                 text-align: center;
             }
@@ -61,6 +72,7 @@
             }
 
 
+
             .carrousel h2{
                 width: 100%;
                 max-width: 10.5em;
@@ -68,8 +80,42 @@
                 margin-top: 3.5em;
             }
 
+
+
+            .carrousel-scroll{
+                width: 100%; 
+                flex-shrink: 0; 
+
+                animation: scrollAnimation 20 linear infinite;
+            }
+
+
+            @keyframes scrollAnimation{
+                0% {
+                    transform: translateX(0);
+                }
+
+                25%{
+                    transform: translateX(-25% -1em);
+                }
+
+                75%{
+                    transform: translateX(-75% -1em);
+
+                }
+
+                100% {
+                    transform: translateX(0);
+                }
+            }
+
+            
+            /* Button see all plants */
+
+
             
             /* Btn: see all plants */
+
             .see-plants{
                 display: block;
                 margin: 0 auto;
@@ -170,17 +216,21 @@
                         </div>
                     <% }); %>
                 </div>
+                
             </section>
 
             <a class="see-plants" href="/results">See all plants</a>
         </main>
 
         <script>
+
+
             
             // Carrousel automatic scroll
 
             // Source https://dev.to/shubhamtiwari909/auto-sliding-carousel-with-javascript-5h47
             // Source help from chatGPT
+
             document.addEventListener("DOMContentLoaded", function () {
                 const carrouselScroll = document.querySelector(".carrousel-scroll");
                 let scrollAmount = 0;
@@ -188,6 +238,10 @@
                 function autoScroll() {
 
                     scrollAmount += 0.5; 
+
+
+                    scrollAmount += 0.5; 
+
 
                     carrouselScroll.scrollTo({
                         left: scrollAmount,
@@ -199,7 +253,11 @@
                     }
                 }
             
+
+                setInterval(autoScroll, 50); 
+
                 setInterval(autoScroll, 50);
+
             });
         </script>
     </body>
