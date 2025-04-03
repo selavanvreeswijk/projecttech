@@ -195,7 +195,6 @@ async function getRelatedPlants(plantId) {
       {$sort: { count: -1 }}, //zet deze planten opvolgorde
       {$limit: 5 } //max 5 planten worden gebruikt
     ]).toArray();
-    console.log("functie" + relatedPlants)
 
     return relatedPlants.filter(p => p._id) //alleen planten worden teruggegeven die werkelijk een id hebben
 } catch (error) {
@@ -227,7 +226,6 @@ async function onDetail(req, res) {
       const relatedPlantIds = await getRelatedPlants(plantId); //zoek andere planten die gebruikers ook leuk vinden
       const relatedPlants = relatedPlantIds.map(related => cachedPlants.find(p => p.id === related._id)).filter(Boolean)
 
-    console.log(relatedPlants)
     res.render('details', { plants: detailPlant, relatedPlants });
   } catch (error) {
     console.error("Error with API", error);

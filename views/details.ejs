@@ -420,6 +420,7 @@
         </footer>
 
         <script>
+            //check if detailplant is fav
            document.addEventListener("DOMContentLoaded", function() {
             const plantId = document.querySelector('.favorite-btn').dataset.plantId; //de fav button draagt plantId, die opvragen
             checkIfFavorite(plantId);
@@ -438,6 +439,30 @@
                     console.error('Error checking favorite status:', error);
                 }
             }
+
+            //check if related plants are fav
+            document.addEventListener("DOMContentLoaded", function() {
+            const favButton = document.querySelectorAll('.favorite-btn-carrousel')
+            
+            favButton.forEach(button => {
+                const plantId = button.dataset.plantId
+                checkIfFavoriteRel(plantId, button);
+            })
+        })
+
+        async function checkIfFavoriteRel(plantId, button) {
+            try {
+                const response = await fetch(`/is-favorite/${plantId}`);
+                const result = await response.json();
+
+                if(result.isFavorite) {
+                    console.log("is favoriet!")
+                    button.querySelector('.cls-2').classList.add('clicked')
+                }
+            } catch (error){
+                        console.error('Error checking favorite status:', error);
+            }
+        }
 
             // Add plant to favorites
             async function addToFavorites(plantId) {
@@ -550,6 +575,13 @@
             document.querySelector('.favorite-btn'). addEventListener('click', function (){
                 this.querySelector('.cls-2').classList.toggle('clicked');
             })
+
+            document.querySelectorAll('.favorite-btn-carrousel').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            });
+        });
 
         </script>
     </body>
