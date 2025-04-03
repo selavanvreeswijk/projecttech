@@ -160,7 +160,7 @@
     <h1 class="h1-small">Results</h1>
     <%- include('partials/container') %>
 
-    <ul class="list-view list" id="plant-list">
+    <ul class="grid-view list" id="plant-list">
       <% plants.forEach(plant => { 
         const commonNameRaw = plant['Common name'];
         const commonName = Array.isArray(commonNameRaw) ? commonNameRaw[0] : commonNameRaw;
