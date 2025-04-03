@@ -93,11 +93,13 @@
         }
         .legend-titel{
             text-transform: uppercase;
+            padding-bottom: .5em;
+            border-bottom: .08em solid var(--color-lines);
+            width: 100%;
 
         }
         legend{
             margin: .5em 0 .2em;
-            /* padding-left: .6em; */
             text-transform: uppercase;
             width: fit-content;
         }
@@ -170,9 +172,9 @@
             .filter-options {
             display: grid;
             grid-template-columns: 50% 50%;
-            grid-template-rows: 7% 1fr 1fr 1fr;
+            grid-template-rows: 7% 1fr 1fr;
 
-            /* column-gap: 20vw; */
+            column-gap: 20vw;
             row-gap: 1em;
         }
                 .legend-titel{
@@ -188,10 +190,11 @@
                 grid-row: 3 / 4;
             }
             span:nth-of-type(3){
-                grid-row: 4 / 5;
+                grid-row: 3 / 4;
+                grid-column: 2 / 3;
             }
             span:nth-of-type(4), span:nth-of-type(5){
-                grid-column: 3;
+                grid-column: 2 / 3;
                 grid-row: 2 / 3;
             }
             span:nth-of-type(5){
