@@ -336,7 +336,7 @@ form{
 }
 
 
-.forms input:focus{
+.forms input:focus, aside:focus {
     border-color: var(--color-lines); 
     box-shadow: 0 0 8px rgba(74, 93, 35, 0.6);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
