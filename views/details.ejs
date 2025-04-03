@@ -438,6 +438,7 @@
             <%- include('partials/footer') %> 
         </footer>
 
+        <script src="/script.js" defer></script> 
         <script>
            document.addEventListener("DOMContentLoaded", function() {
             const plantId = document.querySelector('.favorite-btn').dataset.plantId; //de fav button draagt plantId, die opvragen
@@ -449,7 +450,7 @@
                     const response = await fetch(`/is-favorite/${plantId}`);
                     const result = await response.json();
 
-                    if(result.isFavorite) {
+                    if(result.isFavorite) { 
                         console.log("is favoriet!")
                         document.querySelector('.favorite-btn .cls-2').classList.add('clicked')
                     }
@@ -459,28 +460,33 @@
             }
 
             // Add plant to favorites
-            async function addToFavorites(plantId) {
-            
-                try {
-                    const response = await fetch('/add-favorite', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json'},
-                        body: JSON.stringify({plantId})
-                    });
+            // addToFavoritesButton.addEventListener('click', async function (event){
+            //     event.preventDefault();
 
-                    const result = await response.json();
-                    if (result.success) {
-                        alert(result.message);
-                    } else {
-                        alert(result.message);
-                    }
-                    
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Something went wrong!');
-                }
+            //     const plantId = this.dataset.plantId
 
-            }
+            //     try{
+            //         const response = await fetch('/check-login');
+            //         const data = aw
+            //     }
+            // })
+
+
+
+
+           
+
+        //     logInToaddButton.addEventListener('click', function (){
+        //     popupBackground.style.display = 'none'; 
+
+        //     document.body.style.overflow = 'auto';  
+        //     document.documentElement.style.overflow = 'auto';  
+        //     });
+
+        // skipLogInButton.addEventListener('click', function (){
+        //     window.location.href = '/results';
+        // });
+
 
             // Animation drop down
             document.addEventListener("DOMContentLoaded", function (){
@@ -571,5 +577,7 @@
             })
 
         </script>
+
+        
     </body>
 </html>

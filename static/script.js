@@ -29,32 +29,56 @@ function showInList() {
 }
 
 // Pop-up log in to add to favorites
-const addToFavorites = document.querySelector('.favorite-btn'); 
+const addToFavoritesButton = document.querySelector('.favorite-btn'); 
 const popupBackground = document.querySelector('.popup-background');
 const logInToaddButton = document.querySelector('.popup-buttons button:last-of-type');
 const skipLogInButton = document.querySelector('.popup-buttons button:first-of-type');
 
+async function addToFavorites(plantId) {
+            
+    try {
+        const response = await fetch('/add-favorite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({plantId})
+        });
+
+        let result = await response.json();
+        if (!result.success){
+            if (result.message === 'You need to be logged in to add favorites'){
+                //hier de code voor pop up favs
+
+        }
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Something went wrong!');
+    }
+
+}
+
 
      
-     addToFavorites.addEventListener('click', async function (event){
-            event.preventDefault();  
+    //  addToFavoritesButton.addEventListener('click', async function (event){
+    //         event.preventDefault();  
 
-            const response = await fetch('/check-login');
-            const data = await response.json();
+    //         const response = await fetch('/check-login');
+    //         const data = await response.json();
 
-            if (!data.loggedIn){
-                popupBackground.style.display = 'flex';
+    //         if (!data.loggedIn){
+    //             popupBackground.style.display = 'flex';
 
-                 // Disable scrolling
-            document.body.style.overflow = 'hidden'; 
-            document.documentElement.style.overflow = 'hidden';  
+    //              // Disable scrolling
+    //         document.body.style.overflow = 'hidden'; 
+    //         document.documentElement.style.overflow = 'hidden';  
 
-            } else{
-                //fetch request om plant aan favs toe te voegen
-            }
+    //         } else{
+    //             //fetch request om plant aan favs toe te voegen
+    //         }
  
            
-        });
+    //     });
 
         logInToaddButton.addEventListener('click', function (){
             popupBackground.style.display = 'none'; 
