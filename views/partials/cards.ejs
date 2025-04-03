@@ -149,7 +149,8 @@
 
             <div>
 
-                <h3 class="h3-cards"><%= plant['Common name'] %> </h3>
+                <h3><%= plant['Common name'] || 'No name' %></h3>
+
                 
                 <button class="favorite-btn" onclick="addToFavorites(event, '<%= plant.id %>')" data-plant-id='<%= plant.id %>'>
                     <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">

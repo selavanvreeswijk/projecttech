@@ -161,6 +161,10 @@
             transition: background-color 0.3s ease;
         }
 
+        #filter-form {
+            all: unset;
+            display: contents; /* verwijderd de form zijn eigen styling */
+        }
 
         @media (width > 40em){
             .filter-options {
@@ -193,6 +197,7 @@
             span:nth-of-type(5){
                 grid-row: 3 / 4;
             }
+
         }
 
     
@@ -210,46 +215,49 @@
                     </svg>
             </button>
 
-            <div id="filter-options" class="filter-options hidden">
-                <fieldset class="filter-options">
+            <form id="filter-form" method="GET" action="/results">
+                <div id="filter-options" class="filter-options hidden">
+                  <fieldset class="filter-options">
                     <legend class="legend-titel">Filter plants</legend>
+        
+              
                     <span>
-                        <legend>Experience</legend>
-                        <label><input type="radio" class="filter-experience" name="experience" value="sunlight"> Beginner</label>
-                        <label><input type="radio" class="filter-experience" name="experience"  value="experience"> Intermediate</label>
-                        <label><input type="radio" class="filter-experience" name="experience" value="Water"> Expert</label>
+                      <legend>Water</legend>
+                      <label><input type="radio" class="filter-water" name="water" value="low"> Low water</label>
+                      <label><input type="radio" class="filter-water" name="water" value="medium"> Medium water</label>
+                      <label><input type="radio" class="filter-water" name="water" value="high"> High water</label>
+                      <label><input type="radio" class="filter-water" name="water"> No preference</label>
                     </span>
-
+              
                     <span>
-                        <legend>Water</legend>
-                        <label><input type="radio" class="filter-water" name="water" value="sunlight"> Low water</label>
-                        <label><input type="radio" class="filter-water" name="water" value="experience"> Medium water</label>
-                        <label><input type="radio" class="filter-water" name="water" value="Water"> High water</label>
+                      <legend>Sunlight</legend>
+                      <label><input type="radio" class="filter-sunlight" name="sun" value="a-lot-sun"> A lot of sun</label>
+                      <label><input type="radio" class="filter-sunlight" name="sun" value="couple-hours-sun"> A couple of hours sun</label>
+                      <label><input type="radio" class="filter-sunlight" name="sun" value="no-sun"> No sun</label>
+                      <label><input type="radio" class="filter-sunlight" name="sun"> No preference</label>
                     </span>
-
+              
                     <span>
-                        <legend>Sunlight</legend>
-                        <label><input type="radio" class="filter-sunlight" name="sun" value="a-lot-sun"> A lot of sun</label>
-                        <label><input type="radio" class="filter-sunlight" name="sun" value="couple-hours-sun"> A couple of hours sun</label>
-                        <label><input type="radio" class="filter-sunlight" name="sun" value="no-sun"> No sun</label>
+                      <legend>Plant size</legend>
+                      <label><input type="radio" class="filter-plant-size" name="size" value="small"> Small</label>
+                      <label><input type="radio" class="filter-plant-size" name="size" value="medium"> Medium</label>
+                      <label><input type="radio" class="filter-plant-size" name="size" value="large"> Large</label>
+                      <label><input type="radio" class="filter-plant-size" name="size"> No preference</label>
                     </span>
-                   
+              
                     <span>
-                        <legend>Plant size</legend>
-                        <label><input type="radio" class="filter-plant-size" name="size" value="small"> Small</label>
-                        <label><input type="radio" class="filter-plant-size" name="size" value="medium"> Medium</label>
-                        <label><input type="radio" class="filter-plant-size" name="size" value="large"> Large</label>
+                      <legend>Growth speed</legend>
+                      <label><input type="radio" class="filter-growth-speed" name="growth" value="slow"> Slow</label>
+                      <label><input type="radio" class="filter-growth-speed" name="growth" value="medium"> Medium</label>
+                      <label><input type="radio" class="filter-growth-speed" name="growth" value="fast"> Fast</label>
+                      <label><input type="radio" class="filter-growth-speed" name="growth"> No preference</label>
                     </span>
-
-                    <span>
-                        <legend>Growth speed</legend>
-                        <label><input type="radio" class="filter-growth-speed" name="growth" value="slow"> Slow</label>
-                        <label><input type="radio" class="filter-growth-speed" name="growth" value="medium"> Medium</label>
-                        <label><input type="radio" class="filter-growth-speed" name="growth" value="fast"> Fast</label>
-                    </span>
-                </fieldset>
-
-            </div>
+              
+                    
+                  </fieldset>
+                </div>
+              </form>
+              
 
             <button id="sort-btn" class="sort-btn">
                 <svg class="icons" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
