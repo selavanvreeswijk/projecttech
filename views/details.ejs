@@ -381,7 +381,7 @@
                                 <a href="/plant/<%=plant.id%>">
                                     <img src="<%= plant.Img %>" alt="Picture of a plant">
 
-                                    <button class="favorite-btn-carrousel" onclick="addToFavorites('<%= plants.id %>')" data-plant-id='<%= plants.id %>'>
+                                    <button class="favorite-btn-carrousel" onclick="addToFavoritesCarr('<%= plants.id %>')" data-plant-id='<%= plants.id %>'>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
                                             <defs>
                                                 <linearGradient id="SvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -436,7 +436,7 @@
             }
 
             //check if related plants are fav
-            document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function() {
             const favButton = document.querySelectorAll('.favorite-btn-carrousel')
             
             favButton.forEach(button => {
@@ -488,14 +488,35 @@
                 }
             }
             
+            async function addToFavoritesCarr(plantId) {
+                event.preventDefault()
+                try {
+                    const response = await fetch('/add-favorite', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json'},
+                        body: JSON.stringify({plantId})
+                    });
 
-            
-            document.querySelectorAll('.favorite-btn-carrousel').forEach(button => {
-            button.addEventListener('click', function (event){
-                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
-                this.querySelector('.cls-2').classList.toggle('clicked');
-            });
-        });
+                    const hartje= document.querySelector('.favorite-btn-carrousel .cls-2');
+
+                    const result = await response.json();
+                    if (result.success) {
+                        if(result.message === "Plant removed from your favorites!"){
+                            hartje.classList.remove('clicked')
+                        }
+                        if(result.message === "Plant added to favorites!"){
+                            hartje.classList.add('clicked')
+                        }
+                    } else {
+                        // HIER ANIMATIE NIET INGELOGD
+                    }
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Something went wrong!');
+                }
+            }
+
 
 
             // Animation drop down
