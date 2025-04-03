@@ -305,6 +305,20 @@
       sortZA?.addEventListener('change', () => sortPlants('desc'));
     });
 
+    //hij doet het dus nog niet
+    document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                console.log("moet groen worden")
+
+                let cls2Element = this.querySelector('.cls-2');
+                if (cls2Element) {cls2Element.classList.toggle('clicked');
+                console.log("✅ Class 'clicked' toegevoegd/verwijderd op:", cls2Element);
+            } else{
+                console.error("⚠️ Geen `.cls-2` element gevonden binnen deze button!", this);
+            }
+            });
+        });
 
        //add to fav
        async function addToFavorites(event, plantId) {
@@ -329,13 +343,7 @@
             }
         }
 
-        document.querySelectorAll('.favorite-btn').forEach(button => {
-            button.addEventListener('click', function (event){
-                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
-                console.log("moet groen worden")
-                this.querySelector('svg .cls-2').classList.toggle('clicked');
-            });
-        });
+
   </script>
 </body>
 </html>
