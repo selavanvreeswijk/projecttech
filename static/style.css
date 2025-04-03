@@ -305,7 +305,7 @@ form{
 }
 
 
-.forms-h1{
+.forms-container h1{
     border-bottom: 0.05em solid var(--color-lines);
 
     width: min(70%, 30rem);
