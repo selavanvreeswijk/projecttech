@@ -192,11 +192,14 @@
                 });
 
                 const result = await response.json();
-                if (result.success) {
-                    
-                } else {
-                    alert(result.message);
+                if (!result.success) {
+                    if(result.error === 'You need to be logged in to add favorites' ){
+                        
+                    }
+
                 }
+                    
+                
             } catch (error) {
                 console.error('Error:', error);
                 alert('Something went wrong!');

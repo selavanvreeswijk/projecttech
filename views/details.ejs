@@ -468,11 +468,18 @@
                         body: JSON.stringify({plantId})
                     });
 
+                    const hartje= document.querySelector('.favorite-btn .cls-2');
+
                     const result = await response.json();
                     if (result.success) {
-                        alert(result.message);
+                        if(result.message === "Plant removed from your favorites!"){
+                            hartje.classList.remove('clicked')
+                        }
+                        if(result.message === "Plant added to favorites!"){
+                            hartje.classList.add('clicked')
+                        }
                     } else {
-                        alert(result.message);
+                        // HIER ANIMATIE NIET INGELOGD
                     }
                     
                 } catch (error) {
@@ -480,6 +487,16 @@
                     alert('Something went wrong!');
                 }
             }
+            
+
+            
+            document.querySelectorAll('.favorite-btn-carrousel').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            });
+        });
+
 
             // Animation drop down
             document.addEventListener("DOMContentLoaded", function (){
@@ -565,18 +582,6 @@
                     alert("Sharing is not supported on your device.");
                 }
             })
-
-            document.querySelector('.favorite-btn'). addEventListener('click', function (){
-                this.querySelector('.cls-2').classList.toggle('clicked');
-            })
-
-            document.querySelectorAll('.favorite-btn-carrousel').forEach(button => {
-            button.addEventListener('click', function (event){
-                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
-                this.querySelector('.cls-2').classList.toggle('clicked');
-            });
-        });
-
         </script>
     </body>
 </html>

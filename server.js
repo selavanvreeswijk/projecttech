@@ -333,10 +333,6 @@ app.post('/add-favorite', async (req, res) => {
     const userObjectId = ObjectId.createFromHexString(userId);
     const user = await db.collection('users').findOne({ _id: userObjectId });
 
-    if(!user) {
-      return res.status(404).json({ success: false, message: "No user found"})
-    }
-
     if(user.favplant.includes(plantId)) {
       await db.collection('users').updateOne(
         { _id:userObjectId},
