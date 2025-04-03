@@ -24,43 +24,6 @@
 
                 font-size: 0.8em;
             }
-
-
-            /* Succes-message */
-            .succes-message{
-                display: none;
-            }
-
-
-            .succes-message{
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 65vh;
-                margin: 0;
-                text-align: center;
-            }
-
-
-            .succes-message h2{
-                border-bottom: 0.05em solid var(--color-lines);
-
-                width: min(65%, 30rem);
-                padding-bottom: 0.2em;
-                margin-bottom: 1em;
-            }
-
-
-            .succes-message p{
-                padding: 0 2em;
-            }
-
-
-            .succes-message svg{
-                width: 2.5em;
-                margin-top: 1em;
-                margin-bottom: 1.5em;
-            }
         </style>
     </head>
 
@@ -126,7 +89,6 @@
             document.querySelector(".forms form").addEventListener("submit", async function(event) {
                 event.preventDefault(); 
     
-                // Waarom hier let en geen const??
                 let form = event.target; 
                 let formData = new FormData(form); 
                 let errorMsg = document.getElementById("error-msg");

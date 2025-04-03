@@ -37,76 +37,116 @@
             </div>
         </div>
 
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+        <div class="succes-message" id="success-message">
+            <h2>Succesfully registered. Welcome!</h2>
 
-    <script>
-        document.getElementById("register-form").addEventListener("submit", async function(event) {
-            event.preventDefault(); 
+            <svg viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#718d69">
+                            <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
+                        </stop>
+                        <stop offset="100%" stop-color="#4a5d23">
+                            <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
+                        </stop>
+                    </linearGradient>
+                </defs>
+                <g fill="none" fill-rule="evenodd">
+                    <g transform="translate(-423.000000, -47.000000)">
+                        <g transform="translate(423.000000, 47.500000)">
+                            <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            
+            <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
+        </div>
+    
 
-            let form = event.target;
-            let formData = new FormData(form);
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
 
-            let usernameError = document.getElementById("username-error");
-            let passwordError = document.getElementById("password-error");
+        <script>
+            document.getElementById("register-form").addEventListener("submit", async function(event) {
+                event.preventDefault(); 
 
-            let isValid = true; 
+                let form = event.target;
+                let formData = new FormData(form);
 
-            usernameError.style.display = "none";
-            passwordError.style.display = "none";
-            form.username.classList.remove("error-input");
-            form["confirmPassword"].classList.remove("error-input");
+                let usernameError = document.getElementById("username-error");
+                let passwordError = document.getElementById("password-error");
+                let successMessage = document.getElementById("success-message");
+                let countdownElement = document.getElementById("countdown");
+                let formsContainer = document.querySelector(".forms-container");
 
-            try {
-                let response = await fetch("/check-username", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username: formData.get("username") })
-            });
+                let isValid = true; 
 
-            let data = await response.json();
+                usernameError.style.display = "none";
+                passwordError.style.display = "none";
+                form.username.classList.remove("error-input");
+                form["confirmPassword"].classList.remove("error-input");
 
-            if (data.exists) {
-                usernameError.style.display = "block";
-                formData.get("username").classList.add("error-input");
-                isValid = false;
-            }
-            } catch (error) {
-                console.error("Username check failed:", error);
-            }
-
-            if (formData.get("password") !== formData.get("confirmPassword")) {
-                passwordError.style.display = "block";
-                form["confirmPassword"].classList.add("error-input");
-                isValid = false;
-            } 
-
-            if (isValid) {
                 try {
-                    let registerResponse = await fetch("/register", {
+                    let response = await fetch("/check-username", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ 
-                        username: formData.get("username"), 
-                        password: formData.get("password"),
-                        confirmPassword: formData.get("confirmPassword")})
-                    });
+                    body: JSON.stringify({ username: formData.get("username") })
+                });
 
-                    let registerData = await registerResponse.json();
+                let data = await response.json();
 
-                    if(registerData.success) {
-                        window.location.href = "/log-in";
-                    } else {
-                        console.log("error, geen succes");
-                    }
+                if (data.exists) {
+                    usernameError.style.display = "block";
+                    formData.get("username").classList.add("error-input");
+                    isValid = false;
+                }
                 } catch (error) {
-                console.error("Registration failed:", error);
-                };
-            }
-        });
-    
-    </script>
+                    console.error("Username check failed:", error);
+                }
 
+                if (formData.get("password") !== formData.get("confirmPassword")) {
+                    passwordError.style.display = "block";
+                    form["confirmPassword"].classList.add("error-input");
+                    isValid = false;
+                } 
+
+                if (isValid) {
+                    try {
+                        let registerResponse = await fetch("/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            username: formData.get("username"), 
+                            password: formData.get("password"),
+                            confirmPassword: formData.get("confirmPassword")})
+                        });
+
+                        let registerData = await registerResponse.json();
+
+                        if(registerData.success) {
+                            formsContainer.style.display = "none";
+                            successMessage.style.display = "flex";
+
+                            let secondsLeft = 3;
+                            let countdownInterval = setInterval(() => {
+                                secondsLeft--;
+                                countdownElement.textContent = secondsLeft;
+
+                                if (secondsLeft <= 0) {
+                                    clearInterval(countdownInterval);
+                                    window.location.href = "/log-in";
+                                }
+                            }, 1000);
+                        } else {
+                            console.log("error, geen succes");
+                        }
+                    } catch (error) {
+                    console.error("Registration failed:", error);
+                    };
+                }
+            });
+        </script>
     </body>
 </html>

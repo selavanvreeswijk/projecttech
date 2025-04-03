@@ -355,8 +355,7 @@ form{
 }
 
 
-
-/* Error message forms */
+/* Forms: error message */
 .error{
     color: var(--color-error-message-forms);
     font-size: 0.8em;
@@ -370,3 +369,95 @@ form{
     box-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
 }
 
+
+/* Forms: succes message */
+.succes-message{
+    display: none;
+}
+
+
+.succes-message{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+    margin: 0;
+    text-align: center;
+}
+
+
+.succes-message h2{
+    border-bottom: 0.05em solid var(--color-lines);
+
+    width: min(65%, 30rem);
+    padding-bottom: 0.2em;
+    margin-bottom: 1em;
+}
+
+
+.succes-message p{
+    padding: 0 2em;
+}
+
+
+.succes-message svg{
+    width: 2.5em;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+
+/* Carrousel styling */
+
+.carrousel h2{
+    border-bottom: 0.05em solid var(--color-lines);
+
+    padding: 0.2em 0;
+    margin-bottom: 0.7em;
+}
+
+
+.carrousel-scroll{
+    display: flex;
+    overflow-x: auto; 
+    gap: 1em;
+}
+
+
+.plant-card{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: .7em;
+    border: .08em solid var(--color-lines);
+    scroll-snap-align: start; 
+    flex-shrink: 0; 
+}
+
+
+.carrousel img{
+    object-fit: cover;
+    width: 13.4em;
+    height: 13em;
+
+    border-top-left-radius: .7em;
+    border-top-right-radius: .7em;
+}
+
+
+.carrousel h3{
+    margin-top: 0.3em;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+}
+
+
+.carrousel span{
+    font-size: 0.75em;
+}
+
+
+.plant-card div{
+    padding: 0.5em;
+    margin-bottom: 0.4em;
+}
