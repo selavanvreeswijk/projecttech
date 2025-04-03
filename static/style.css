@@ -29,7 +29,7 @@
 }
 
 
-h1, h2, h3, h4, p, a, label, figure, button{
+h1, h2, h3, h4, p, a, label, figure, button, li{
     font-family: var(--font-Montserrat-light);
     color: var(--color-tekst);
 }
@@ -40,17 +40,12 @@ h1, h2, h3{
 }
 
 
-h1{
+h1, h2{
     font-size: 1em;
 }
 
 
-h2{ /* Nog naar kijken! Op welke pagina's?*/
-    font-size: 1em;
-}
-
-
-.h2-small, a, p, label{
+.h2-small, a, p, label, li{
     font-size: 0.9em;
     text-decoration: none;
 }
@@ -105,14 +100,11 @@ body{
     display: none !important;
 }
 
-/* styling voor cards.ejs, moet in globale css vanwege List.js */
+/* Styling voor cards.ejs */
 
 
 
-
-
-
-/* styling voor zowel favorieten als resultaten */
+/* Styling Favorites & Results */
 
 .radio-container{
     display: grid;
@@ -129,7 +121,7 @@ body{
 
 
 input[type="radio"]{
-    display: none; /* Verbergt de standaard radio button */
+    display: none;
 }
 
 
@@ -145,7 +137,7 @@ ul.list-view li{
 }
 
 
-/* grid-view template */
+/* Grid-view template */
 ul.grid-view{
     display: grid;
     width: min(92%, 60em);
@@ -153,8 +145,6 @@ ul.grid-view{
     margin: 0 1em;
     grid-template-columns: calc((100% - var(--white-space)) / 2) 
                            calc((100% - var(--white-space)) / 2);
-
-
 }
 
 
@@ -168,12 +158,13 @@ ul.list-view article div {
     height: 3em;
 }
 
-/* Grotere hoogte voor grid-view */
+
 ul.grid-view article div {
     height: 5em;
 }
 
-/* styling radio buttons */
+
+/* Styling radio buttons */
 .custom-radio-list{
     width: 1.66em;
     height: 1.66em;
@@ -205,20 +196,24 @@ ul.grid-view article div {
     padding: 0;
 }
 
+
 .custom-radio-grid span:first-of-type{
     grid-row: 1 / 2;
     grid-column: 1 / 2;
 }
+
 
 .custom-radio-grid span:nth-of-type(2){
     grid-row: 1 / 2;
     grid-column: 2 / 3;
 }
 
+
 .custom-radio-grid span:nth-of-type(3){
     grid-row: 2 / 3;
     grid-column: 1 / 2;
 }
+
 
 .custom-radio-grid span:nth-of-type(4){
     grid-row: 2 / 3;
@@ -238,7 +233,6 @@ ul.grid-view article div {
 .custom-radio-grid:has(input:checked) span{
     background: var(--color-logo);
 }
-
 
 
 .favorite-btn #icon-favorites-cards{
@@ -270,7 +264,6 @@ ul.grid-view article div {
 }
 
 
-
 @media( width > 40em){
     ul.grid-view{
         grid-template-columns: 1fr 1fr 1fr;
@@ -279,7 +272,6 @@ ul.grid-view article div {
                                calc((100% - var(--white-space)) / 3);
     } */}
 }
-
 
 
 /* Styling forms: log-in, register & change-password */
@@ -305,7 +297,7 @@ form{
 }
 
 
-.forms-h1{
+.forms-container h1{
     border-bottom: 0.05em solid var(--color-lines);
 
     width: min(70%, 30rem);
@@ -407,7 +399,7 @@ form{
 }
 
 
-/* Carrousel styling */
+/* Carrousel styling index & details */
 
 .carrousel h2{
     border-bottom: 0.05em solid var(--color-lines);
