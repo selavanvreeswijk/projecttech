@@ -10,60 +10,65 @@
     </head>
 
     <body class="forms-body">
-        <div class="forms-container">
-            <div class="forms">
-                <h1 class="forms-h1">Register</h1>
+        <main>
+            <div class="forms-container">
+                <div class="forms">
+                    <h1 class="forms-h1">Register</h1>
+        
+                    <form id="register-form" action="/register" method="POST">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>    
+                            <p class="error" id="username-error">This username is already taken</p>
+                        </div>
+             
+                        <div>
+                            <label for="password"> Password</label>
+                            <input type="password" name="password" required>
+                        </div>
     
-                <form id="register-form" action="/register" method="POST">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>    
-                        <p class="error" id="username-error">This username is already taken</p>
-                    </div>
+                        <div>
+                            <label for="confirm-password"> Repeat password</label>
+                            <input type="password" id="confirm-password" name="confirmPassword" required>
+                            <p class="error" id="password-error">Passwords do not match</p>
+                        </div>
          
-                    <div>
-                        <label for="password"> Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-
-                    <div>
-                        <label for="confirm-password"> Repeat password</label>
-                        <input type="password" id="confirm-password" name="confirmPassword" required>
-                        <p class="error" id="password-error">Passwords do not match</p>
-                    </div>
-     
-                    <button class="btn-styling" type="submit">Create account</button> 
-                </form>
+                        <button class="btn-styling" type="submit">Create account</button> 
+                    </form>
+                </div>
             </div>
-        </div>
+    
+            <div class="succes-message" id="success-message">
+                <h2>Succesfully registered. Welcome!</h2>
+    
+                <svg viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!--Source https://designmodo.com/animate-svg-gradients/#introduction-to-animating-svg-gradients-->
+                        <!--Source https://codepen.io/NickNoordijk/pen/VLvxLE-->
 
-        <div class="succes-message" id="success-message">
-            <h2>Succesfully registered. Welcome!</h2>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
 
-            <svg viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#718d69">
-                            <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
-                        </stop>
-                        <stop offset="100%" stop-color="#4a5d23">
-                            <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
-                        </stop>
-                    </linearGradient>
-                </defs>
-                <g fill="none" fill-rule="evenodd">
-                    <g transform="translate(-423.000000, -47.000000)">
-                        <g transform="translate(423.000000, 47.500000)">
-                            <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                    <g fill="none" fill-rule="evenodd">
+                        <g transform="translate(-423.000000, -47.000000)">
+                            <g transform="translate(423.000000, 47.500000)">
+                                <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                            </g>
                         </g>
                     </g>
-                </g>
-            </svg>
-            
-            <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
-        </div>
+                </svg>
+                
+                <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
+            </div>    
+        </main>
     
-
         <footer>
             <%- include('partials/footer') %> 
         </footer>
@@ -126,6 +131,8 @@
                         let registerData = await registerResponse.json();
 
                         if(registerData.success) {
+                            // Success message
+                            // Source https://www.w3schools.com/howto/howto_js_countdown.asp
                             formsContainer.style.display = "none";
                             successMessage.style.display = "flex";
 
