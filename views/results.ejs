@@ -179,6 +179,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
   <script>
+    //check if fav
     document.addEventListener("DOMContentLoaded", function() {
        const favButton = document.querySelectorAll('.favorite-btn')        
         favButton.forEach(button => {
@@ -200,6 +201,8 @@
                     console.error('Error checking favorite status:', error);
         }
     }
+
+    // -----------
 
     document.addEventListener("DOMContentLoaded", function () {
       const filterInputs = document.querySelectorAll('#filter-options input[type="radio"]');
@@ -301,6 +304,38 @@
       sortAZ?.addEventListener('change', () => sortPlants('asc'));
       sortZA?.addEventListener('change', () => sortPlants('desc'));
     });
+
+
+       //add to fav
+       async function addToFavorites(event, plantId) {
+        event.preventDefault();
+        event.stopPropagation(); // zorgt ervoor dat je niet naar detailpagina gaat
+            try {
+                const response = await fetch('/add-favorite', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json'},
+                    body: JSON.stringify({plantId})
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert(result.message);
+                } else {
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong!');
+            }
+        }
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                console.log("moet groen worden")
+                this.querySelector('svg .cls-2').classList.toggle('clicked');
+            });
+        });
   </script>
 </body>
 </html>
