@@ -290,8 +290,12 @@ async function onRegisterPost(req, res) {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-  await db.collection('users').insertOne({ username, password: hashedPassword, favplant: [] });
-  res.json({success: true, redirect: '/log-in'});
+  const result = await db.collection('users').insertOne({ username, password: hashedPassword, favplant: [] });
+
+  const newUser = await db.collection("users").findOne({ _id: result.insertedId });
+  req.session.user = {_id: newUser.insertedId, username};
+
+  res.json({success: true, redirect: '/profile'});
 }
 
 function onSaveAnswer(req, res) {
