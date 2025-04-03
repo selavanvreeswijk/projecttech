@@ -176,13 +176,6 @@ async function onFavorites(req, res) {
 
 }
 
-async function onResults(req, res) {
-  try {
-    res.render('results', { plants: cachedPlants });
-  } catch (error) {
-    console.error("Error with API:", error);
-  }
-}
 
 async function getRelatedPlants(plantId) {
   try{
@@ -332,10 +325,6 @@ app.post('/add-favorite', async (req, res) => {
   try {
     const userObjectId = ObjectId.createFromHexString(userId);
     const user = await db.collection('users').findOne({ _id: userObjectId });
-
-    if(!user) {
-      return res.status(404).json({ success: false, message: "No user found"})
-    }
 
     if(user.favplant.includes(plantId)) {
       await db.collection('users').updateOne(

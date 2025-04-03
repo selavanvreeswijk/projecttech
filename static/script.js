@@ -2,9 +2,6 @@
 
 // grid-view en list-view
 
-console.log('dit wordt uitgevoerd na het laden van de pagina')
-
-
 const optionGrid = document.querySelector('#view-grid');
 const optionList = document.querySelector('#view-list');
 let deLijst = document.querySelector('ul');
