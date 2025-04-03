@@ -14,33 +14,34 @@
                 flex-direction: column;
                 text-align: center;
             }
+        
 
-
-            button{
-                background: var(--color-background-inputfield);
-
-                border: 0.09em solid var(--color-lines);
-                border-radius: 0.8em;
-
-                padding: 0.3em 1.3em;
-            }
-
-
-            /* Skip link */
             .skip{
-                display: none;
-                justify-content: row;
-            }
+                display: grid !important;
 
-            .skip svg{
-                width: 3vw;
+                grid-template-columns: 3em 1fr 3em;
+                width: min(75%, 37.5em);
+
+                align-self: center;
+                align-items: center;
             }
 
 
             .skip a{
-                position: absolute; 
-                right: 1em;
-                top: 5.6em;
+                position: absolute;  
+                right: 2.5em;
+                top: 7em;
+                text-transform: uppercase;
+
+                font-size: 0.75em;
+                border-bottom: 0.05em solid var(--color-lines);
+
+                grid-column: 3 / 4;
+            }
+
+
+            h1{
+                grid-column: 2 / 3;
             }
 
 
@@ -48,26 +49,43 @@
             .begin{
                 display: flex;
                 flex-direction: column; 
+
                 align-items: center;
-                justify-content: center;
                 text-align: center; 
             }
 
 
-            .begin svg{
-                height: 35vh;
-                margin-top: 3em;
-                margin-bottom: 2em;
+            p{
+                margin: 0 1em;
             }
 
-            .begin .cls-2{
-                fill: var(--color-lines);
-                stroke: var(--color-lines);
+
+            .begin svg{
+                height: auto;
+                width: min(50%, 18em);
+     
+                margin-top: 5em;
+                margin-bottom: 2em;
+
+                animation: scale 10s infinite ease-in-out;
             }
+
+
+            @keyframes scale{
+                0% {
+                    transform: scale(1); 
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }   
+
 
             .begin button{
                 margin-top: 2em;
-                color: var(--color-tekst);
             }
 
 
@@ -76,7 +94,7 @@
                 display: none;
 
                 margin-top: 2em;
-                width: 80%;
+                width: min(78%, 38.75em);
             }
             
 
@@ -104,6 +122,11 @@
 
             /* Questions */
             /* Big container */
+            h1{
+                text-align: center;
+            }
+
+            
             .questions{
                 display: none;
 
@@ -117,8 +140,7 @@
             .question{
                 display: none;
 
-                width: 75%;
-                max-width: 600px;
+                width: min(75%, 37.5em);
                 margin-top: 2em;
                 margin-bottom: 2em;
 
@@ -135,11 +157,10 @@
 
 
             h2{
-                margin: 1em;
-
                 border-top: 0.05em solid var(--color-lines);
                 border-bottom: 0.05em solid var(--color-lines);
-                width: 13em;
+
+                margin: 1em;
                 padding: 0.5em 0;
             }
      
@@ -164,6 +185,7 @@
 
                 margin-left: 0.5em;
                 padding: 1.5em;
+
                 transition: all 0.3s ease-in-out;
             }
             
@@ -180,51 +202,63 @@
                 color: white; 
             }
 
+            
             #question-2 div,
             #question-3 div,
             #question-4 div,
             #question-5 div{
                 display: flex;
                 flex-wrap: wrap;
+
                 gap: 0.5em;
+            }
+
+
+            #question-2 div label,
+            #question-3 div label,
+            #question-4 div label,
+            #question-5 div label{
+                display: block;
+                font-size: 0.9em;
+                text-align: center;
+
+                padding: 1.3em;
             }
 
 
             /* Question 2 */
             #question-2 div label{
-                font-size: 0.9em;
-                display: block;
                 flex: 1 1 20%;
-                padding: 1.3em;
             }
 
 
             /* Question 3 */
-            #question-3 div label {
-                font-size: 0.9em;
-                display: block;
+            #question-3 div label{
                 flex: 0 1 10%;
-                padding: 1.3em;
                 text-align: center;
             }
 
 
             /* Question 4*/
             #question-4 div label{
-                font-size: 0.9em;
-                display: block;
                 flex: 1 1 35%;
-                padding: 1.3em;
             }
 
 
             /* Question 5 */
             #question-5 div label {
-                font-size: 0.9em;
-                display: block;
                 flex: 0 1 10%;
-                padding: 1.3em;
-                text-align: center;
+            }
+
+
+            #question-5 div{
+                margin-bottom: 0.7em;
+            }
+
+
+            #question-5 p{
+                font-size: 0.75em;
+                margin-bottom: 0.5em;
             }
 
             
@@ -236,51 +270,108 @@
             input[type="checkbox"]:checked + label {
                 background: var(--color-footer-background);
                 border-color: var(--color-footer-background);
+
                 color: white; 
             }
 
 
-            /* Navigation buttons */
-            .nav-button{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
+            /* Navigation button */
             .nav-button button{
                 display: none;
                 margin: 0 auto;
+            }
+
+            
+            /* Pop-up */
+            .popup-background{
+                display: none;
+                align-items: center;
+
+                position: fixed;
+                z-index: 1000;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+
+                background: rgba(0, 0, 0, 0.5);
+            }
+
+
+            .popup{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                background: var(--color-background);
+              
+                border: 0.08em solid var(--color-lines);
+                border-radius: 0.7em;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+                padding: 1em;
+                margin: 1.9em;
+                text-align: center;
+            }
+
+
+            .popup h2{
+                margin-bottom: 1.5em;
+                width: 8em;
+            }
+
+
+            @media (width > 30em){
+                .popup h2{
+                    padding: 1em 0;
+                }
+            }
+
+
+            .popup p{
+                margin-bottom: 1.5em;
+            }
+
+
+            .popup-buttons{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                width: 70%;
+                gap: 1.3em;
+                margin-bottom: 1.5em;
             }
         </style>
     </head>
 
     <body>
         <main>
-            <h1 class="h1-small">Quiz</h1>
-
             <div class="skip">
-                <a href="/results">Skip</a>
+                <h1>Quiz</h1>
 
-                <!-- <?xml version="1.0" ?>
-                <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
-                <svg height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
-                </svg> -->
+                <a href="/results" id="skip-a">Skip</a>
             </div>
 
-            <div class="begin">
-                <?xml version="1.0" standalone="no"?>
+            <div class="begin">                
+                <svg version="1.0" width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000" preserveAspectRatio="xMidYMid meet">
+                    <!--Source https://designmodo.com/animate-svg-gradients/#introduction-to-animating-svg-gradients-->
+                    <!--Source https://codepen.io/NickNoordijk/pen/VLvxLE-->
 
-                <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
-                "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
-                
-                <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-                width="298.000000pt" height="345.000000pt" viewBox="0 0 298.000000 345.000000"
-                preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite" />
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite" />
+                            </stop>
+                        </linearGradient>
+                    </defs>                
 
                     <g transform="translate(0.000000,345.000000) scale(0.100000,-0.100000)"
                     fill="#000000" stroke="none">
-                        <path class="cls-2" d="M1525 3348 c-2 -7 -9 -31 -15 -54 -5 -23 -25 -61 -43 -85 -52 -69
+                        <path fill="url(#grad)" d="M1525 3348 c-2 -7 -9 -31 -15 -54 -5 -23 -25 -61 -43 -85 -52 -69
                         -83 -129 -106 -203 -26 -85 -26 -133 -1 -216 11 -36 20 -78 20 -93 0 -23 -8
                         -14 -41 50 -66 124 -121 203 -187 269 -34 34 -69 78 -77 98 -23 53 -35 44 -35
                         -26 1 -165 39 -280 116 -350 87 -79 145 -143 165 -180 22 -42 39 -49 39 -16 0
@@ -419,68 +510,81 @@
                         -6 130 -15 149 -21 30 -10 32 -13 16 -21 -18 -10 -231 -27 -357 -28 l-67 0 26
                         40 c31 46 36 47 233 30z m-1137 -27 c-7 -2 -19 -2 -25 0 -7 3 -2 5 12 5 14 0
                         19 -2 13 -5z m-50 -10 c-7 -2 -19 -2 -25 0 -7 3 -2 5 12 5 14 0 19 -2 13 -5z"/>
-                        <path class="cls-2" d="M2466 2763 c-44 -30 -154 -98 -245 -150 -167 -95 -200 -117 -189
+                        <path fill="url(#grad)" d="M2466 2763 c-44 -30 -154 -98 -245 -150 -167 -95 -200 -117 -189
                         -129 10 -10 251 117 393 208 61 38 145 107 145 118 0 20 -27 8 -104 -47z"/>
-                        <path class="cls-2" d="M2260 2400 c-58 -21 -143 -50 -190 -65 -166 -52 -230 -77 -230 -91 0
+                        <path fill="url(#grad)" d="M2260 2400 c-58 -21 -143 -50 -190 -65 -166 -52 -230 -77 -230 -91 0
                         -8 2 -14 4 -14 4 0 229 71 356 112 107 35 190 73 190 88 0 15 -15 11 -130 -30z"/>
-                        <path class="cls-2" d="M2105 2261 c-136 -49 -165 -61 -227 -91 -37 -18 -73 -38 -79 -46 -20
+                        <path fill="url(#grad)" d="M2105 2261 c-136 -49 -165 -61 -227 -91 -37 -18 -73 -38 -79 -46 -20
                         -24 25 -17 94 16 35 17 67 30 71 30 3 0 25 9 49 19 23 11 69 30 101 43 33 13
                         61 29 64 36 5 16 -13 14 -73 -7z"/>
-                        <path class="cls-2" d="M680 2396 c0 -16 44 -76 56 -76 20 0 17 16 -8 50 -18 25 -48 41 -48
+                        <path fill="url(#grad)" d="M680 2396 c0 -16 44 -76 56 -76 20 0 17 16 -8 50 -18 25 -48 41 -48
                         26z"/>
-                        <path class="cls-2" d="M2250 2080 c-48 -25 -79 -56 -86 -86 -15 -58 43 -41 87 26 18 28 36
+                        <path fill="url(#grad)" d="M2250 2080 c-48 -25 -79 -56 -86 -86 -15 -58 43 -41 87 26 18 28 36
                         50 41 50 4 0 8 7 8 15 0 19 -7 18 -50 -5z"/>
-                        <path class="cls-2" d="M2079 2008 c-21 -22 -39 -58 -53 -105 -17 -56 66 2 100 69 13 26 24
+                        <path fill="url(#grad)" d="M2079 2008 c-21 -22 -39 -58 -53 -105 -17 -56 66 2 100 69 13 26 24
                         50 24 53 0 15 -52 2 -71 -17z"/>
-                        <path class="cls-2" d="M1966 1938 c-7 -13 -17 -51 -20 -85 -6 -53 -5 -62 8 -57 34 13 60 82
+                        <path fill="url(#grad)" d="M1966 1938 c-7 -13 -17 -51 -20 -85 -6 -53 -5 -62 8 -57 34 13 60 82
                         50 133 -8 37 -18 39 -38 9z"/>
-                        <path class="cls-2" d="M1822 1813 c-8 -15 -32 -133 -32 -156 0 -4 6 -7 14 -7 19 0 35 51 37
+                        <path fill="url(#grad)" d="M1822 1813 c-8 -15 -32 -133 -32 -156 0 -4 6 -7 14 -7 19 0 35 51 37
                         117 3 58 -4 75 -19 46z"/>
-                        <path class="cls-2" d="M2060 1512 c0 -14 35 -42 53 -42 24 0 21 16 -5 34 -24 17 -48 21 -48
+                        <path fill="url(#grad)" d="M2060 1512 c0 -14 35 -42 53 -42 24 0 21 16 -5 34 -24 17 -48 21 -48
                         8z"/>
-                        <path class="cls-2" d="M332 1481 c-24 -9 -43 -21 -42 -27 1 -5 7 -7 14 -5 6 2 49 3 95 3 51
+                        <path fill="url(#grad)" d="M332 1481 c-24 -9 -43 -21 -42 -27 1 -5 7 -7 14 -5 6 2 49 3 95 3 51
                         0 98 5 118 13 42 18 45 40 3 31 -16 -3 -43 -9 -60 -12 -19 -4 -30 -2 -30 5 0
                         16 -49 13 -98 -8z"/>
-                        <path class="cls-2" d="M940 2766 c0 -8 8 -21 18 -28 9 -7 29 -29 44 -49 46 -62 227 -247
+                        <path fill="url(#grad)" d="M940 2766 c0 -8 8 -21 18 -28 9 -7 29 -29 44 -49 46 -62 227 -247
                         294 -300 35 -28 72 -64 81 -80 21 -35 48 -40 38 -6 -4 12 -14 33 -23 47 -9 14
                         -21 37 -27 52 -26 69 -225 267 -333 331 -88 52 -92 53 -92 33z m234 -201 c9
                         -14 15 -25 13 -25 -2 0 -14 11 -27 25 -13 14 -19 25 -13 25 6 0 18 -11 27 -25z"/>
-                        <path class="cls-2" d="M2645 2120 c-4 -6 -16 -10 -28 -8 -14 2 -22 -2 -22 -12 0 -10 12 -16
+                        <path fill="url(#grad)" d="M2645 2120 c-4 -6 -16 -10 -28 -8 -14 2 -22 -2 -22 -12 0 -10 12 -16
                         38 -18 20 -2 37 1 37 7 0 5 3 16 6 25 7 18 -21 23 -31 6z"/>
-                        <path class="cls-2" d="M2470 2027 c0 -18 50 -32 80 -22 25 8 26 25 1 25 -10 0 -33 3 -50 6
+                        <path fill="url(#grad)" d="M2470 2027 c0 -18 50 -32 80 -22 25 8 26 25 1 25 -10 0 -33 3 -50 6
                         -24 5 -31 3 -31 -9z"/>
-                        <path class="cls-2" d="M2410 1971 c0 -12 41 -24 65 -19 33 6 19 23 -22 26 -25 2 -43 -1 -43
+                        <path fill="url(#grad)" d="M2410 1971 c0 -12 41 -24 65 -19 33 6 19 23 -22 26 -25 2 -43 -1 -43
                         -7z"/>
-                        <path class="cls-2" d="M2247 1889 c26 -26 143 -33 143 -9 0 14 -30 20 -93 20 -44 0 -58 -3
+                        <path fill="url(#grad)" d="M2247 1889 c26 -26 143 -33 143 -9 0 14 -30 20 -93 20 -44 0 -58 -3
                         -50 -11z"/>
-                        <path class="cls-2" d="M2195 1840 c-10 -15 22 -23 83 -21 21 1 32 6 32 16 0 11 -13 15 -54
+                        <path fill="url(#grad)" d="M2195 1840 c-10 -15 22 -23 83 -21 21 1 32 6 32 16 0 11 -13 15 -54
                         15 -30 0 -58 -5 -61 -10z"/>
-                        <path class="cls-2" d="M2088 1753 c-39 -4 -50 -19 -22 -30 22 -8 97 10 102 25 4 12 -4 13
+                        <path fill="url(#grad)" d="M2088 1753 c-39 -4 -50 -19 -22 -30 22 -8 97 10 102 25 4 12 -4 13
                         -80 5z"/>
-                        <path class="cls-2" d="M1020 1720 c0 -5 22 -24 49 -42 26 -18 83 -66 125 -106 48 -45 86
+                        <path fill="url(#grad)" d="M1020 1720 c0 -5 22 -24 49 -42 26 -18 83 -66 125 -106 48 -45 86
                         -72 99 -72 17 1 2 20 -72 90 -111 106 -201 165 -201 130z"/>
-                        <path class="cls-2" d="M900 1702 c0 -8 76 -76 162 -146 26 -20 99 -64 162 -96 63 -32 135
+                        <path fill="url(#grad)" d="M900 1702 c0 -8 76 -76 162 -146 26 -20 99 -64 162 -96 63 -32 135
                         -72 160 -89 l46 -32 -11 28 c-14 39 -38 56 -156 112 -115 55 -168 90 -264 173
                         -61 52 -99 72 -99 50z"/>
-                        <path class="cls-2" d="M770 1691 c0 -20 177 -152 236 -177 75 -31 86 -9 16 29 -47 25 -111
+                        <path fill="url(#grad)" d="M770 1691 c0 -20 177 -152 236 -177 75 -31 86 -9 16 29 -47 25 -111
                         70 -189 130 -36 27 -63 35 -63 18z"/>
-                        <path class="cls-2" d="M1985 1690 c-7 -11 35 -30 63 -30 25 0 46 16 38 29 -9 14 -93 15
+                        <path fill="url(#grad)" d="M1985 1690 c-7 -11 35 -30 63 -30 25 0 46 16 38 29 -9 14 -93 15
                         -101 1z"/>
-                        <path class="cls-2" d="M630 1678 c1 -23 172 -135 221 -145 40 -8 37 12 -3 33 -18 9 -72 41
+                        <path fill="url(#grad)" d="M630 1678 c1 -23 172 -135 221 -145 40 -8 37 12 -3 33 -18 9 -72 41
                         -119 70 -92 58 -99 61 -99 42z"/>
-                        <path class="cls-2" d="M524 1639 c-8 -14 -9 -14 91 -54 51 -21 92 -32 97 -27 12 12 -5 24
+                        <path fill="url(#grad)" d="M524 1639 c-8 -14 -9 -14 91 -54 51 -21 92 -32 97 -27 12 12 -5 24
                         -82 54 -92 37 -99 38 -106 27z"/>
-                        <path class="cls-2" d="M1051 1466 c-54 -11 -83 -36 -41 -36 33 0 110 21 110 31 0 15 -15 16
+                        <path fill="url(#grad)" d="M1051 1466 c-54 -11 -83 -36 -41 -36 33 0 110 21 110 31 0 15 -15 16
                         -69 5z"/>
                     </g>
+
+                    <!--Source icon https://www.vecteezy.com/png/24523254-potted-plant-black-outline-illustration-on-transparent-background-->
                 </svg>
 
-                <!--Source https://www.vecteezy.com/png/24523254-potted-plant-black-outline-illustration-on-transparent-background-->
-                
                 <p>Got 30 seconds? Get matched to your perfect plant!</p>
              
-                <button>Begin</button>
+                <button class="btn-styling">Begin</button>
             </div>
+
+            <section class="popup-background">
+                <div class="popup">
+                    <h2>Skip quiz?</h2>
+
+                    <p>Are you sure you want to skip this quiz? Answers will not be saved...</p>
+
+                    <div class="popup-buttons">
+                        <button class="btn-styling">Back</button>
+                        <button class="btn-styling">Skip</button>
+                    </div>
+                </div>
+            </section>
 
             <div class="questions">
                 <progress max="100" value="0"></progress> <!--Source https://developer.mozilla.org/en-US/docs/Web/HTML/Element/progress + https://verpex.com/blog/website-tips/how-to-style-a-progress-bar-using-css + https://www.w3schools.com/howto/howto_js_progressbar.asp -->
@@ -554,11 +658,13 @@
                     
                         <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this.value)">
                         <label for="large">L</label>
-                    </div>                    
+                    </div> 
+                    
+                    <p>(Multiple options possible)</p>
                 </section>
                 
                 <div class="nav-button">
-                    <button onclick="nextQuestion()">Next</button>
+                    <button class="btn-styling" onclick="nextQuestion()">Next</button>
                 </div>
             </div>
         </main>
@@ -575,22 +681,50 @@
             const progressBar = document.querySelector('progress'); 
             const questions = document.querySelectorAll(".question");
             const nextButton = document.querySelector(".nav-button button");
-            const quizSkip = document.querySelector('.skip'); 
+            const quizSkip = document.querySelector('.skip a'); 
+            const popupBackground = document.querySelector('.popup-background');
+            const continueQuizButton = document.querySelector('.popup-buttons button:first-of-type');
+            const skipPlantsButton = document.querySelector('.popup-buttons button:last-of-type');
 
             // Start quiz
-            // Source: help from chatGPT
             let currentQuestionIndex = 0;
             let answers = {};
 
-            beginButton.addEventListener('click', function () {
+            beginButton.addEventListener('click', () => {
                 begin.style.display = 'none';
                 navButton.style.display = 'block';
                 questionSelection.style.display = 'flex';
                 progressBar.style.display = 'block';
                 quizSkip.style.display = 'block';
-                
+
                 showQuestion(currentQuestionIndex);
             });
+
+
+            // Pop-up skip quiz
+            quizSkip.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                popupBackground.style.display = 'flex';
+
+                // Disable scrolling with pop-up
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            });
+
+
+            continueQuizButton.addEventListener('click', () => {
+                popupBackground.style.display = 'none';
+
+                document.body.style.overflow = 'auto';
+                document.documentElement.style.overflow = 'auto';
+            });
+
+            skipPlantsButton.addEventListener('click', () => {
+                window.location.href = '/results';
+            });
+
+
 
             // Progress bar
             function updateProgress() {
@@ -622,12 +756,13 @@
                 if (index === questions.length - 1) {
                     nextButton.textContent = "Finish";
                     nextButton.onclick = function () {
-                        window.location.href = "/results"; // BACKEND: refer to userID
+                        window.location.href = "/results";
                     };
                 } else {
                     nextButton.onclick = nextQuestion;
                 }
             }
+
 
             // Next question buttons
             function nextQuestion(){
@@ -644,7 +779,7 @@
                     if (currentQuestionIndex < questions.length) {
                         showQuestion(currentQuestionIndex);
                     } else {
-                        window.location.href = "/results"; // BACKEND: refereren naar gebruikersID
+                        window.location.href = "/results"; 
                     }
                 }
             }
@@ -652,6 +787,28 @@
             nextButton.addEventListener("click", nextQuestion);
 
             showQuestion(currentQuestionIndex);
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const skipLink = document.getElementById("skip-a");
+                const beginDiv = document.querySelector(".begin");
+
+                const checkVisibility = () => {
+                    if (beginDiv && window.getComputedStyle(beginDiv).display !== "none") {
+                        skipLink.style.visibility = "hidden";
+                    } else {
+                        skipLink.style.visibility = "visible";
+                    }
+                };
+      
+                checkVisibility();
+            
+                // Zichtbaarheid van .begin kan veranderen, hierom observeren we dat
+                const observer = new MutationObserver(checkVisibility);
+                observer.observe(beginDiv, { attributes: true, attributeFilter: ["style"] });
+
+                // Omdat.begin div met een knop verdwijnt
+                document.addEventListener("click", checkVisibility);
+            });
         </script>
     </body>
 </html>

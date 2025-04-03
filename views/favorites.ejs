@@ -11,25 +11,141 @@
     <style>
         h1{
             margin-bottom: 1em;
+            text-align: center;
         }
+
+        main{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .custom-radio-grid-fave {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column: 4 / 5;
+            width: 1.66em;
+            height: 1.36em;
+            gap: .2em;
+            padding: 0;
+        }
+
+        .custom-radio-list-fave {
+            width: 1.66em;
+            height: 1.66em;
+            border-radius: .2em;
+            padding: 0;
+            grid-column: 5 / 6;
+            background: var(--color-background-inputfield);
+            border: .07em solid var(--color-lines);
+        }
+
+        .custom-radio-grid-fave span{
+            height: .65em;
+
+            border-radius: .1em;
+            background: var(--color-background-inputfield);
+            border: .07em solid var(--color-lines);
+        }
+
+        .custom-radio-grid-fave:has(input:checked){
+            span{
+                background: var(--color-logo);
+
+            }
+            
+        }
+
+        .custom-radio-list-fave:has(input:checked){
+                background: var(--color-logo);
+            
+        }
+
+        
+        .radio-container-fave{
+            display: grid;
+            grid-template-columns: 1.66em 1.66em 1fr 1.66em 1.66em;
+            grid-auto-flow: column;
+
+            column-gap: 1em;
+            margin: 0 1em 1em 1em;
+
+            position: relative;
+            width: 91vw;
+            max-width: 59.1em;
+        }
+
+       #faves-not-yet{
+            width: min(90%, 40em);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+            margin-top: 5em;
+
+       }
+
+
+       .btn-styling{
+        margin-top: 3em;
+       }
+
+       ul.list-view{
+        width: min(80%, 25em);
+       }
+       /* p{
+            align-self: center;
+       } */
+
+
+        /* input.search{
+            display: none;
+        } */
     </style>
 </head>
 
 <body>
     <main>
 
-        <h1 class="h1-small">Favorites</h1>
+        <h1>Favorites</h1>
 
-        <%- include ('partials/container') %>
+        <div class="radio-container-fave">
+            <label for="view-grid" class="custom-radio-grid-fave">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <input type="radio" name="view" value="grid" id="view-grid" checked>
+            </label>
+
+
+            <label for="view-list" class="custom-radio-list-fave">
+                <input type="radio" name="view" value="list" id="view-list" >
+            </label>
+        </div>
+
+        
 
         <% if (plants.length === 0) { %>
+            <div id="faves-not-yet">
+                <p>You don't have any favorites yet, browse to find your perfect plant</p>
+                <a class="btn-styling" href="/results">Browse</a>
+
+            </div>
+
+            
             <!-- VUL IN MET VORMGEVING ALS ER GEEN FAVORIETEN ZIJN</p> -->
         <% } else { %>
-            <ul class="list-view">
+            <ul class="grid-view list" id="list-view-plants">
 
                 <% plants.forEach(plant => { %>
                     <li>
-                        <%- include('partials/cards', { plant: plant }) %>
+                        <span class="plant-names">
+                             <%- include('partials/cards', { plant: plant }) %>
+                        </span>
                     </li>
                 <% }) %> 
               
@@ -41,6 +157,39 @@
     <footer>
         <%- include('partials/footer') %> 
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const favButton = document.querySelectorAll('.favorite-btn')
+            
+            favButton.forEach(button => {
+                const plantId = button.dataset.plantId
+                checkIfFavorite(plantId, button);
+            })
+        })
+
+        async function checkIfFavorite(plantId, button) {
+            try {
+                const response = await fetch(`/is-favorite/${plantId}`);
+                const result = await response.json();
+
+                if(result.isFavorite) {
+                    console.log("is favoriet!")
+                    button.querySelector('.cls-2').classList.add('clicked')
+                }
+            } catch (error){
+                        console.error('Error checking favorite status:', error);
+            }
+        }
+
+
+        document.querySelectorAll('.favorite-btn').forEach(button => {
+            button.addEventListener('click', function (event){
+                event.preventDefault(); // Voorkom dat de `<a>` link wordt gevolgd
+                this.querySelector('.cls-2').classList.toggle('clicked');
+            });
+        });
+
+    </script>
 
     <script src="/script.js" defer></script>  
 </body>

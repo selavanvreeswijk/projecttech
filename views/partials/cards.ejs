@@ -69,14 +69,7 @@
         
     }
 
-    #icon-favorites-cards{
-
-        stroke-width: 1em;
-        stroke: var(--color-lines);
-
-        width: 1.2em;
-    } 
-
+  
     button {
             all: unset;
     }
@@ -153,12 +146,20 @@
     <main>
         <article>
             <a href="/plant/<%=plant.id%>">
+
             <div>
 
-                <h3><%= plant['Common name'] %> </h3>
+                <h3 class="h3-cards"><%= plant['Common name'] %> </h3>
                 
-                <button class="favorite-btn" onclick="addToFavorites(event, '<%= plant.id %>')">
+                <button class="favorite-btn" onclick="addToFavorites(event, '<%= plant.id %>')" data-plant-id='<%= plant.id %>'>
                     <svg class="icons" id="icon-favorites-cards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 414.05 368.37">
+
+                        <defs>
+                            <linearGradient id="SvgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#718d69"/>
+                                <stop offset="100%" stop-color="#4a5d23"/>
+                            </linearGradient>
+                        </defs>
                 
                         <path class="cls-2" d="m302.8,0c-29.47,0-57.47,11.79-78.09,32.42l-17.68,17.68-16.21-16.21c-42.73-44.2-113.46-44.2-156.19-1.47l-1.47,1.47c-44.2,44.2-44.2,114.93,0,159.14l173.87,175.35,173.87-175.35c44.2-44.2,44.2-114.93,0-159.14C360.27,11.79,332.27,0,302.8,0Z"/>
                         <rect id="_Transparent_Rectangle_" data-name=" Transparent Rectangle " class="cls-1" x="191.02" y="168.19" width="1.2em"/>
@@ -170,7 +171,6 @@
 
             </a> 
         </article>
-
     </main>
 
 </body>

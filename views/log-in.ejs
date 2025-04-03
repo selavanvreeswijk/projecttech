@@ -1,129 +1,155 @@
 <!DOCTYPE html>
-<html lang="en ">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log-in</title>
-    <link rel="stylesheet" href="/style.css">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Log-in</title>
+        <link rel="stylesheet" href="/style.css">
 
-    <%- include('partials/header') %>    
+        <%- include('partials/header') %>    
 
-    <style>
-        body{
-            display: flex;
-            flex-direction: column;
-        }
+        <style>
+            .register{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
-
-        .container{
-            margin: 0.5em 1.5em;
-        }
+                margin-top: 3em;
+            }
 
 
-        .log-in{
-            display: flex;
-            flex-direction: column;
-        }
+            .register a{
+                margin-top: 1em;
+                padding: 0.2em 0.8em;
 
-
-        h2{
-            border-bottom: 0.05em solid var(--color-lines);
-
-            width: 11.3em;
-            padding-bottom: 0.2em;
-        }
-
-        
-        label{
-            margin-top: 10em;
-            margin-bottom: 0.5em;
-        }
-
-
-        input{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 90%;
-            padding: 0.9em;
-            margin-top: 0.3em;
-        }
-
-
-        form div{
-            margin-top: 1.5em;
-        }
-
-
-        button{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 40%;
-            padding: 0.3em 0.9em;
-            display: block;
-            margin: 0 auto;
-            margin-top: 2em;
-        }
-
-        
-    
-        .register{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            margin-top: 3em;
-        }
-
-
-        .register a{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-            text-align: center;
-
-            width: 30%;
-            padding: 0.3em 0.9em;
-            margin-top: 1em;
-        }
-    </style>
+                font-size: 0.8em;
+            }
+        </style>
     </head>
 
-    <body>
-        <div class="container">
-            <div class="log-in">
-                <h2>Login</h2>
+    <body class="forms-body">
+        <main>
+            <section class="forms-container">
+                <div class="forms">
+                    <h1 class="forms-h1">Login</h1>
+        
+                    <form action="/log-in" method="POST">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+             
+                        <div>
+                            <label for="password"> Password</label>
+                            <input type="password" name="password" required>
+                        </div>
     
-                <form action="/log-in" method="POST">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" name="username" required>
-                    </div>
+                        <p class="error" id="error-msg">Invalid username or password, try again</p>
          
-                    <div>
-                        <label for="password"> Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-     
-                    <button type="submit">Log In</button> <!--BACKEND, inloggen-->
-                </form>
-            </div>
+                        <button class="btn-styling" type="submit">Log In</button>
+                    </form>
+                </div>
+        
+                <div class="register">
+                    <p>Don't have an account?</p>
     
-            <div class="register">
-                <p>Don't have an account?</p>
-                <a href="/register">Register</a>
-            </div>
-        </div>
+                    <a class="btn-styling" href="/register">Register</a>
+                </div>
+            </section>
+           
+            <section class="succes-message" id="success-message">
+                <h2>Log-in succesfull!</h2>
     
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+                <svg viewBox="0 0 18 15">
+                    <defs>
+                        <!--Source https://designmodo.com/animate-svg-gradients/#introduction-to-animating-svg-gradients-->
+                        <!--Source https://codepen.io/NickNoordijk/pen/VLvxLE-->
+                        
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
+    
+                    <g fill="none" fill-rule="evenodd">
+                        <g transform="translate(-423.000000, -47.000000)">
+                            <g transform="translate(423.000000, 47.500000)">
+                                <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                
+                <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
+            </section>
+        </main>
 
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
+
+        <script>
+            document.querySelector(".forms form").addEventListener("submit", async function(event) {
+                event.preventDefault(); 
+    
+                let form = event.target; 
+                let formData = new FormData(form); 
+                let errorMsg = document.getElementById("error-msg");
+                let usernameInput = form.querySelector('input[name="username"]');
+                let passwordInput = form.querySelector('input[name="password"]');
+                let formsContainer = document.querySelector(".forms-container");
+                let successMessage = document.getElementById("success-message");
+                let countdownElement = document.getElementById("countdown");
+    
+                usernameInput.classList.remove("error-input");
+                passwordInput.classList.remove("error-input");
+                errorMsg.style.display = "none";
+    
+                try {
+                    let response = await fetch("log-in", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            username: formData.get("username"),
+                            password: formData.get("password")
+                        })
+                    });
+    
+                    let data = await response.json();
+    
+                    // Success message
+                    // Source https://www.w3schools.com/howto/howto_js_countdown.asp
+                    if (data.success) {
+                        formsContainer.style.display = "none";
+                        successMessage.style.display = "flex";
+
+                        let secondsLeft = 3;
+                        let countdownInterval = setInterval(() => {
+                            secondsLeft--;
+                            countdownElement.textContent = secondsLeft;
+
+                            if (secondsLeft <= 0) {
+                                clearInterval(countdownInterval);
+                                window.location.href = data.redirect;
+                            }
+                        }, 1000);
+
+                    } else {
+                        errorMsg.style.display = "block";
+                        usernameInput.classList.add("error-input");
+                        passwordInput.classList.add("error-input");
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    errorMsg.style.display = "block";
+                    usernameInput.classList.add("error-input");
+                    passwordInput.classList.add("error-input");
+                }
+            });
+        </script>
     </body>
 </html>

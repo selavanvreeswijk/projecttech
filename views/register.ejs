@@ -1,97 +1,159 @@
 <!DOCTYPE html>
-<html lang="en ">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="/style.css">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Register</title>
+        <link rel="stylesheet" href="/style.css">
 
-    <%- include('partials/header') %>    
-
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-
-        .container{
-            margin: 0.5em 1.5em;
-        }
-
-
-        h2{
-            border-bottom: 0.05em solid var(--color-lines);
-
-            width: 11.3em;
-            padding-bottom: 0.2em;
-        }
-
-        label{
-            margin-bottom: 0.5em;
-        }
-
-
-        input{
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 90%;
-            padding: 0.9em;
-            margin-top: 0.3em;
-        }
-
-        form div{
-            margin-top: 1.5em;
-        }
-
-
-        button {
-            background: var(--color-background-inputfield);
-
-            border: 0.09em solid var(--color-lines);
-            border-radius: 0.8em;
-
-            width: 40%;
-            padding: 0.3em 0.9em;
-            display: block;
-            margin: 0 auto;
-            margin-top: 2em;
-        }
-    </style>
+        <%- include('partials/header') %>  
     </head>
 
-    <body>
-        <div class="container">
-            <div class="register">
-                <h2>Register</h2>
+    <body class="forms-body">
+        <main>
+            <section class="forms-container">
+                <div class="forms">
+                    <h1 class="forms-h1">Register</h1>
+        
+                    <form id="register-form" action="/register" method="POST">
+                        <div>
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required>    
+                            <p class="error" id="username-error">This username is already taken</p>
+                        </div>
+             
+                        <div>
+                            <label for="password"> Password</label>
+                            <input type="password" name="password" required>
+                        </div>
     
-                <form action="/register" method="POST">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" required>    
-                    </div>
+                        <div>
+                            <label for="confirm-password"> Repeat password</label>
+                            <input type="password" id="confirm-password" name="confirmPassword" required>
+                            <p class="error" id="password-error">Passwords do not match</p>
+                        </div>
          
-                    <div>
-                        <label for="password"> Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-
-                    <div>
-                        <label for="conform-password"> Repeat password</label>
-                        <input type="password" id="conform-password" name="confirmPassword" required>
-                    </div>
-     
-                    <button type="submit">Submit</button> <!--BACKEND, registreren-->
-                </form>
-            </div>
-        </div>
+                        <button class="btn-styling" type="submit">Create account</button> 
+                    </form>
+                </div>
+            </section>
     
-    <footer>
-        <%- include('partials/footer') %> 
-    </footer>
+            <section class="succes-message" id="success-message">
+                <h2>Succesfully registered, welcome!</h2>
+    
+                <svg viewBox="0 0 18 15" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <!--Source https://designmodo.com/animate-svg-gradients/#introduction-to-animating-svg-gradients-->
+                        <!--Source https://codepen.io/NickNoordijk/pen/VLvxLE-->
 
+                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#718d69">
+                                <animate attributeName="stop-color" values="#718d69; #2a4d14; #4a5d23; #718d69" keyTimes="0; 0.5; 0.8; 1" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                            <stop offset="100%" stop-color="#4a5d23">
+                                <animate attributeName="stop-color" values="#4a5d23; #516131; #718d69; #4a5d23" dur="7s" repeatCount="indefinite"/>
+                            </stop>
+                        </linearGradient>
+                    </defs>
+
+                    <g fill="none" fill-rule="evenodd">
+                        <g transform="translate(-423.000000, -47.000000)">
+                            <g transform="translate(423.000000, 47.500000)">
+                                <path d="M6,10.2 L1.8,6 L0.4,7.4 L6,13 L18,1 L16.6,-0.4 L6,10.2 Z" fill="url(#grad)"/>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                
+                <p id="redirect-timer">You're being redirected in <span id="countdown">3</span> seconds...</p>
+            </section>    
+        </main>
+    
+        <footer>
+            <%- include('partials/footer') %> 
+        </footer>
+
+        <script>
+            document.getElementById("register-form").addEventListener("submit", async function(event) {
+                event.preventDefault(); 
+
+                let form = event.target;
+                let formData = new FormData(form);
+
+                let usernameError = document.getElementById("username-error");
+                let passwordError = document.getElementById("password-error");
+                let successMessage = document.getElementById("success-message");
+                let countdownElement = document.getElementById("countdown");
+                let formsContainer = document.querySelector(".forms-container");
+
+                let isValid = true; 
+
+                usernameError.style.display = "none";
+                passwordError.style.display = "none";
+                form.username.classList.remove("error-input");
+                form["confirmPassword"].classList.remove("error-input");
+
+                try {
+                    let response = await fetch("/check-username", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username: formData.get("username") })
+                });
+
+                let data = await response.json();
+
+                if (data.exists) {
+                    usernameError.style.display = "block";
+                    formData.get("username").classList.add("error-input");
+                    isValid = false;
+                }
+                } catch (error) {
+                    console.error("Username check failed:", error);
+                }
+
+                if (formData.get("password") !== formData.get("confirmPassword")) {
+                    passwordError.style.display = "block";
+                    form["confirmPassword"].classList.add("error-input");
+                    isValid = false;
+                } 
+
+                if (isValid) {
+                    try {
+                        let registerResponse = await fetch("/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            username: formData.get("username"), 
+                            password: formData.get("password"),
+                            confirmPassword: formData.get("confirmPassword")})
+                        });
+
+                        let registerData = await registerResponse.json();
+
+                        if(registerData.success) {
+                            // Success message
+                            // Source https://www.w3schools.com/howto/howto_js_countdown.asp
+                            formsContainer.style.display = "none";
+                            successMessage.style.display = "flex";
+
+                            let secondsLeft = 3;
+                            let countdownInterval = setInterval(() => {
+                                secondsLeft--;
+                                countdownElement.textContent = secondsLeft;
+
+                                if (secondsLeft <= 0) {
+                                    clearInterval(countdownInterval);
+                                    window.location.href = "/log-in";
+                                }
+                            }, 1000);
+                        } else {
+                            console.log("error, geen succes");
+                        }
+                    } catch (error) {
+                    console.error("Registration failed:", error);
+                    };
+                }
+            });
+        </script>
     </body>
 </html>
