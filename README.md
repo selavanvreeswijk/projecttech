@@ -57,4 +57,4 @@ Contribution is welcome! You can contribute by forking the repository and making
 This project is licensed under the ISC license.
 
 ## Contact
-For questions and suggestions, contact us via sela.van.vreeswijk@hva.nl ?
+For questions and suggestions, contact us via sela.van.vreeswijk@hva.nl
