@@ -620,13 +620,13 @@
                     <h2>How much love would you like to invest per week?</h2>
                  
                     <div>
-                        <input type="radio" id="half-hour" name="time" value="0.5" onclick="saveAnswer(3, this.value)">
+                        <input type="radio" id="half-hour" name="water" value="low" onclick="saveAnswer('water', this.value)">
                         <label for="half-hour">0.5h</label>
                     
-                        <input type="radio" id="one-hour" name="time" value="1" onclick="saveAnswer(3, this.value)">
+                        <input type="radio" id="one-hour" name="water" value="medium" onclick="saveAnswer('water', this.value)">
                         <label for="one-hour">1h</label>
                     
-                        <input type="radio" id="two-hours" name="time" value="2" onclick="saveAnswer(3, this.value)">
+                        <input type="radio" id="two-hours" name="water" value="high" onclick="saveAnswer('water', this.value)">
                         <label for="two-hours">2h</label>
                     </div>
                 </section>
@@ -635,13 +635,13 @@
                     <h2>How much light do you have in your room?</h2>
 
                     <div>
-                        <input type="radio" id="low" name="sunlight" value="low" onclick="saveAnswer(4, this.value)">
+                        <input type="radio" id="low" name="sun" value="no-sun" onclick="saveAnswer('sun', this.value)">
                         <label for="low">No sun</label>
                     
-                        <input type="radio" id="medium" name="sunlight" value="medium" onclick="saveAnswer(4, this.value)">
+                        <input type="radio" id="medium" name="sun" value="couple-hours-sun" onclick="saveAnswer('sun', this.value)">
                         <label for="medium">A couple of hours sun</label>
                     
-                        <input type="radio" id="high" name="sunlight" value="high" onclick="saveAnswer(4, this.value)">
+                        <input type="radio" id="high" name="sun" value="a-lot-sun" onclick="saveAnswer('sun', this.value)">
                         <label for="high">A lot of sun</label>
                     </div>
                 </section>
@@ -650,13 +650,13 @@
                     <h2>How big do you want your plant to be?</h2>
                 
                     <div>
-                        <input type="checkbox" id="small" name="plants" value="small" onclick="saveAnswer(5, this.value)">
+                        <input type="radio" id="small" name="size" value="small" onclick="saveAnswer('size', this.value)">
                         <label for="small">S</label>
                     
-                        <input type="checkbox" id="medium-size" name="plants" value="medium-size" onclick="saveAnswer(5, this.value)">
+                        <input type="radio" id="medium-size" name="size" value="medium" onclick="saveAnswer('size', this.value)">
                         <label for="medium-size">M</label> 
                     
-                        <input type="checkbox" id="large" name="plants" value="large" onclick="saveAnswer(5, this.value)">
+                        <input type="radio" id="large" name="size" value="large" onclick="saveAnswer('size', this.value)">
                         <label for="large">L</label>
                     </div> 
                     
@@ -732,9 +732,9 @@
                 progressBar.value = progressValue;
             }
 
-            function saveAnswer(questionNumber, value) {
-                answers[questionNumber] = value;  
-                console.log(`Vraag ${questionNumber}: ${value}`);
+            function saveAnswer(name, value) {
+                answers[name] = value;  
+                console.log(answers);
             }
 
             function showQuestion(index) {
@@ -756,8 +756,15 @@
                 if (index === questions.length - 1) {
                     nextButton.textContent = "Finish";
                     nextButton.onclick = function () {
-                        window.location.href = "/results";
+                        const query = new URLSearchParams();
+
+                        for (let [key, value] of Object.entries(answers)) {
+                        query.append(key, value);
+                        console.log('submitted')
+                    }
+                    window.location.href = `/results?${query.toString()}`;
                     };
+
                 } else {
                     nextButton.onclick = nextQuestion;
                 }
@@ -778,8 +785,8 @@
                     currentQuestionIndex++;
                     if (currentQuestionIndex < questions.length) {
                         showQuestion(currentQuestionIndex);
-                    } else {
-                        window.location.href = "/results"; 
+                    
+                        
                     }
                 }
             }
